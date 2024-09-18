@@ -12,7 +12,7 @@ const Signup = () => {
     </div>
     <div className='flex flex-col gap-4 mt-4'>
     <button className='w-60 h-8 border rounded-full bg-blue-600 text-white'>Үүсгэх</button>
-    <button className='w-60 h-8 border border-blue-600 rounded-full text-black ' >Нэвтрэх</button>
+    <button className='w-60 h-8 border border-blue-600 rounded-full text-blue-700 ' >Нэвтрэх</button>
     </div>
     </section>
   )
