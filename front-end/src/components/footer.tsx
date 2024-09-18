@@ -4,6 +4,7 @@ import { RiFacebookCircleFill } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { VscTwitter } from "react-icons/vsc";
 import { ImLinkedin } from "react-icons/im";
+import { FaRegEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -13,15 +14,11 @@ const Footer = () => {
             <div className= 'border-b-[1px] border-gray-700 flex justify-between pb-10 pt-10'>
             <img src="/img/Logo/Logo-ft.svg" alt=""/>
             <div className='flex gap-4'> 
-                <div className='flex gap-4 w-10 h-10 border rounded-full'>
-                <IoCallOutline />
-                </div>
+                <button className='border rounded-full w-8 h-8 text-center pl-2 text-md font-bold border-slate-500'>  <IoCallOutline /></button>
                 <p>(976) 7007-1234</p>
                
-                <div className='flex gap-4'>
-                <IoCallOutline />
+                <button className='border rounded-full w-8 h-8 text-center pl-2 text-md font-bold border-slate-500'>  <FaRegEnvelope /></button>
                 <p>contact@ecommerce.mn</p>
-                </div>
             </div>
             
             </div>
