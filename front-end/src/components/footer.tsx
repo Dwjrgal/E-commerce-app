@@ -9,9 +9,11 @@ const Footer = () => {
   return (
     <>
     <section className='h-60 bg-black text-white flex flex-col'>
-        <div className='flex justify-center border-b-[1px] border-white mx-40'>
-            {/* <img src="/img/Logo/Logo-ft.svg" alt="" /> */}
-            {/* <div className='flex gap-4'> 
+        <div className='flex mx-40'>
+            <div className= 'border-b-[1px] border-white'>
+            <img src="/img/Logo/Logo-ft.svg" alt=""/>
+            </div>
+            {/* {/* <div className='flex gap-4'> 
                 <div className='flex '>
                 <IoCallOutline className='w-10 h-10 border rounded-full' />
                 
@@ -22,16 +24,15 @@ const Footer = () => {
                 <p>contact@ecommerce.mn</p>
                 </div>
             </div> */}
-            <div className='flex'>
+            <div className='flex justify-between mt-40'>
                 <p>© 2024 Ecommerce MN</p>
-                <div className='flex gap-4'><RiFacebookCircleFill />
+                <div className='flex gap-4 text-xl'><RiFacebookCircleFill />
                 <FaInstagram />
                 <VscTwitter />
                 <ImLinkedin /></div>
             </div>
         </div>
     </section>
-
     </>
   )
 }
