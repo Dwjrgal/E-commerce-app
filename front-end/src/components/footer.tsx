@@ -8,23 +8,24 @@ import { ImLinkedin } from "react-icons/im";
 const Footer = () => {
   return (
     <>
-    <section className='h-60 bg-black text-white flex flex-col'>
-        <div className='flex mx-40'>
-            <div className= 'border-b-[1px] border-white'>
+    <section className='h-60 bg-black text-white flex flex-col px-40'>
+        <div className='flex flex-col'>
+            <div className= 'border-b-[1px] border-gray-700 flex justify-between pb-10 pt-10'>
             <img src="/img/Logo/Logo-ft.svg" alt=""/>
-            </div>
-            {/* {/* <div className='flex gap-4'> 
-                <div className='flex '>
-                <IoCallOutline className='w-10 h-10 border rounded-full' />
-                
-                <p>(976) 7007-1234</p>
+            <div className='flex gap-4'> 
+                <div className='flex gap-4 w-10 h-10 border rounded-full'>
+                <IoCallOutline />
                 </div>
-                <div className=' flex'>
+                <p>(976) 7007-1234</p>
+               
+                <div className='flex gap-4'>
                 <IoCallOutline />
                 <p>contact@ecommerce.mn</p>
                 </div>
-            </div> */}
-            <div className='flex justify-between mt-40'>
+            </div>
+            
+            </div>
+            <div className='flex justify-between pt-16 pb-5'>
                 <p>© 2024 Ecommerce MN</p>
                 <div className='flex gap-4 text-xl'><RiFacebookCircleFill />
                 <FaInstagram />
