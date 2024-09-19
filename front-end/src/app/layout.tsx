@@ -32,9 +32,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <section className="flex flex-col justify-between" >
          <Header/>
         {children}
         <Footer/>
+        </section>
       </body>
     </html>
   );

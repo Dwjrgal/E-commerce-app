@@ -2,7 +2,7 @@ import React from 'react'
 
 const Signup = () => {
   return (
-    <section className="flex flex-col items-center justify-center py-40 bg-slate-100">
+    <section className="flex flex-col items-center justify-center py-60 bg-slate-100">
     <div className='flex flex-col gap-3'>
         <h2 className='font-bold text-xl text-center mb-5'>Бүртгүүлэх</h2>
         <input type="text" className='w-60 h-8 border rounded-full pl-2 text-xs' placeholder='Нэр'/>

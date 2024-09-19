@@ -3,7 +3,7 @@ import React from 'react'
 const Login = () => {
   return (
     <>
-    <section className='flex flex-col items-center py-40 bg-slate-100'>
+    <section className='flex flex-col items-center py-60 bg-slate-100'>
         <h2 className='font-bold text-lg mb-5'>Нэвтрэх</h2>
         <div className='flex flex-col gap-3'>
         <input type="text" className='w-60 h-8 border rounded-full pl-2 text-xs' placeholder='Нэр'/>

@@ -9,7 +9,7 @@ import { FaRegEnvelope } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-    <section className='h-60 bg-black text-white flex flex-col px-40'>
+    <section className='h-60 bg-black text-white flex flex-col px-40 mb-0'>
         <div className='flex flex-col'>
             <div className= 'border-b-[1px] border-gray-700 flex justify-between pb-10 pt-10'>
             <img src="/img/Logo/Logo-ft.svg" alt=""/>
