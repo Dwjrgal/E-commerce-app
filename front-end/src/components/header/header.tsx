@@ -13,9 +13,11 @@ const Header = () => {
         <img src="/img/Logo/Logo.png" alt="" />
         <h3 className='text-slate-200'>Ангилал</h3>
     </div>
-    {/* <BiSearchAlt2 className='absolute  text-white'/> */}
-    <input type="text" placeholder='
-Бүтээгдэхүүн хайх' className='h-14 w-64  rounded-full bg-primary pl-4 relative'/>
+    <div className='w-64 h-14   rounded-full bg-primary pl-4 flex items-center gap-2'>
+     <BiSearchAlt2 className='text-2xl font-bold text-white '/>
+     <input type="text" placeholder='
+      Бүтээгдэхүүн хайх' className='bg-primary'/>
+   </div>
 <div className='text-white  text-2xl flex gap-4 items-center font-extralight'>
   <VscHeart />
   <PiShoppingCart />

@@ -9,7 +9,7 @@ import { FaRegEnvelope } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-    <section className='h-60 bg-black text-white flex flex-col px-40 mb-0'>
+    <section className='h-60 bg-black text-white flex flex-col px-40'>
         <div className='flex flex-col'>
             <div className= 'border-b-[1px] border-gray-700 flex justify-between pb-10 pt-10'>
             <img src="/img/Logo/Logo-ft.svg" alt=""/>
@@ -22,7 +22,7 @@ const Footer = () => {
             </div>
             
             </div>
-            <div className='flex justify-between pt-16 pb-5'>
+            <div className='flex justify-between pt-16'>
                 <p>© 2024 Ecommerce MN</p>
                 <div className='flex gap-4 text-xl'><RiFacebookCircleFill />
                 <FaInstagram />
