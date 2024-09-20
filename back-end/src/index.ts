@@ -8,6 +8,7 @@ import { connectDB } from "./config/db";
 dotenv.config();
 
 const PORT:string = process.env.PORT || "";
+const MONGO_URI = process.env.MONGO_URI || "";
 
 //express s  application object uusgej avav
 
@@ -21,7 +22,7 @@ app.get("/",(req: Request, res: Response) => {
     res.send("Welcome e-commerce API server")
 });
 
-connectDB();
+connectDB(MONGO_URI);
 
 //server asaah 
 app.listen(PORT, () => {console.log(`server running at localhost:${PORT}`)})
