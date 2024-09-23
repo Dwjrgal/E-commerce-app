@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import bcrypt = require("bcrypt");
 
 interface IUser{
     _id: Schema.Types.ObjectId;
@@ -23,7 +24,7 @@ const userSchema = new Schema<IUser>({
     },
     lastname: {
         type: String,
-        required: [true, " Please inter your lastname "], 
+        // required: [true, " Please inter your lastname "], 
     },
     email: {
         type: String,
@@ -58,6 +59,16 @@ const userSchema = new Schema<IUser>({
     },
     
 });
+
+userSchema.pre('save', function (next) {
+    if ( !this.isModified("password")) {
+        next();
+    }else{
+        const hashedPassword = bcrypt.hashSync(this.password.toString(), 10);
+        this.password = hashedPassword;
+        next();
+    }
+})
 
 const User = model("User", userSchema)
 

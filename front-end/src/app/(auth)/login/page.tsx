@@ -1,15 +1,14 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+  " use client";
+  
+ import { useRouter } from 'next/router';
+ import React, { useState } from 'react'
 
 const Login = () => {
-  const router = useRouter();
-  const [userData, setUserData] = useState({
-    email: "",
-    password: ""
-  })
-
-
-
+  // const router = useRouter();
+  // const [userData, setUserData] = useState({
+  //   email: "",
+  //   password: ""
+  // })
 
   return (
     <>

@@ -1,14 +1,15 @@
 import { Request, Response} from "express"
 import User from "../models/user.model";
+import jwt = require("jsonwebtoken");
+
 
 export const signup = async ( req:Request, res:Response) => {
    try {
-    const {name, email , password} = req.body;
-
-    if( !name || !email || !password) {
+    const {firstname, email , password} = req.body;
+    if( !firstname || !email || !password) {
        res.status(400).json({message: "Must not be null"})
     }
-      const createdUser = await User.create({name, email, password, phoneNumber: ""})
+      const createdUser = await User.create({firstname, email, password, phoneNumber: ""})
       
       res.status(201).json({ message: "success", user: createdUser})
    } catch (error) {
@@ -19,8 +20,6 @@ export const signup = async ( req:Request, res:Response) => {
 export const login = async( req:Request, res:Response) => {
    try {
       const { email, password } = req.body;
-
-
    if( !email  || !password) {
       res.status(400).json({message: "Must not be null"})
    }
