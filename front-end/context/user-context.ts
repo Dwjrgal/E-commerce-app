@@ -7,6 +7,16 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children}) =>{
     const [user, setUser] = useState({
-
+        userId: "",
+        firstname: "",
+        email: ""
     })
+
+    const getUserData = async () =>{
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
 }
