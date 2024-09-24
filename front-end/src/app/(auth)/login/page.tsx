@@ -20,7 +20,7 @@ const Login = () => {
 
       if (res.status === 201 ) {
         toast.success(" User successfully logged in", { autoClose: 1000});
-        router.push("/page")
+        router.push("/")
       }
     } catch (error) {
       console.error("There was an error logged in:", error);
@@ -28,7 +28,6 @@ const Login = () => {
     }
     console.log("user data", userData)
   }
-
   return (
     <>
     <section className='flex flex-col items-center py-80 bg-slate-100'>

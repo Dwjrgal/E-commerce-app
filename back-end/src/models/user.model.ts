@@ -9,9 +9,7 @@ interface IUser{
     password: String;
     role: String;
     phoneNumber?: String;
-    profile_img? : { type: String,
-        default: "https://images.unsplash.com/photo-1726487646639-ec039193792f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"
-    }
+    profile_img? : String;
     address: String;
     updated_at: Date;
     created_at: Date;
@@ -47,6 +45,7 @@ const userSchema = new Schema<IUser>({
     },
     address:{
         type: String,
+         default: "https://images.unsplash.com/photo-1726487646639-ec039193792f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"
     },
     updated_at: {
         type: Date,
