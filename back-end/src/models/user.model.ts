@@ -24,7 +24,7 @@ const userSchema = new Schema<IUser>({
     },
     lastname: {
         type: String,
-        // required: [true, " Please inter your lastname "], 
+        required: [true, " Please inter your lastname "], 
     },
     email: {
         type: String,
