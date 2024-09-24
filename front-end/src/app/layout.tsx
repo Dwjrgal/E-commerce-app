@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer";
-import { UserProvider } from "../../context/user-context";
-
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,11 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <section className="flex flex-col justify-between" >
-        <UserProvider>
          <Header/>
         {children}
         <Footer/>
-        </UserProvider>
         </section>
       </body>
     </html>

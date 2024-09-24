@@ -3,12 +3,12 @@ import { useRouter } from 'next/navigation';
  import React, { useState } from 'react'
  import { toast } from "react-toastify"
  import axios from "axios"
- interface UserDataType {
-  firstname: string;
-  email: string;
-  password : string | number;
-  repassword: string | number;
- }
+//  interface UserDataType {
+//   firstname: string;
+//   email: string;
+//   password : string | number;
+//   repassword: string | number;
+//  }
 
 const Signup = () => {
   const router = useRouter();

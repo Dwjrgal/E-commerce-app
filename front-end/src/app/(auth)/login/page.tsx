@@ -1,9 +1,9 @@
   " use client";
-  
-import axios from 'axios';
- import { useRouter } from 'next/router';
- import React, { useState } from 'react'
-import { toast } from 'react-toastify';
+  import { useRouter } from 'next/navigation';
+  import React, { useState } from 'react'
+  import { toast } from "react-toastify"
+  import axios from "axios"
+
 
 const Login = () => {
   const router = useRouter();
