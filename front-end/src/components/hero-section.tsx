@@ -13,26 +13,26 @@ import React from 'react'
  export const CategorySection = () => {
   return (
     <>
-    <section className='flex justify-center gap-3'>
-      <div className='w-[250px] h-[390px] border rounded'>
-        <img src="" alt="" />
-        <h4> The Prompt Magazine</h4>
-        <p> 120,000</p>
+    <section className='flex justify-center gap-3 mt-4'>
+      <div className='flex flex-col'>
+        <img src="" alt="" className='w-[250px] h-[390px] border rounded'/>
+        <h4 className='font-normal text-primary'> The Prompt Magazine</h4>
+        <p className='font-bold'> 120,000</p>
       </div>
-      <div className='w-[250px] h-[390px] border rounded'>
-        <img src="" alt="" />
-        <h4> The Prompt Magazine</h4>
-        <p> 120,000</p>
+      <div className='flex flex-col'>
+        <img src="" alt="" className='w-[250px] h-[390px] border rounded'/>
+        <h4 className='font-normal text-primary'> The Prompt Magazine</h4>
+        <p className='font-bold'> 120,000</p>
       </div>
-      <div className='w-[250px] h-[390px] border rounded'>
-        <img src="" alt="" />
-        <h4> The Prompt Magazine</h4>
-        <p> 120,000</p>
+      <div className='flex flex-col'>
+        <img src="" alt="" className='w-[250px] h-[390px] border rounded'/>
+        <h4 className='font-normal text-primary'> The Prompt Magazine</h4>
+        <p className='font-bold'> 120,000</p>
       </div>
-      <div className='w-[250px] h-[390px] border rounded'>
-        <img src="" alt="" />
-        <h4> The Prompt Magazine</h4>
-        <p> 120,000</p>
+      <div className='flex flex-col'>
+        <img src="" alt="" className='w-[250px] h-[390px] border rounded'/>
+        <h4 className='font-normal text-primary'> The Prompt Magazine</h4>
+        <p className='font-bold'> 120,000</p>
       </div>
     </section>
     </>

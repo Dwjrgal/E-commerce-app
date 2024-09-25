@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { IoCallOutline } from "react-icons/io5";
 import { RiFacebookCircleFill } from "react-icons/ri";
