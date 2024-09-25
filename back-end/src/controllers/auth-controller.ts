@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import User from "../models/user.model";
-import jwt = require("jsonwebtoken");
 import bcrypt from "bcrypt";
+import { generateToken } from "../utils/jwt";
+
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -45,10 +46,7 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
-    const token = jwt.sign({ id: user?._id }, "JWT_TOKEN_PASS@123", {
-      expiresIn: "1h",
-    });
-
+    const token = generateToken({ id: user?._id });
     res.status(200).json({ message: "Login success", token: token });
   } catch (error) {
     res.status(201).json({ message: "server error", error: error });
