@@ -23,7 +23,7 @@ const Login = () => {
 
       if (res.status === 200) {
         toast.success(" User successfully logged in", { autoClose: 1000 });
-        router.push("/page");
+        router.push("/");
         setIsLoading(false);
       }
     } catch (error) {
