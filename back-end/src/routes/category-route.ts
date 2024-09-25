@@ -3,6 +3,6 @@ import { createCategory } from "../controllers/category-controller";
 
 const router = Router();
 
-router.route("/categories").post(createCategory);
+router.route("/").post(createCategory);
 
 export default router;

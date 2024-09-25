@@ -6,21 +6,18 @@ import cors from "cors";
 import { connectDB } from "./config/db";
 import authRoute from "./routes/auth-route";
 import catRoute from "./routes/category-route";
-import { Resend } from "resend";
 import { generateHTMLTemplate } from "./utils/generateHTMLTemplate";
 
 const PORT: string = process.env.PORT || "";
 const MONGO_URI = process.env.MONGO_URI || "";
 
 //express s  application object uusgej avav
-
 const app = express();
-// const resend = new Resend(process.env.RESEND_API_KEY);
 
 //middlewares
 app.use(express.json());
 app.use("/api/v1/auth", authRoute);
-app.use("/api/v1", catRoute);
+app.use("/api/v1/categories", catRoute);
 app.use(cors());
 
 // app.get("/", async (req: Request, res: Response) => {
