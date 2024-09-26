@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/jwt";
-
+import { walkUpBindingElementsAndPatterns } from "typescript";
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -52,3 +52,9 @@ export const login = async (req: Request, res: Response) => {
     res.status(201).json({ message: "server error", error: error });
   }
 };
+
+// export default currentUser = (req: Request, res: Response) => {
+//   const { id } = req;
+
+//   const findUser = await User.findById(id);
+// };
