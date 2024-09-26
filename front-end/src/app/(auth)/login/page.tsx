@@ -3,18 +3,15 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Loader from "@/app/loader/page";
 
 const Login = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
   const logIn = async () => {
     const { email, password } = userData;
-    setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:8000/api/v1/auth/login", {
         email,
@@ -24,7 +21,6 @@ const Login = () => {
       if (res.status === 200) {
         toast.success(" User successfully logged in", { autoClose: 1000 });
         router.push("/dashboard");
-        setIsLoading(false);
       }
     } catch (error) {
       console.error("There was an error logged in:", error);
@@ -32,7 +28,6 @@ const Login = () => {
     }
     console.log("user data", userData);
   };
-  if (isLoading) return <Loader />;
 
   console.log("user:", userData);
   return (
