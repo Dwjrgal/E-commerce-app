@@ -16,10 +16,11 @@ const MONGO_URI = process.env.MONGO_URI || "";
 const app = express();
 
 //middlewares
+app.use(cors());
 app.use(express.json());
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/categories", catRoute);
-app.use(cors());
+
 
 app.get("/", async (req: Request, res: Response) => {
   // const rndOtp = Math.floor(Math.random() * 10_000)

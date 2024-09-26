@@ -1,6 +1,16 @@
+"use client"
+
+import { useRouter } from "next/router";
 import React from "react";
 
-const RecoverPass2 = () => {
+const RecoveryPass = () => {
+  const router = useRouter();
+
+  const handleNewPass = () => {
+    router.push("/login");
+  }
+
+
   return (
     <div className="h-[800px] bg-slate-100 flex flex-col items-center gap-3 pt-40">
       <h2 className="font-bold text-lg mb-4">Нууц үг сэргээх</h2>
@@ -20,11 +30,11 @@ const RecoverPass2 = () => {
         <li>Тоо орсон байх</li>
         <li className="text-red-500 ">Тэмдэгт орсон байх</li>
       </ul>
-      <button className="w-72 h-10 border bg-blue-600 rounded-full text-white mt-4">
+      <button className="w-72 h-10 border bg-blue-600 rounded-full text-white mt-4" onClick={handleNewPass}>
         Үүсгэх
       </button>
     </div>
   );
 };
 
-export default RecoverPass2;
+export default RecoveryPass;
