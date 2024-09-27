@@ -30,7 +30,7 @@ const Otp = () => {
   const handleConfirmOtp = (value: string) => {
     setOtpValue(value);
     if (value.length === 4) {
-      router.push("/forgetpass/newpass");
+      router.push("/newpass");
     }
   };
 

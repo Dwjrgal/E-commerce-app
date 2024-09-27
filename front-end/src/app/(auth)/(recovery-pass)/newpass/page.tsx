@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-const RecoveryPass = () => {
+const NewPass = () => {
   const router = useRouter();
 
   const handleNewPass = () => {
@@ -39,4 +39,4 @@ const RecoveryPass = () => {
   );
 };
 
-export default RecoveryPass;
+export default NewPass;

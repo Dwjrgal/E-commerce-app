@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -41,7 +41,7 @@ const Email = () => {
   const handleConfirmOtp = async (value: string) => {
     setOtpValue(value);
     if (value.length === 4) {
-      router.push("/recovery-pass/recoverypass");
+      router.push("/newpass");
       try {
         const res = await axios.post(
           "http://localhost:8000/api/v1/auth/verify-otp",

@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
@@ -61,9 +62,11 @@ const Login = () => {
           >
             Үүсгэх
           </button>
-          <p className="text-center border-b-[1px] border-slate-200 text-xs text-slate-600 px-3 pb-2">
-            Нууц үг мартсан
-          </p>
+          <Link href={"/email"}>
+            <p className="text-center border-b-[1px] border-slate-200 text-xs text-slate-600 px-3 pb-2">
+              Нууц үг мартсан
+            </p>
+          </Link>
           <button className="w-60 h-8 border border-blue-600 rounded-full text-blue-700 mt-8 ">
             Нэвтрэх
           </button>
