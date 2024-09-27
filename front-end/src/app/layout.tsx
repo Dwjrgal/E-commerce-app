@@ -29,12 +29,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <section className="flex flex-col justify-between">
+          <ToastContainer />
           <UserProvider>
             <Header />
             {children}
             <Footer />
           </UserProvider>
-          <ToastContainer />
         </section>
       </body>
     </html>

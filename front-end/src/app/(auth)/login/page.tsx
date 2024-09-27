@@ -19,14 +19,14 @@ const Login = () => {
         <div className="flex flex-col gap-3">
           <input
             type="text"
-            className="w-60 h-8 border rounded-full pl-2 text-xs"
+            className="w-72 h-8 border rounded-full pl-2 text-xs"
             placeholder="Имэйл хаяг"
             name="email"
             onChange={handleLogForm}
           />
           <input
             type="password"
-            className="w-60 h-8 border rounded-full pl-2 text-xs"
+            className="w-72 h-8 border rounded-full pl-2 text-xs"
             placeholder="Нууц үг"
             name="password"
             onChange={handleLogForm}
@@ -34,7 +34,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col gap-4 mt-4">
           <button
-            className="w-60 h-8 border rounded-full bg-blue-600 text-white"
+            className="w-72 h-8 border rounded-full bg-blue-600 text-white"
             onClick={handleLogIn}
           >
             Үүсгэх
@@ -44,7 +44,7 @@ const Login = () => {
               Нууц үг мартсан
             </p>
           </Link>
-          <button className="w-60 h-8 border border-blue-600 rounded-full text-blue-700 mt-8">
+          <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 mt-8">
             Нэвтрэх
           </button>
         </div>

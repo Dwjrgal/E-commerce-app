@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 interface IUser {
   firstName: String;
-  lastName: String;
+  // lastName: String;
   email: string;
   password: String;
   repassword: String;
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser>({
     firstName: "",
-    lastName: "",
+    // lastName: "",
     email: "",
     password: "",
     repassword: "",

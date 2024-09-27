@@ -5,6 +5,7 @@ import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { UserContext } from "@/context/user-context";
+import Link from "next/link";
 
 const Signup = () => {
   const router = useRouter();
@@ -59,9 +60,11 @@ const Signup = () => {
         >
           Үүсгэх
         </button>
-        <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 ">
-          Нэвтрэх
-        </button>
+        <Link href="/login">
+          <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 ">
+            Нэвтрэх
+          </button>
+        </Link>
       </div>
     </section>
   );
