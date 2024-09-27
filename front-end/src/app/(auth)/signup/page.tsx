@@ -1,47 +1,18 @@
 "use client";
+
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { UserContext } from "@/context/user-context";
 
 const Signup = () => {
   const router = useRouter();
-  const [userData, setUserData] = useState({
-    firstname: "",
-    email: "",
-    password: "",
-    repassword: "",
-  });
-
-  const signUp = async () => {
-    const { firstname, email, password, repassword } = userData;
-
-    if (password !== repassword) {
-      toast.error("Нууц үг хоорондоо тохирохгүй байна.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/auth/signup",
-        {
-          email,
-          firstname,
-          password,
-        }
-      );
-
-      if (response.status === 201) {
-        toast.success("User successfully signed up", { autoClose: 1000 });
-        router.push("/login");
-      }
-    } catch (error) {
-      console.error("There was an error signing up:", error);
-      toast.error("Failed to sign up. Please try again.");
-    }
-
-    console.log("user data", userData);
+  const { signUp, handleLogForm } = useContext(UserContext);
+  const handleSignUp = () => {
+    signUp();
   };
+
   return (
     <section className="flex flex-col items-center justify-center py-60 bg-slate-100">
       <div className="flex flex-col gap-3">
@@ -50,35 +21,29 @@ const Signup = () => {
           type="text"
           className="w-72 h-8 border rounded-full pl-2 text-xs"
           placeholder="Нэр"
-          value={userData.firstname}
-          onChange={(e) =>
-            setUserData({ ...userData, firstname: e.target.value })
-          }
+          name="firstName"
+          onChange={handleLogForm}
         />
         <input
           type="text"
           className="w-72 h-8 border rounded-full pl-2 text-xs"
           placeholder="Имэйл хаяг"
-          value={userData.email}
-          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+          name="email"
+          onChange={handleLogForm}
         />
         <input
           type="password"
           className="w-72 h-8 border rounded-full pl-2 text-xs"
           placeholder="Нууц үг"
-          value={userData.password}
-          onChange={(e) =>
-            setUserData({ ...userData, password: e.target.value })
-          }
+          name="password"
+          onChange={handleLogForm}
         />
         <input
           type="password"
           className="w-72 h-8 border rounded-full pl-2 text-xs"
           placeholder="Нууц үг давтах "
-          value={userData.repassword}
-          onChange={(e) =>
-            setUserData({ ...userData, repassword: e.target.value })
-          }
+          name="repassword"
+          onChange={handleLogForm}
         />
         <ul className="list-disc text-xs text-gray-500 flex flex-col gap-2 pl-5">
           <li>Том үсэг орсон байх</li>
@@ -90,7 +55,7 @@ const Signup = () => {
       <div className="flex flex-col gap-6 mt-4">
         <button
           className="w-72 h-8 border rounded-full bg-blue-600 text-white"
-          onClick={signUp}
+          onClick={handleSignUp}
         >
           Үүсгэх
         </button>

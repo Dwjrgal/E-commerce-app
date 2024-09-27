@@ -22,12 +22,14 @@ interface UserContextType {
   fetchUserData: () => void;
   handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logIn: () => void;
+  signUp: () => void;
 }
 
 export const UserContext = createContext<UserContextType>({
   fetchUserData: () => {},
   handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => {},
   logIn: () => {},
+  signUp: () => {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -46,6 +48,34 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       [name]: value,
     });
   };
+
+  const signUp = async () => {
+    const { firstName, email, password, repassword } = user;
+
+    if (password !== repassword) {
+      toast.error("Нууц үг хоорондоо тохирохгүй байна.");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:8000/api/v1/auth/signup", {
+        firstName,
+        email,
+        password,
+      });
+
+      if (res.status === 200) {
+        toast.success("User successfully signed up", { autoClose: 1000 });
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error("There was an error signing up:", error);
+      toast.error("Failed to sign up. Please try again.");
+    }
+
+    console.log("user data", user);
+  };
+
   const logIn = async () => {
     const { email, password } = user;
     console.log("user", email, password);
@@ -91,7 +121,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <UserContext.Provider value={{ fetchUserData, handleLogForm, logIn }}>
+    <UserContext.Provider
+      value={{ fetchUserData, handleLogForm, signUp, logIn }}
+    >
       {children}
     </UserContext.Provider>
   );
