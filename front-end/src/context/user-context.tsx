@@ -20,11 +20,14 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8000/api/v1/auth/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(
+        "http://localhost:8000/api/v1/auth/current-user",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (res.status === 200) {
         setUser(res.data.user);
         console.log("User", res.data);
@@ -38,6 +41,8 @@ const UserProvider = ({ children }: PropsWithChildren) => {
     }
     fetchUserData();
   }, [user]);
+
+  console.log("user", user);
 
   return (
     <UserContext.Provider value={{ user, fetchUserData }}>

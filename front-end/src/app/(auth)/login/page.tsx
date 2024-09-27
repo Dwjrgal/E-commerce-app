@@ -18,9 +18,13 @@ const Login = () => {
         email,
         password,
       });
+      console.log("res", res);
 
       if (res.status === 200) {
         toast.success(" User successfully logged in", { autoClose: 1000 });
+        const { token } = res.data;
+        console.log("token", token);
+        localStorage.setItem("token", token);
         router.push("/dashboard");
       }
     } catch (error) {
@@ -29,7 +33,6 @@ const Login = () => {
     }
     console.log("user data", userData);
   };
-
   console.log("user:", userData);
   return (
     <>

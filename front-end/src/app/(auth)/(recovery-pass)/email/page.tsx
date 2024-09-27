@@ -24,7 +24,7 @@ const Email = () => {
   };
 
   const handleSendOtp = async () => {
-    console.log(email);
+    console.log("emailll", email);
     try {
       const res = await axios.post(
         "http://localhost:8000/api/v1/auth/recovery-pass",

@@ -9,7 +9,7 @@ export const signup = async (req: Request, res: Response) => {
   try {
     const { firstname, email, password } = req.body;
     if (!firstname || !email || !password) {
-      res.status(400).json({ message: "Must not be null" });
+      return res.status(400).json({ message: "Must not be null" });
     }
     const createdUser = await User.create({
       firstname,
@@ -18,9 +18,9 @@ export const signup = async (req: Request, res: Response) => {
       phoneNumber: "",
     });
 
-    res.status(201).json({ message: "success", user: createdUser });
+    res.status(200).json({ message: "success", user: createdUser });
   } catch (error) {
-    res.status(201).json({ message: "server error", error: error });
+    res.status(500).json({ message: "server error", error: error });
   }
 };
 
@@ -28,29 +28,31 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).json({ message: "Must not be null" });
+      return res.status(400).json({ message: "Must not be null" });
     }
     const user = await User.findOne({ email });
 
     if (!user) {
-      res.status(404).json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй" });
+      return res
+        .status(400)
+        .json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй" });
+    } else {
+      const isCheck = bcrypt.compareSync(
+        password,
+        user?.password.toString() || ""
+      );
+      if (!isCheck) {
+        return res.status(400).json({
+          message: "Хэрэглэгчийн имэйл эсвэл нууц үг тохирохгүй байна.",
+        });
+      } else {
+        const token = generateToken({ id: user?._id });
+        res.status(200).json({ message: "Login success", token });
+      }
     }
-
-    const isCheck = bcrypt.compareSync(
-      password,
-      user?.password.toString() || ""
-    );
-
-    if (!isCheck) {
-      res.status(400).json({
-        message: "Хэрэглэгчийн имэйл эсвэл нууц үг тохирохгүй байна.",
-      });
-    }
-
-    const token = generateToken({ id: user?._id });
-    res.status(200).json({ message: "Login success", token: token });
   } catch (error) {
-    res.status(201).json({ message: "server error", error: error });
+    console.log(error);
+    res.status(400).json({ message: "server error", error: error });
   }
 };
 
@@ -70,7 +72,6 @@ export const forgetPassword = async (req: Request, res: Response) => {
         .json({ message: "Бүртгэлтэй хэрэглэгч олдсонгүй" });
     }
 
-    
     const otp = Math.floor(Math.random() * 10_000)
       .toString()
       .padStart(4, "0");
@@ -131,4 +132,3 @@ export const verifyPassword = async (req: Request, res: Response) => {
   await findUser.save();
   res.status(200).json({ message: "Нууц үг  амжилттэй сэргээлээ" });
 };
-
