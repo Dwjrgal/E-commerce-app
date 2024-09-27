@@ -7,15 +7,68 @@ import React, {
   useState,
   createContext,
 } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
-export const UserContext = createContext({});
+interface IUser {
+  firstName: String;
+  lastName: String;
+  email: string;
+  password: String;
+  repassword: String;
+}
 
-const UserProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState({
-    _id: "",
-    firstname: "",
+interface UserContextType {
+  fetchUserData: () => void;
+  handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  logIn: () => void;
+}
+
+export const UserContext = createContext<UserContextType>({
+  fetchUserData: () => {},
+  handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => {},
+  logIn: () => {},
+});
+
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const [user, setUser] = useState<IUser>({
+    firstName: "",
+    lastName: "",
     email: "",
+    password: "",
+    repassword: "",
   });
+  const handleLogForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const logIn = async () => {
+    const { email, password } = user;
+    console.log("user", email, password);
+    try {
+      const res = await axios.post("http://localhost:8000/api/v1/auth/login", {
+        email,
+        password,
+      });
+      console.log("res", res);
+
+      if (res.status === 200) {
+        toast.success(" User successfully logged in", { autoClose: 1000 });
+        const { token } = res.data;
+        console.log("token", token);
+        localStorage.setItem("token", token);
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error("There was an error logged in:", error);
+      toast.error("Failed to log in . Please try again.");
+    }
+    console.log("user data", user);
+  };
 
   const fetchUserData = async () => {
     try {
@@ -36,16 +89,9 @@ const UserProvider = ({ children }: PropsWithChildren) => {
       console.error("Error fetching user data:", error);
     }
   };
-  useEffect(() => {
-    if (!user) {
-    }
-    fetchUserData();
-  }, [user]);
-
-  console.log("user", user);
 
   return (
-    <UserContext.Provider value={{ user, fetchUserData }}>
+    <UserContext.Provider value={{ fetchUserData, handleLogForm, logIn }}>
       {children}
     </UserContext.Provider>
   );
