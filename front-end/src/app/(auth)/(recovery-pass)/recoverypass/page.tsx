@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/router";
 import React from "react";
@@ -8,8 +8,7 @@ const RecoveryPass = () => {
 
   const handleNewPass = () => {
     router.push("/login");
-  }
-
+  };
 
   return (
     <div className="h-[800px] bg-slate-100 flex flex-col items-center gap-3 pt-40">
@@ -30,7 +29,10 @@ const RecoveryPass = () => {
         <li>Тоо орсон байх</li>
         <li className="text-red-500 ">Тэмдэгт орсон байх</li>
       </ul>
-      <button className="w-72 h-10 border bg-blue-600 rounded-full text-white mt-4" onClick={handleNewPass}>
+      <button
+        className="w-72 h-10 border bg-blue-600 rounded-full text-white mt-4"
+        onClick={handleNewPass}
+      >
         Үүсгэх
       </button>
     </div>
