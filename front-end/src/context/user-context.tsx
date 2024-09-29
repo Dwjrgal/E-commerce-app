@@ -56,13 +56,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       toast.error("Нууц үг хоорондоо тохирохгүй байна.");
       return;
     }
-
     try {
       const res = await axios.post("http://localhost:8000/api/v1/auth/signup", {
         firstName,
         email,
         password,
+        repassword
       });
+      console.log("response:", res)
 
       if (res.status === 200) {
         toast.success("User successfully signed up", { autoClose: 1000 });
