@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const Signup = () => {
   const router = useRouter();
-  const { signUp, handleLogForm, loading } = useContext(UserContext);
+  const { signUp, handleLogForm } = useContext(UserContext);
   const handleSignUp = () => {
     signUp();
   };
@@ -61,10 +61,7 @@ const Signup = () => {
           Үүсгэх
         </button>
         <Link href="/login">
-          <button
-            className="w-72 h-8 border border-blue-600 rounded-full text-blue-700"
-            onClick={loading}
-          >
+          <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700">
             Нэвтрэх
           </button>
         </Link>

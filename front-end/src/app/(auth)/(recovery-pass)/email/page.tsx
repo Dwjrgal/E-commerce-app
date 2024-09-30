@@ -28,6 +28,7 @@ const Email = () => {
   const handleSendOtp = async () => {
     console.log("emailll", email);
     try {
+      setIsLoading(true);
       const res = await axios.post(
         "http://localhost:8000/api/v1/auth/forget-password",
         { email }
@@ -51,6 +52,7 @@ const Email = () => {
     if (value.length === 4) {
       // router.push("/newpass");
       try {
+        setIsLoading(true);
         const res = await axios.post(
           "http://localhost:8000/api/v1/auth/verify-otp",
           { email, value }
@@ -60,10 +62,12 @@ const Email = () => {
             "Нууц үг сэргээх холбоосыг таны имэйл хаяг руу явууллаа."
           );
           router.push("/login");
+          setIsLoading(false);
         }
       } catch (error) {
         console.log("otp error", error);
         toast.error("OTP error");
+        setIsLoading(false);
       }
     }
   };
