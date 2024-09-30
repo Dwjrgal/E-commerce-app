@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 interface IUser {
-  firstName: String;
+  firstname: String;
   // lastName: String;
   email: string;
   password: String;
@@ -35,7 +35,7 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser>({
-    firstName: "",
+    firstname: "",
     // lastName: "",
     email: "",
     password: "",
@@ -50,7 +50,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUp = async () => {
-    const { firstName, email, password, repassword } = user;
+    const { firstname, email, password, repassword } = user;
 
     if (password !== repassword) {
       toast.error("Нууц үг хоорондоо тохирохгүй байна.");
@@ -58,12 +58,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
     try {
       const res = await axios.post("http://localhost:8000/api/v1/auth/signup", {
-        firstName,
+        firstname,
         email,
         password,
-        repassword
+        repassword,
       });
-      console.log("response:", res)
+      console.log("response:", res);
 
       if (res.status === 200) {
         toast.success("User successfully signed up", { autoClose: 1000 });

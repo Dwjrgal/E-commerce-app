@@ -37,7 +37,7 @@ const Login = () => {
             className="w-72 h-8 border rounded-full bg-blue-600 text-white"
             onClick={handleLogIn}
           >
-            Үүсгэх
+            Нэвтрэх
           </button>
           <Link href={"/email"}>
             <p className="text-center border-b-[1px] border-slate-200 text-xs text-slate-600 px-3 pb-2">
@@ -45,7 +45,7 @@ const Login = () => {
             </p>
           </Link>
           <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 mt-8">
-            Нэвтрэх
+            Бүртгүүлэх
           </button>
         </div>
       </section>

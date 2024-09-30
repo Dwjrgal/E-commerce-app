@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/jwt";
-import { sendEmail } from "../utils/send.email";
+import { sendEmail } from "../utils/send-email";
 import crypto from "crypto";
 
 export const signup = async (req: Request, res: Response) => {
@@ -80,7 +80,10 @@ export const forgetPassword = async (req: Request, res: Response) => {
     await findUser.save();
     await sendEmail(email, otp);
     res.status(200).json({ message: "OTP code is sent email successfully" });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "server error", error });
+  }
 };
 
 export const verifyOtp = async (req: Request, res: Response) => {
@@ -105,7 +108,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
 
   await sendEmail(
     email,
-    `<a href="http://localhost:3000/forgetpass/newpass?resettoken="${resetToken}"">Нууц үг сэргээх холбоос</a>`
+    `<a href="http://localhost:3000/recovery-pass/newpass?resettoken="${resetToken}"">Нууц үг сэргээх холбоос</a>`
   );
   res.status(200).json({ message: "Нууц үг сэргээх имэйл илгээлээ" });
 };

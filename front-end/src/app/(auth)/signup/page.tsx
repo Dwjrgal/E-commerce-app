@@ -22,7 +22,7 @@ const Signup = () => {
           type="text"
           className="w-72 h-8 border rounded-full pl-2 text-xs"
           placeholder="Нэр"
-          name="firstName"
+          name="firstname"
           onChange={handleLogForm}
         />
         <input

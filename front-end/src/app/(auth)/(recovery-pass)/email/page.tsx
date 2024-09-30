@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { json } from "stream/consumers";
 
 const Email = () => {
   const router = useRouter();
@@ -27,13 +28,14 @@ const Email = () => {
     console.log("emailll", email);
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/auth/recovery-pass",
+        "http://localhost:8000/api/v1/auth/forget-password",
         { email }
       );
       if (res.status === 200) {
         setStep(step + 1);
       }
     } catch (error) {
+      console.log("error", error);
       toast.error("Имэйл илгээхэд алдаа гарлаа");
     }
   };
