@@ -11,13 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { json } from "stream/consumers";
+import Otp from "../otp/page";
+import Loader from "@/app/loader/page";
 
 const Email = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [step, setStep] = useState(1);
-
-  const [otpValue, setOtpValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [countDown, setCountDown] = useState(30);
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,21 +34,26 @@ const Email = () => {
       );
       if (res.status === 200) {
         setStep(step + 1);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log("error", error);
+      setIsLoading(false);
       toast.error("Имэйл илгээхэд алдаа гарлаа");
     }
   };
-
+  const handleChange = (e: string) => {
+    if (e.length === 4) {
+      handleConfirmOtp(e);
+    }
+  };
   const handleConfirmOtp = async (value: string) => {
-    setOtpValue(value);
     if (value.length === 4) {
-      router.push("/newpass");
+      // router.push("/newpass");
       try {
         const res = await axios.post(
           "http://localhost:8000/api/v1/auth/verify-otp",
-          { email, otpValue }
+          { email, value }
         );
         if (res.status === 200) {
           toast.success(
@@ -56,7 +62,8 @@ const Email = () => {
           router.push("/login");
         }
       } catch (error) {
-        toast.error("Имэйл илгээхэд алдаа гарлаа");
+        console.log("otp error", error);
+        toast.error("OTP error");
       }
     }
   };
@@ -75,6 +82,7 @@ const Email = () => {
     }
   }, [countDown]);
 
+  if (isLoading) return <Loader />;
   return (
     <div className="flex flex-col gap-3 items-center h-[800px] pt-40 bg-slate-100">
       {step === 1 && (
@@ -89,7 +97,7 @@ const Email = () => {
             />
             <button
               className="w-72 h-8 border bg-blue-600 rounded-full text-white"
-              onChange={handleSendOtp}
+              onClick={handleSendOtp}
             >
               Илгээх
             </button>
@@ -104,11 +112,7 @@ const Email = () => {
             {`“${email}” хаягт илгээсэн баталгаажуулах кодыг оруулна уу`}
           </p>
           <div className="flex flex-col gap-4 text-sm">
-            <InputOTP
-              maxLength={4}
-              value={otpValue}
-              onChange={handleConfirmOtp}
-            >
+            <InputOTP maxLength={4} onChange={handleChange}>
               <InputOTPGroup className="bg-white">
                 <InputOTPSlot className="w-14 h-14" index={0} />
                 <InputOTPSlot className="w-14 h-14" index={1} />

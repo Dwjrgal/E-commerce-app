@@ -78,6 +78,7 @@ export const forgetPassword = async (req: Request, res: Response) => {
       .padStart(4, "0");
     findUser.otp = otp;
     await findUser.save();
+    console.log("find user", findUser);
     await sendEmail(email, otp);
     res.status(200).json({ message: "OTP code is sent email successfully" });
   } catch (error) {
@@ -87,9 +88,10 @@ export const forgetPassword = async (req: Request, res: Response) => {
 };
 
 export const verifyOtp = async (req: Request, res: Response) => {
-  const { email, otpValue } = req.body;
-
-  const findUser = await User.findOne({ email: email, otp: otpValue });
+  const { email, value } = req.body;
+  console.log("first", email, value);
+  const findUser = await User.findOne({ email: email, otp: value });
+  console.log("findUser", findUser);
   if (!findUser) {
     return res
       .status(400)
@@ -105,10 +107,10 @@ export const verifyOtp = async (req: Request, res: Response) => {
   findUser.passwordResetToken = hashedResetToken;
   findUser.passwordResetTokenExpire = new Date(Date.now() + 10 * 60 * 1000);
   await findUser.save();
-
+  console.log("idk", resetToken);
   await sendEmail(
     email,
-    `<a href="http://localhost:3000/recovery-pass/newpass?resettoken="${resetToken}"">Нууц үг сэргээх холбоос</a>`
+    `<a href="http://localhost:3000/newpass?resettoken="${resetToken}"">Нууц үг сэргээх холбоос</a>`
   );
   res.status(200).json({ message: "Нууц үг сэргээх имэйл илгээлээ" });
 };

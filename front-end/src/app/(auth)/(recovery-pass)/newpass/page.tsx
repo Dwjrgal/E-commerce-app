@@ -14,12 +14,12 @@ const NewPass = () => {
     <div className="h-[800px] bg-slate-100 flex flex-col items-center gap-3 pt-40">
       <h2 className="font-bold text-lg mb-4">Нууц үг сэргээх</h2>
       <input
-        type="text"
+        type="password"
         className="w-72 h-10 border rounded-full pl-2 text-xs"
         placeholder="Шинэ нууц үг"
       />
       <input
-        type="text"
+        type="password"
         className="w-72 h-10 border rounded-full pl-2 text-xs"
         placeholder="Шинэ нууц үг давтах"
       />

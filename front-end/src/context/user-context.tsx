@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/loader/page";
 
 interface IUser {
   firstname: String;
@@ -23,6 +24,7 @@ interface UserContextType {
   handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logIn: () => void;
   signUp: () => void;
+  loading: () => void;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -30,6 +32,7 @@ export const UserContext = createContext<UserContextType>({
   handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => {},
   logIn: () => {},
   signUp: () => {},
+  loading: () => {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -41,6 +44,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     password: "",
     repassword: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser({
@@ -48,7 +53,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       [name]: value,
     });
   };
-
+  const loading = async () => {
+    if (isLoading) return <Loader />;
+  };
   const signUp = async () => {
     const { firstname, email, password, repassword } = user;
 
@@ -68,10 +75,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       if (res.status === 200) {
         toast.success("User successfully signed up", { autoClose: 1000 });
         router.push("/login");
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("There was an error signing up:", error);
       toast.error("Failed to sign up. Please try again.");
+      setIsLoading(false);
     }
 
     console.log("user data", user);
@@ -123,7 +132,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ fetchUserData, handleLogForm, signUp, logIn }}
+      value={{ fetchUserData, handleLogForm, signUp, logIn, loading }}
     >
       {children}
     </UserContext.Provider>
