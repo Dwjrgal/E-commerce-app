@@ -30,7 +30,8 @@ const Header = () => {
           <VscHeart />
           <PiShoppingCart />
           <Link href="/signup">
-            <Button className="outline outline-blue-600 rounded-full bg-inherit">
+            <Button  variant="outline"
+                className="rounded-3xl border-blue-primary text-white-primary">
               Бүртгүүлэх
             </Button>
           </Link>
