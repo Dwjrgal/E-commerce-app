@@ -53,7 +53,7 @@ const userSchema = new Schema<IUser>({
   },
   otp: { type: String, default: "" },
   passwordResetToken: { type: String, default: "" },
-  passwordResetTokenExpire: { type: Date, default: undefined },
+  passwordResetTokenExpire: { type: Date, default: Date.now },
   updated_at: {
     type: Date,
     default: Date.now,

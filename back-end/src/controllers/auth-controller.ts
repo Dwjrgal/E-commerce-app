@@ -107,10 +107,10 @@ export const verifyOtp = async (req: Request, res: Response) => {
   findUser.passwordResetToken = hashedResetToken;
   findUser.passwordResetTokenExpire = new Date(Date.now() + 10 * 60 * 1000);
   await findUser.save();
-  console.log("idk", resetToken);
+  console.log("resetToken:", resetToken);
   await sendEmail(
     email,
-    `<a href="http://localhost:3000/newpass?resettoken="${resetToken}"">Нууц үг сэргээх холбоос</a>`
+    `<a href="http://localhost:3000/newpass?resettoken=${resetToken}">Нууц үг сэргээх холбоос</a>`
   );
   res.status(200).json({ message: "Нууц үг сэргээх имэйл илгээлээ" });
 };
@@ -125,7 +125,7 @@ export const verifyPassword = async (req: Request, res: Response) => {
 
   const findUser = await User.findOne({
     passwordResetToken: hashedResetToken,
-    passwordResetTokenExpire: { $gt: Date.now },
+    passwordResetTokenExpire: { $gt: Date.now() },
   });
 
   if (!findUser) {
@@ -137,4 +137,13 @@ export const verifyPassword = async (req: Request, res: Response) => {
   findUser.password = password;
   await findUser.save();
   res.status(200).json({ message: "Нууц үг  амжилттэй сэргээлээ" });
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+  res.status(200).json({
+    message: "Хэрэглэгчийн мэдээлэл амжилттай шинэчлэгдлээ.",
+    updatedUser,
+  });
 };

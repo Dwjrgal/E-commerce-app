@@ -1,9 +1,18 @@
 import { Router } from "express";
-import { login, signup, currentUser,verifyOtp, verifyPassword, forgetPassword } from "../controllers/auth-controller";
+import {
+  login,
+  signup,
+  currentUser,
+  verifyOtp,
+  verifyPassword,
+  forgetPassword,
+  updateUser,
+} from "../controllers/auth-controller";
 import { auth } from "../middlewares/auth";
 
 const router = Router();
 
+router.route("/user/:id").put(updateUser);
 router.route("/current-user").get(auth, currentUser);
 router.route("/verify-password").post(verifyPassword);
 router.route("/forget-password").post(forgetPassword);

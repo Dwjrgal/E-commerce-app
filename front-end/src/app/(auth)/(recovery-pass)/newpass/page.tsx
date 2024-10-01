@@ -1,13 +1,40 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import React from "react";
+import { UserContext } from "@/context/user-context";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const NewPass = () => {
+  const [password, setPassword] = useState("");
+  const [repassword, setRePassword] = useState("");
+  const params = useSearchParams();
   const router = useRouter();
 
-  const handleNewPass = () => {
-    router.push("/login");
+  const handleNewPass = async () => {
+    if (password !== repassword) {
+      toast.error("Нууц үг хоорондоо тохирохгүй байна.");
+      return;
+    }
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/api/v1/auth/verify-password",
+        {
+          password,
+          resetToken: params.get("resettoken"),
+        }
+      );
+      console.log("response:", res);
+
+      if (res.status === 200) {
+        toast.success("password");
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -17,11 +44,15 @@ const NewPass = () => {
         type="password"
         className="w-72 h-10 border rounded-full pl-2 text-xs"
         placeholder="Шинэ нууц үг"
+        name="password"
+        onChange={(e) => setPassword(e.target.value)}
       />
       <input
         type="password"
         className="w-72 h-10 border rounded-full pl-2 text-xs"
         placeholder="Шинэ нууц үг давтах"
+        name="repassword"
+        onChange={(e) => setRePassword(e.target.value)}
       />
       <ul className="list-disc text-xs text-gray-500 mr-24 flex flex-col gap-2">
         <li>Том үсэг орсон байх</li>
