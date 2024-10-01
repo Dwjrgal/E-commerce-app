@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { CiHeart } from "react-icons/ci";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { PiShoppingCart } from "react-icons/pi";
 import { VscHeart } from "react-icons/vsc";
 import Link from "next/link";
+import { UserContext } from "@/context/user-context";
 
 const Header = () => {
+  const { fetchUserData} = useContext(UserContext)
+  console.log("fetchUserData",fetchUserData)
   return (
     <div>
       <header className="h-20 bg-black flex justify-between items-center px-20">

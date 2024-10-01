@@ -6,13 +6,13 @@ import React, {
   useEffect,
   useState,
   createContext,
+  useContext,
 } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 interface IUser {
   firstname: String;
-  // lastName: String;
   email: string;
   password: String;
   repassword: String;
@@ -125,11 +125,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ fetchUserData, handleLogForm, signUp, logIn }}
+      value={{fetchUserData,handleLogForm, signUp, logIn }}
     >
       {children}
     </UserContext.Provider>
   );
 };
+
+export const useUser = () =>{
+  return useContext(UserContext);
+}
 
 export default UserProvider;
