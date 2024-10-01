@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 
 import Link from "next/link";
-import { UserContext } from "@/context/user-context";
+import { UserContext } from "@/components/context/user-context";
 
 const Login = () => {
   const router = useRouter();

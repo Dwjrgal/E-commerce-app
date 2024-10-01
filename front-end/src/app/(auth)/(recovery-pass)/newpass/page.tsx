@@ -1,7 +1,7 @@
 "use client";
 
-import { UserContext } from "@/context/user-context";
-import { useToast } from "@/hooks/use-toast";
+import { UserContext } from "@/components/context/user-context";
+import { useToast } from "@/components/hooks/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";

@@ -5,7 +5,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { PiShoppingCart } from "react-icons/pi";
 import { VscHeart } from "react-icons/vsc";
 import Link from "next/link";
-import { UserContext } from "@/context/user-context";
+import { UserContext } from "@/components/context/user-context";
 
 const Header = () => {
   const { fetchUserData} = useContext(UserContext)
