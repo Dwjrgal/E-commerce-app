@@ -32,7 +32,7 @@ const Header = () => {
           <Link href="/signup">
             <Button
               variant="outline"
-              className="rounded-3xl border-blue-primary text-white-primary"
+              className="rounded-3xl text-white-primary outline-blue-500"
             >
               Бүртгүүлэх
             </Button>
