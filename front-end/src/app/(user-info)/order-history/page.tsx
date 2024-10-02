@@ -1,17 +1,21 @@
 "use client";
 import { products } from "@/lib/data";
+import Link from "next/link";
 
 const OrderHistory = () => {
   const ordered = products.slice(1, 5);
   console.log("ordered", ordered);
   return (
-    <section className="flex justify-center h-[900px] pt-40 gap-20 px-60 bg-slate-50">
-      <div className="flex flex-col gap-2 font-medium text-md">
+    <section className="flex  justify-center h-[900px] pt-40 gap-20 px-60 bg-slate-50">
+      <div className="flex flex-col gap-2 font-medium text-md"> 
+        <Link href="../user-form">
         <button className=" bg-white rounded-full w-60 h-10 text-start pl-4">
           Хэрэглэгчийн хэсэг
-        </button>
-        <p className="text-md text-gray-700 pl-4">Захиалгын түүх</p>
+        </button> </Link>
+        <Link href="./order-history">
+        <p className="text-md text-gray-700 pl-4">Захиалгын түүх</p> </Link>
       </div>{" "}
+      <section className="flex flex-col gap-4">
       <section className="flex flex-col gap-6">
         <h3 className="font-bold text-xl">Захиалгын түүх</h3>
         <div className="flex flex-col gap-5 w-[600px] bg-white rounded-xl py-10">
@@ -41,6 +45,19 @@ const OrderHistory = () => {
           </div>
         </div>
       </section>
+        <div className="w-[600px] h-32 rounded-xl bg-white py-8 px-8">  
+           <div className="flex gap-5 mb-5">
+            <h2 className="font-semibold">2024-09-03 15:34</h2>{" "}
+            <button className="w-24 h-6 border text-blue-600 rounded-full  text-xs font-semibold  bg-slate-200">
+              дууссан
+            </button>{" "}
+          </div> 
+          <ul className="flex justify-between">
+              <li>Үнийн дүн:</li>
+            <li className="font-bold">120,000₮</li>
+            </ul>
+          </div>
+       </section>
     </section>
   );
 };
