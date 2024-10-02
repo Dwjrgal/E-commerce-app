@@ -39,7 +39,7 @@ export const FeaturedProductCard = ({
           src={image}
           alt="image1"
           fill={true}
-          className="rounded-lg -z-10"
+          className="rounded-xl -z-10"
         />
         <Heart size={22} strokeWidth={1} className="absolute top-4 right-4" />
       </div>

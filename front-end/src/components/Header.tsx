@@ -5,11 +5,11 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { PiShoppingCart } from "react-icons/pi";
 import { VscHeart } from "react-icons/vsc";
 import Link from "next/link";
-import { UserContext } from "@/components/context/user-context";
+import { UserContext } from "@/context/user-context";
 
 const Header = () => {
-  const { fetchUserData} = useContext(UserContext)
-  console.log("fetchUserData",fetchUserData)
+  const { fetchUserData } = useContext(UserContext);
+  console.log("fetchUserData", fetchUserData);
   return (
     <div>
       <header className="h-20 bg-black flex justify-between items-center px-20">
@@ -30,8 +30,10 @@ const Header = () => {
           <VscHeart />
           <PiShoppingCart />
           <Link href="/signup">
-            <Button  variant="outline"
-                className="rounded-3xl border-blue-primary text-white-primary">
+            <Button
+              variant="outline"
+              className="rounded-3xl border-blue-primary text-white-primary"
+            >
               Бүртгүүлэх
             </Button>
           </Link>

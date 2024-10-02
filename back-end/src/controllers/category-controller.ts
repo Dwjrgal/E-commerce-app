@@ -20,10 +20,7 @@ export const getAllCategory = async (req: Request, res: Response) => {
     const { name, description } = req.body;
     console.log("category name and description", name, description);
     const getCategory = await Category.find();
-    res.status(200).json({
-      message: "Success",
-      category: getCategory,
-    });
+    res.status(201).json({ message: "Success", category: getCategory });
   } catch (error) {
     res.status(500).json({ message: " Server error", error });
   }

@@ -125,15 +125,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{fetchUserData,handleLogForm, signUp, logIn }}
+      value={{ fetchUserData, handleLogForm, signUp, logIn }}
     >
       {children}
     </UserContext.Provider>
   );
 };
 
-export const useUser = () =>{
-  return useContext(UserContext);
-}
+// export const useUser = () =>{
+//   return useContext(UserContext);
+// }
 
 export default UserProvider;

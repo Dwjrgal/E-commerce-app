@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { UserContext } from "@/components/context/user-context";
+
 import Link from "next/link";
+import { UserContext } from "@/context/user-context";
 
 const Signup = () => {
   const router = useRouter();
