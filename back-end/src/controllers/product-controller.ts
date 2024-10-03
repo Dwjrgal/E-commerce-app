@@ -1,6 +1,27 @@
 import { Request, Response } from "express";
 import Product from "../models/product.model";
 
+export const getAllProduct = async (req: Request, res: Response) => {
+  try {
+    const products = await Product.find({}).populate("category");
+    res.status(200).json({ message: "success to get all product", products });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "failed to get all products" });
+  }
+};
+
+export const getProduct = async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  try {
+    const product = await Product.findById(productId).populate("category");
+    res.status(200).json({ message: "success to get one product", product });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "failed to get one product" });
+  }
+};
+
 export const insertProduct = async (req: Request, res: Response) => {
   try {
     const {
@@ -28,25 +49,5 @@ export const insertProduct = async (req: Request, res: Response) => {
     res.status(201).json({ message: "success", product: postedProduct });
   } catch (error) {
     res.status(201).json({ message: "server error", error: error });
-  }
-};
-
-export const getProductData = async (req: Request, res: Response) => {
-  try {
-    const {
-      name,
-      description,
-      price,
-      size,
-      image,
-      isNew,
-      quantity,
-      discount,
-      category,
-    } = req.body;
-    const getProduct = await Product.find();
-    res.status(201).json({ message: "success", productData: getProduct });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to fetch product data", error });
   }
 };

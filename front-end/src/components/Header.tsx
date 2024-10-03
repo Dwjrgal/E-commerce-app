@@ -14,7 +14,10 @@ const Header = () => {
     <div>
       <header className="h-20 bg-black flex justify-between items-center px-20">
         <div className="flex gap-8 items-center">
-          <img src="/img/Logo/Logo.png" alt="" />
+          <Link href={"/"}>
+            <img src="/img/Logo/Logo.png" alt="" />
+          </Link>
+
           <h3 className="text-slate-200">Ангилал</h3>
         </div>
         <div className="w-64 h-14   rounded-full bg-primary pl-4 flex items-center gap-2">
@@ -32,7 +35,7 @@ const Header = () => {
           <Link href="/signup">
             <Button
               variant="outline"
-              className="rounded-3xl text-white-primary outline-blue-500"
+              className="rounded-3xl text-white-primary border-blue-primary"
             >
               Бүртгүүлэх
             </Button>

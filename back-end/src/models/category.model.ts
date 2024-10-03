@@ -13,12 +13,12 @@ const categorySchema = new Schema<ICategory>(
     },
     description: {
       type: String,
-      default: " category comment",
+      default: "category comment",
     },
   },
   { timestamps: true }
 );
 
-const Category = model("category", categorySchema);
+const Category = model("Category", categorySchema);
 
 export default Category;

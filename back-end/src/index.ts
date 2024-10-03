@@ -7,6 +7,7 @@ import { connectDB } from "./config/db";
 import authRoute from "./routes/auth-route";
 import catRoute from "./routes/category-route";
 import { sendEmail } from "./utils/send-email";
+import productRoute from "./routes/product-route";
 
 const PORT: string = process.env.PORT || "";
 const MONGO_URI = process.env.MONGO_URI || "";
@@ -19,7 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/categories", catRoute);
-
+app.use("/api/v1/products", productRoute);
 app.get("/", async (req: Request, res: Response) => {
   // const rndOtp = Math.floor(Math.random() * 10_000)
   //   .toString()

@@ -1,28 +1,36 @@
-import { Product } from "@/lib/data";
+import { Product, products } from "@/lib/data";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { formattedPrice } from "@/lib/utils";
-
+import axios from "axios";
+import Link from "next/link";
+interface IProduct {
+  name: string;
+  images: [string];
+  price: number;
+}
 const getDiscountedPrice = (price: number, discount: number) => {
   return price - (price * discount) / 100;
 };
 
 export const ProductCard = ({ name, price, image, discount }: Product) => {
   return (
-    <div className="relative w-[244px]">
-      <Image
-        src={image}
-        alt="image1"
-        width={244}
-        height={331}
-        className="rounded-xl"
-      />
-      <Heart size={22} strokeWidth={1} className="absolute top-4 right-4" />
-      <div className="mt-2">
-        <h3 className="font-normal">{name}</h3>
-        <PriceWithDiscount price={price} discount={discount} />
+    <Link href={"/product-detail"}>
+      <div className="relative w-[244px]">
+        <Image
+          src={image}
+          alt="image1"
+          width={244}
+          height={331}
+          className="rounded-xl"
+        />
+        <Heart size={22} strokeWidth={1} className="absolute top-4 right-4" />
+        <div className="mt-2">
+          <h3 className="font-normal">{name}</h3>
+          <PriceWithDiscount price={price} discount={discount} />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
