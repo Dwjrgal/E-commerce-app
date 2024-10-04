@@ -4,21 +4,29 @@ import Image from "next/image";
 import { formattedPrice } from "@/lib/utils";
 import axios from "axios";
 import Link from "next/link";
+
 interface IProduct {
   name: string;
-  images: [string];
   price: number;
+  images: [string];
+  discount: number;
 }
 const getDiscountedPrice = (price: number, discount: number) => {
   return price - (price * discount) / 100;
 };
 
-export const ProductCard = ({ name, price, image, discount }: Product) => {
+export const ProductCard = ({
+  name,
+  price,
+  images,
+  discount,
+  id,
+}: IProduct) => {
   return (
-    <Link href={"/product-detail"}>
+    <Link href={`/${id}`}>
       <div className="relative w-[244px]">
         <Image
-          src={image}
+          src={images[0]}
           alt="image1"
           width={244}
           height={331}
@@ -39,6 +47,7 @@ export const FeaturedProductCard = ({
   price,
   image,
   discount,
+  id,
 }: Product) => {
   return (
     <div className="relative col-span-2 row-span-10 mb-14">

@@ -17,8 +17,9 @@ const Header = () => {
           <Link href={"/"}>
             <img src="/img/Logo/Logo.png" alt="" />
           </Link>
-
-          <h3 className="text-slate-200">Ангилал</h3>
+          <Link href="../category">
+            <h3 className="text-slate-200">Ангилал</h3>
+          </Link>
         </div>
         <div className="w-64 h-14   rounded-full bg-primary pl-4 flex items-center gap-2">
           <BiSearchAlt2 className="text-2xl font-bold text-white " />

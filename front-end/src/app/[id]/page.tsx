@@ -1,14 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { products } from "@/lib/data";
 import { ProductCard } from "@/components/product-card";
 import Review from "@/components/review";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { ProductsContext } from "@/context/products-context";
+
 interface IProduct {
   name: string;
-  image: [string];
+  description: string;
   price: number;
+  size: string;
+  image: [string];
+  isNew: boolean;
+  quantity: number;
+  discount: number;
 }
 
 const ProductDetail = () => {
@@ -17,10 +25,13 @@ const ProductDetail = () => {
   const [oneProduct, setOneProduct] = useState<IProduct>({});
   const getProduct = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/v1/${id}`);
+      const res = await axios.get(
+        `http://localhost:8000/api/v1/products/${id}`
+      );
       setOneProduct(res.data.product);
     } catch (error) {
       console.error(error);
+      toast.error("failed to get product");
     }
     ``;
   };
@@ -38,7 +49,7 @@ const ProductDetail = () => {
             ))}
           </div>
           <img
-            src="../products/image2.png"
+            src="../products/image1.png"
             className="border w-80 h-96 rounded-xl"
           />{" "}
         </div>
@@ -85,27 +96,28 @@ const ProductDetail = () => {
         </section>
       </main>
       <p className="font-bold text-2xl ml-[530px]">Холбоотой бараа</p>
-      <RelativeCards />
+      {/* <RelativeCards /> */}
     </>
   );
 };
 
 export default ProductDetail;
 
-export const RelativeCards = () => {
-  const relativeCards = products.slice(1, 9);
-  return (
-    <>
-      <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
-        {relativeCards.map((product) => (
-          <ProductCard
-            name={product.name}
-            price={product.price}
-            image={product.image}
-            discount={product.discount}
-          />
-        ))}{" "}
-      </section>
-    </>
-  );
-};
+// export const RelativeCards = () => {
+//   const { productsData } = useContext(ProductsContext);
+//   const relativeCards = productsData.slice(1, 9);
+//   return (
+//     <>
+//       <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
+//         {relativeCards.map((product) => (
+//           <ProductCard
+//             name={product.name}
+//             price={product.price}
+//             image={product.image}
+//             discount={product.discount}
+//           />
+//         ))}{" "}
+//       </section>
+//     </>
+//   );
+// };

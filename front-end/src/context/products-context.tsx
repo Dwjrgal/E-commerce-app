@@ -10,27 +10,35 @@ import React, {
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-interface ProductsType {
+interface IProduct {
   name: string;
+  description: string;
   price: number;
-  image: string;
+  size: string;
+  images: [string];
+  isNew: boolean;
+  quantity: number;
   discount: number;
 }
 
 interface ProductsContextType {
   getAllProducts: () => void;
+  productsData: IProduct | [];
+  setProductsData: React.Dispatch<React.SetStateAction<IProduct | null>>;
 }
 
-export const ProductContext = createContext<ProductsContextType>({
+export const ProductsContext = createContext<ProductsContextType>({
+  productsData: [],
+  setProductsData: () => {},
   getAllProducts: () => {},
 });
 
-export const ProductProvider = ({
+export const ProductsProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [productsData, setProductsData] = useState<ProductsType[]>([]);
+  const [productsData, setProductsData] = useState<IProduct | []>([]);
   const getAllProducts = async () => {
     try {
       const res = await axios.get("http://localhost:8000/api/v1/products");
@@ -44,9 +52,10 @@ export const ProductProvider = ({
     getAllProducts();
   }, []);
   console.log("DATA", productsData);
+
   return (
-    <ProductContext.Provider value={{ getAllProducts }}>
+    <ProductsContext.Provider value={{ getAllProducts, productsData }}>
       {children}
-    </ProductContext.Provider>
+    </ProductsContext.Provider>
   );
 };

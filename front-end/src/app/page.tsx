@@ -1,37 +1,28 @@
 "use client";
 import { Hero } from "@/components/home/hero";
 import { ProductCard, FeaturedProductCard } from "@/components/product-card";
+import { ProductsContext } from "@/context/products-context";
 import { products } from "@/lib/data";
 import axios from "axios";
 import { Link } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-interface ProductsType {
+interface IProduct {
   name: string;
+  description: string;
   price: number;
-  image: string;
+  size: string;
+  images: [string];
+  isNew: boolean;
+  quantity: number;
   discount: number;
 }
 
 export default function Home() {
-  const { _id } = useParams();
-  const [productsData, setProductsData] = useState<ProductsType[]>([]);
-  const getAllProducts = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/api/v1/products");
-      setProductsData(res.data.products);
-    } catch (error) {
-      console.error("Failed to get all products", error);
-      toast.error("Failed to fetch products data");
-    }
-  };
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-  console.log("DATA", productsData);
-
+  const { productsData, setProductsData } = useContext(ProductsContext);
+  console.log("products", productsData);
   return (
     <main>
       <Hero />
@@ -40,17 +31,19 @@ export default function Home() {
           index === 6 || index === 7 ? (
             <FeaturedProductCard
               key={index}
+              id={product._id}
               name={product.name}
               price={product.price}
-              image={product.image}
+              image={product.images[0]}
               discount={product.discount}
             />
           ) : (
             <ProductCard
               key={index}
+              id={product._id}
               name={product.name}
               price={product.price}
-              image={product.image}
+              images={product.images}
               discount={product.discount}
             />
           )
