@@ -11,6 +11,7 @@ const Login = () => {
   const handleLogIn = () => {
     logIn();
   };
+
   return (
     <>
       <section className="flex flex-col items-center py-80 bg-slate-100">
