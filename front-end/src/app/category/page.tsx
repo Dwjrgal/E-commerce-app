@@ -1,5 +1,5 @@
 import { ProductCard } from "@/components/product-card";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 import { apiUrl } from "@/lib/util";
@@ -54,26 +54,30 @@ interface ICategory {
   category: {};
   name: string;
 }
-// const getCategories = async () => {
-//   try {
-//     const res = await axios.get(`${apiUrl}/categories`);
-//     const { category } = res.data;
-//     return category;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const getCategories = async () => {
+  try {
+    const res = await axios.get(`${apiUrl}/categories`);
+    const { category } = res.data;
+    return category;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const CheckboxDemo = async () => {
-  const getCategories = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/categories`);
-      console.log("categories data", res);
-    } catch (error) {
-      console.error("failed to get categories data", categories);
-    }
-  };
-
+  // const [categories, setCategories] = useState();
+  // const getCategories = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/categories`);
+  //     setCategories(res.data.categoru);
+  //     console.log("categories data", res);
+  //   } catch (error) {
+  //     console.error("failed to get categories data", categories);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getCategories();
+  // }, []);
   const categories = await getCategories();
   console.log("category nmae", categories);
   return (

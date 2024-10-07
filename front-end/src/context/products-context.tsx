@@ -52,7 +52,7 @@ export const ProductsProvider = ({
   useEffect(() => {
     getAllProducts();
   }, []);
-  // console.log("DATA", productsData);
+  console.log("DATA", productsData);
 
   return (
     <ProductsContext.Provider value={{ getAllProducts, productsData }}>
