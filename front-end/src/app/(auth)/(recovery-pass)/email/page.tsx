@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { json } from "stream/consumers";
 import Otp from "../otp/page";
 import Loader from "@/app/loader/page";
+import { apiUrl } from "@/lib/util";
 
 const Email = () => {
   const router = useRouter();
@@ -29,10 +30,9 @@ const Email = () => {
     console.log("emailll", email);
     try {
       setIsLoading(true);
-      const res = await axios.post(
-        "http://localhost:8000/api/v1/auth/forget-password",
-        { email }
-      );
+      const res = await axios.post(`${apiUrl}/auth/forget-password`, {
+        email,
+      });
       if (res.status === 200) {
         setStep(step + 1);
         setIsLoading(false);
@@ -53,10 +53,10 @@ const Email = () => {
       // router.push("/newpass");
       try {
         setIsLoading(true);
-        const res = await axios.post(
-          "http://localhost:8000/api/v1/auth/verify-otp",
-          { email, value }
-        );
+        const res = await axios.post(`${apiUrl}/auth/verify-otp`, {
+          email,
+          value,
+        });
         if (res.status === 200) {
           toast.success(
             "Нууц үг сэргээх холбоосыг таны имэйл хаяг руу явууллаа."

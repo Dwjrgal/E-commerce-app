@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 
 interface IProduct {
+  id: string | number;
   name: string;
   price: number;
   images: [string];
@@ -22,6 +23,7 @@ export const ProductCard = ({
   discount,
   id,
 }: IProduct) => {
+  console.log("images", images);
   return (
     <Link href={`/${id}`}>
       <div className="relative w-[244px]">

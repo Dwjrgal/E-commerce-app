@@ -1,11 +1,12 @@
 "use client";
 
-import { UserContext } from "@/components/context/user-context";
+import { UserContext } from "@/context/user-context";
 import { useToast } from "@/components/hooks/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { apiUrl } from "@/lib/util";
 
 const NewPass = () => {
   const [password, setPassword] = useState("");
@@ -19,13 +20,10 @@ const NewPass = () => {
       return;
     }
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/v1/auth/verify-password",
-        {
-          password,
-          resetToken: params.get("resettoken"),
-        }
-      );
+      const res = await axios.post(`${apiUrl}/auth/verify-password`, {
+        password,
+        resetToken: params.get("resettoken"),
+      });
       console.log("response:", res);
 
       if (res.status === 200) {

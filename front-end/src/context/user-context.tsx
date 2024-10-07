@@ -10,19 +10,26 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { apiUrl } from "@/lib/util";
 
-interface IUser {
+interface IUserForm {
   firstname: String;
   email: string;
   password: String;
   repassword: String;
 }
-
+interface UserType {
+  firstName: string;
+  lastName: string;
+  email: string;
+  profile_img: string;
+}
 interface UserContextType {
   fetchUserData: () => void;
   handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logIn: () => void;
   signUp: () => void;
+  user: UserType | null;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -30,11 +37,13 @@ export const UserContext = createContext<UserContextType>({
   handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => {},
   logIn: () => {},
   signUp: () => {},
+  user: null,
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const [user, setUser] = useState<IUser>({
+  const [user, setUser] = useState<UserType | null>(null);
+  const [userForm, setUserForm] = useState<IUserForm>({
     firstname: "",
     // lastName: "",
     email: "",
@@ -45,21 +54,21 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleLogForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    setUserForm({
+      ...userForm,
       [name]: value,
     });
   };
 
   const signUp = async () => {
-    const { firstname, email, password, repassword } = user;
+    const { firstname, email, password, repassword } = userForm;
 
     if (password !== repassword) {
       toast.error("Нууц үг хоорондоо тохирохгүй байна.");
       return;
     }
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/auth/signup", {
+      const res = await axios.post(`${apiUrl}/auth/signup`, {
         firstname,
         email,
         password,
@@ -76,14 +85,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       toast.error("Failed to sign up. Please try again.");
     }
 
-    console.log("user data", user);
+    console.log("user data", userForm);
   };
 
   const logIn = async () => {
-    const { email, password } = user;
+    const { email, password } = userForm;
     console.log("user", email, password);
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/auth/login", {
+      const res = await axios.post(`${apiUrl}auth/login`, {
         email,
         password,
       });
@@ -100,20 +109,17 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("There was an error logged in:", error);
       toast.error("Failed to log in . Please try again.");
     }
-    console.log("user data", user);
+    console.log("user data", userForm);
   };
 
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        "http://localhost:8000/api/v1/auth/current-user",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.get(`${apiUrl}/auth/current-user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (res.status === 200) {
         setUser(res.data.user);
         console.log("User", res.data);
@@ -125,7 +131,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ fetchUserData, handleLogForm, signUp, logIn }}
+      value={{ fetchUserData, handleLogForm, signUp, logIn, user }}
     >
       {children}
     </UserContext.Provider>

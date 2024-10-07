@@ -8,7 +8,8 @@ import React, {
   useContext,
 } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { apiUrl } from "@/lib/util";
 
 interface IProduct {
   name: string;
@@ -41,7 +42,7 @@ export const ProductsProvider = ({
   const [productsData, setProductsData] = useState<IProduct | []>([]);
   const getAllProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/v1/products");
+      const res = await axios.get(`${apiUrl}/products`);
       setProductsData(res.data.products);
     } catch (error) {
       console.error("Failed to get all products", error);
@@ -51,7 +52,7 @@ export const ProductsProvider = ({
   useEffect(() => {
     getAllProducts();
   }, []);
-  console.log("DATA", productsData);
+  // console.log("DATA", productsData);
 
   return (
     <ProductsContext.Provider value={{ getAllProducts, productsData }}>

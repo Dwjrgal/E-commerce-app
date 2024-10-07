@@ -7,6 +7,10 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ProductsContext } from "@/context/products-context";
+import { apiUrl } from "@/lib/util";
+import Image from "next/image";
+import { Heart } from "lucide-react";
+import Link from "next/link";
 
 interface IProduct {
   name: string;
@@ -25,9 +29,7 @@ const ProductDetail = () => {
   const [oneProduct, setOneProduct] = useState<IProduct>({});
   const getProduct = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/products/${id}`
-      );
+      const res = await axios.get(`${apiUrl}/products/${id}`);
       setOneProduct(res.data.product);
     } catch (error) {
       console.error(error);
@@ -96,28 +98,44 @@ const ProductDetail = () => {
         </section>
       </main>
       <p className="font-bold text-2xl ml-[530px]">Холбоотой бараа</p>
-      {/* <RelativeCards /> */}
+      <RelativeCards />
     </>
   );
 };
 
 export default ProductDetail;
 
-// export const RelativeCards = () => {
-//   const { productsData } = useContext(ProductsContext);
-//   const relativeCards = productsData.slice(1, 9);
-//   return (
-//     <>
-//       <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
-//         {relativeCards.map((product) => (
-//           <ProductCard
-//             name={product.name}
-//             price={product.price}
-//             image={product.image}
-//             discount={product.discount}
-//           />
-//         ))}{" "}
-//       </section>
-//     </>
-//   );
-// };
+export const RelativeCards = () => {
+  const { id } = useParams();
+  const { productsData } = useContext(ProductsContext);
+  const relativeCards = productsData.slice(1, 9);
+  console.log("relativeCards", relativeCards);
+  return (
+    <>
+      <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
+        {relativeCards.map((product) => (
+          <Link href={`/${id}`}>
+            <div className="relative w-[244px]">
+              <Image
+                src={product.images[0]}
+                alt="image1"
+                width={244}
+                height={331}
+                className="rounded-xl"
+              />
+              <Heart
+                size={22}
+                strokeWidth={1}
+                className="absolute top-4 right-4"
+              />
+              <div className="mt-2">
+                <h3 className="font-normal">{product.name}</h3>
+                <h4 className="font-bold">{product.price}₮</h4>
+              </div>
+            </div>
+          </Link>
+        ))}{" "}
+      </section>
+    </>
+  );
+};

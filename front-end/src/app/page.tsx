@@ -21,7 +21,7 @@ interface IProduct {
 }
 
 export default function Home() {
-  const { productsData, setProductsData } = useContext(ProductsContext);
+  const { productsData } = useContext(ProductsContext);
   console.log("products", productsData);
   return (
     <main>

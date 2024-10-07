@@ -8,7 +8,7 @@ import Link from "next/link";
 import { UserContext } from "@/context/user-context";
 
 const Header = () => {
-  const { fetchUserData } = useContext(UserContext);
+  const { fetchUserData, user } = useContext(UserContext);
   console.log("fetchUserData", fetchUserData);
   return (
     <div>
@@ -33,19 +33,24 @@ const Header = () => {
         <div className="text-white  text-2xl flex gap-4 items-center font-extralight">
           <VscHeart />
           <PiShoppingCart />
-          <Link href="/signup">
-            <Button
-              variant="outline"
-              className="rounded-3xl text-white-primary border-blue-primary"
-            >
-              Бүртгүүлэх
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button className="rounded-full bg-blue-600 text-white">
-              Нэвтрэх
-            </Button>
-          </Link>
+          {user && <img src={""} alt="'profile" />}
+          {!user && (
+            <>
+              <Link href="/signup">
+                <Button
+                  variant="outline"
+                  className="rounded-3xl text-white-primary border-blue-primary"
+                >
+                  Бүртгүүлэх
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button className="rounded-full bg-blue-600 text-white">
+                  Нэвтрэх
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </header>
     </div>
