@@ -30,6 +30,7 @@ interface UserContextType {
   logIn: () => void;
   signUp: () => void;
   user: UserType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -38,6 +39,7 @@ export const UserContext = createContext<UserContextType>({
   logIn: () => {},
   signUp: () => {},
   user: null,
+  setUser: () =>{},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -92,14 +94,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const { email, password } = userForm;
     console.log("user", email, password);
     try {
-      const res = await axios.post(`${apiUrl}auth/login`, {
+      const res = await axios.post(`${apiUrl}/auth/login`, {
         email,
         password,
       });
       console.log("res", res);
 
       if (res.status === 200) {
-        toast.success(" User successfully logged in", { autoClose: 1000 });
+        toast.success("User successfully logged in", { autoClose: 1000 });
         const { token } = res.data;
         console.log("token", token);
         localStorage.setItem("token", token);
@@ -117,7 +119,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       const token = localStorage.getItem("token");
       const res = await axios.get(`${apiUrl}/auth/current-user`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:`Bearer ${token}`,
         },
       });
       if (res.status === 200) {
@@ -128,10 +130,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("Error fetching user data:", error);
     }
   };
-
+  console.log("userdata:", user)
   return (
     <UserContext.Provider
-      value={{ fetchUserData, handleLogForm, signUp, logIn, user }}
+      value={{ fetchUserData, handleLogForm, signUp, logIn, user, setUser}}
     >
       {children}
     </UserContext.Provider>

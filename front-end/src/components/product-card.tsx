@@ -23,7 +23,6 @@ export const ProductCard = ({
   discount,
   id,
 }: IProduct) => {
-  console.log("images", images);
   return (
     <Link href={`/${id}`}>
       <div className="relative w-[244px]">

@@ -44,9 +44,11 @@ const Login = () => {
               Нууц үг мартсан
             </p>
           </Link>
+          <Link href="/signup">
           <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 mt-8">
             Бүртгүүлэх
           </button>
+          </Link>
         </div>
       </section>
     </>
