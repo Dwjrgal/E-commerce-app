@@ -9,6 +9,7 @@ import { apiUrl } from "@/lib/util";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import Link from "next/link";
+import Review from "@/components/review";
 
 interface IProduct {
   name: string;
@@ -121,11 +122,12 @@ const ProductDetail = () => {
             <h4 className="font-bold">{oneProduct.price}₮</h4>
             <button
               onClick={handleAddCart}
-              className="w-40 h-8 rounded-full text-white text-sm font-medium bg-blue-700"
+              className="w-40 h-8  mb-5 rounded-full text-white text-sm font-medium bg-blue-700"
             >
               Сагсанд нэмэх
             </button>
           </div>
+          <Review/>
         </section>
       </main>
       <p className="font-bold text-2xl ml-[530px]">Холбоотой бараа</p>
