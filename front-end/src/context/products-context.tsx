@@ -24,8 +24,8 @@ interface IProduct {
 
 interface ProductsContextType {
   getAllProducts: () => void;
-  productsData: IProduct | [];
-  setProductsData: React.Dispatch<React.SetStateAction<IProduct | null>>;
+  productsData: IProduct[];
+  setProductsData: React.Dispatch<React.SetStateAction<IProduct[]>>;
 }
 
 export const ProductsContext = createContext<ProductsContextType>({
@@ -39,7 +39,7 @@ export const ProductsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [productsData, setProductsData] = useState<IProduct | []>([]);
+  const [productsData, setProductsData] = useState<IProduct[]>([]);
   const getAllProducts = async () => {
     try {
       const res = await axios.get(`${apiUrl}/products`);
@@ -55,7 +55,9 @@ export const ProductsProvider = ({
   console.log("DATA", productsData);
 
   return (
-    <ProductsContext.Provider value={{ getAllProducts, productsData }}>
+    <ProductsContext.Provider
+      value={{ getAllProducts, productsData, setProductsData }}
+    >
       {children}
     </ProductsContext.Provider>
   );

@@ -1,11 +1,9 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { products } from "@/lib/data";
-import { ProductCard } from "@/components/product-card";
-import Review from "@/components/review";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { Id, toast } from "react-toastify";
 import { ProductsContext } from "@/context/products-context";
 import { apiUrl } from "@/lib/util";
 import Image from "next/image";
@@ -22,11 +20,15 @@ interface IProduct {
   quantity: number;
   discount: number;
 }
-
+interface ICart {
+  userId: any;
+  products: [{ productId: any; quantity: number }];
+}
 const ProductDetail = () => {
   const sideImages = products.slice(1, 5);
   const { id } = useParams();
-  const [oneProduct, setOneProduct] = useState<IProduct>({});
+  const [count, setCount] = useState(1);
+  const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
   const getProduct = async () => {
     try {
       const res = await axios.get(`${apiUrl}/products/${id}`);
@@ -35,10 +37,30 @@ const ProductDetail = () => {
       console.error(error);
       toast.error("failed to get product");
     }
-    ``;
+  };
+
+  const handleAddCart = async () => {
+    // const [cart, setCart] = useState<ICart>({} as ICart);
+    const router = useRouter();
+    try {
+      const res = await axios.post(`${apiUrl}/carts`, {
+        userId: "66ecf1b88801dccbc2520167",
+        products: { productId: id, quantity: 1 },
+      });
+      console.log("addCartRes", res.data.userId);
+      if (res.status === 200) {
+        console.log("success");
+        toast.success("created cart successfully");
+        router.push("/buy-steps/cart");
+      }
+    } catch (error) {
+      console.log("failed to add cart", error);
+      toast.error("Falied to add cart");
+    }
   };
   useEffect(() => {
     getProduct();
+    handleAddCart();
   }, []);
   console.log("oneproduct", oneProduct);
   return (
@@ -80,18 +102,27 @@ const ProductDetail = () => {
               </li>
             </ul>
             <div className="flex item-center gap-2 mt-3">
-              <button className="w-8 h-8 rounded-full border-[1px] border-black text-center ">
+              <button
+                className="w-8 h-8 rounded-full border-[1px] border-black text-center"
+                onClick={() => setCount(count - 1)}
+              >
                 -{" "}
               </button>
-              <p className="mt-1">1</p>
-              <button className="w-8 h-8 rounded-full border-[1px] border-black text-center ">
+              <p className="mt-1">{count}</p>
+              <button
+                className="w-8 h-8 rounded-full border-[1px] border-black text-center"
+                onClick={() => setCount(count + 1)}
+              >
                 +
               </button>
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <h4 className="font-bold">{oneProduct.price}₮</h4>
-            <button className="w-40 h-8 rounded-full text-white text-sm font-medium bg-blue-700">
+            <button
+              onClick={handleAddCart}
+              className="w-40 h-8 rounded-full text-white text-sm font-medium bg-blue-700"
+            >
               Сагсанд нэмэх
             </button>
           </div>
@@ -110,6 +141,7 @@ export const RelativeCards = () => {
   const { productsData } = useContext(ProductsContext);
   const relativeCards = productsData.slice(1, 9);
   console.log("relativeCards", relativeCards);
+
   return (
     <>
       <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">

@@ -1,3 +1,5 @@
+"use client";
+
 import { ProductCard } from "@/components/product-card";
 import React, { useContext, useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,24 +10,41 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { toast } from "react-toastify";
 
+interface IProduct {
+  name: string;
+  description: string;
+  price: number;
+  size: string;
+  images: [string];
+  isNew: boolean;
+  quantity: number;
+  discount: number;
+}
+
 const CategoryPage = () => {
-  // const [products, setProducts] = useState();
-  // const getProducts = async () => {
-  //   try {
-  //     const res = await axios.get(`${apiUrl}/products`);
-  //     setProducts(res.data.products);
-  //   } catch (error) {
-  //     console.error("Failed to get all products", error);
-  //     toast.error("Failed to fetch products data");
-  //   }
-  // };
-  // console.log("products", products);
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/products`);
+      setProducts(res.data.products);
+    } catch (error) {
+      console.error("Failed to get all products", error);
+      toast.error("Failed to fetch products data");
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  console.log("products", products);
   return (
     <section className="flex justify-center gap-20">
       <main className="flex justify-between mx-80 my-20 min-w-max-[600px] gap-60">
         <CheckboxDemo />
         <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
-          {/* {products.map((product) => {
+          {products.map((product) => (
             <div className="relative w-[244px]">
               <Image
                 src={product.images[0]}
@@ -43,8 +62,8 @@ const CategoryPage = () => {
                 <h3 className="font-normal">{product.name}</h3>
                 <h4 className="font-bold">{product.price}₮</h4>
               </div>
-            </div>;
-          })} */}
+            </div>
+          ))}
         </section>
       </main>
     </section>
@@ -54,32 +73,22 @@ interface ICategory {
   category: {};
   name: string;
 }
-const getCategories = async () => {
-  try {
-    const res = await axios.get(`${apiUrl}/categories`);
-    const { category } = res.data;
-    return category;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-export const CheckboxDemo = async () => {
-  // const [categories, setCategories] = useState();
-  // const getCategories = async () => {
-  //   try {
-  //     const res = await axios.get(`${apiUrl}/categories`);
-  //     setCategories(res.data.categoru);
-  //     console.log("categories data", res);
-  //   } catch (error) {
-  //     console.error("failed to get categories data", categories);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getCategories();
-  // }, []);
-  const categories = await getCategories();
-  console.log("category nmae", categories);
+export const CheckboxDemo = () => {
+  const [categories, setCategories] = useState([]);
+  const getCategories = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/categories`);
+      setCategories(res.data.category);
+      console.log("categories data", res);
+    } catch (error) {
+      console.error("failed to get categories data", categories);
+    }
+  };
+  useEffect(() => {
+    getCategories();
+  }, []);
+  console.log("categories:", categories);
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">
       <h4 className="font-bold">Ангилал</h4>
