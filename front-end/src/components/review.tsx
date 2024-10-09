@@ -43,18 +43,29 @@ export function CollapsibleDemo() {
         <CollapsibleTrigger asChild>
         <span className="text-sky-700 underline decoration-solid">бүгдийг харах</span>
         </CollapsibleTrigger>
-        <Rating/>
+        {/* <Rating/> */}
       </div>
-      <CollapsibleContent className="space-y-2">
+      <CollapsibleContent className="space-y-4">
       <div className="border-b-2 border-dashed px-4 py-3 font-mono text-sm flex flex-col">
-       Saraa
+       <h5>Saraa</h5>
+       <p className="text-xs text-gray-400">Ваав материал ёстой гоё  байна 😍</p>
       </div>
-        <div className="rounded-md border px-4 py-3 font-mono text-sm">
-          @radix-ui/colors
+      <div className="border-b-2 border-dashed px-4 py-3 font-mono text-sm flex flex-col">
+       <h5>Saraa</h5>
+       <p className="text-xs text-gray-400">Ваав материал ёстой гоё  байна 😍</p>
+      </div>
+      <div className="border-b-2 border-dashed px-4 py-3 font-mono text-sm flex flex-col">
+       <h5>Saraa</h5>
+       <p className="text-xs text-gray-400">Ваав материал ёстой гоё  байна 😍</p>
+      </div>
+       <section className="bg-slate-100 border rounded-xl h-56 pl-5 pt-2 flex flex-col gap-6">
+        <h4 className="text-sm font-medium">Одоор үнэлэх:</h4>
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">Сэтгэгдэл үлдээх:</p>
+          <input type="text" placeholder="Энд бичнэ үү" className="h-16 w-[300px] border rounded-[9px] pl-2 text-xs pb-10" />
         </div>
-        <div className="rounded-md border px-4 py-3 font-mono text-sm">
-          @stitches/react
-        </div>
+        <button className="w-20 h-7 border rounded-xl bg-sky-600 text-white text-sm">Үнэлэх</button>
+       </section>
       </CollapsibleContent>
     </Collapsible>
   )

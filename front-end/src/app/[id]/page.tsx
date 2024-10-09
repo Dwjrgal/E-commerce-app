@@ -72,8 +72,8 @@ const ProductDetail = () => {
   return (
     <>
       <main className="flex mx-auto max-w-[1000px] my-20 gap-5">
-        <div className="flex gap-3 items-center">
-          <div className="flex flex-col gap-2">
+        <div className="flex gap-3 mt-20">
+          <div className="flex flex-col gap-2 mt-20">
             {sideImages.map((i) => (
               <img src={i.image} className="w-14 h-14 rounded" />
             ))}

@@ -19,7 +19,7 @@ const Cart = () => {
       console.error(error);
     }
   };
-
+  console.log("userId", userId)
   console.log("cart data", cart);
   return (
     <section className="bg-slate-100 flex justify-center items-center h-[900px]">
