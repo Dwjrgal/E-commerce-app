@@ -12,6 +12,7 @@ import { useParams, useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
 
 interface IProduct {
+  _id: string;
   name: string;
   description: string;
   price: number;

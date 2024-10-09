@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-interface IProduct {
+export interface IProduct {
   name: string;
   description: string;
   price: number;

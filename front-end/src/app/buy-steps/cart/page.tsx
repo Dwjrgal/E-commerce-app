@@ -1,9 +1,26 @@
+"use client";
 import { products } from "@/lib/data";
-import React from "react";
+import { apiUrl } from "@/lib/util";
+import axios from "axios";
+import { useParams } from "next/navigation";
+import React, { useState } from "react";
 import { GoTrash } from "react-icons/go";
 
 const Cart = () => {
+  const { userId } = useParams();
   const ordered = products.slice(1, 4);
+  const [cart, setCart] = useState([]);
+  const getCart = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/carts/${userId}`);
+      setCart(res.data);
+      console.log("setcart", cart);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log("cart data", cart);
   return (
     <section className="bg-slate-100 flex justify-center items-center h-[900px]">
       <div className=" w-[500px] border rounded-xl my-10 bg-white">

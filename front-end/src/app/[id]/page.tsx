@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { products } from "@/lib/data";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { Id, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { ProductsContext } from "@/context/products-context";
 import { apiUrl } from "@/lib/util";
 import Image from "next/image";
@@ -16,7 +16,7 @@ interface IProduct {
   description: string;
   price: number;
   size: string;
-  image: [string];
+  images: [string];
   isNew: boolean;
   quantity: number;
   discount: number;
@@ -30,6 +30,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [count, setCount] = useState(1);
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
+  const router = useRouter();
   const getProduct = async () => {
     try {
       const res = await axios.get(`${apiUrl}/products/${id}`);
@@ -39,20 +40,25 @@ const ProductDetail = () => {
       toast.error("failed to get product");
     }
   };
+  const descBtn = () => {
+    if (count > 1) {
+      setCount(count - 1);
+    }
+    return count;
+  };
 
   const handleAddCart = async () => {
-    // const [cart, setCart] = useState<ICart>({} as ICart);
-    const router = useRouter();
     try {
       const res = await axios.post(`${apiUrl}/carts`, {
         userId: "66ecf1b88801dccbc2520167",
-        products: { productId: id, quantity: 1 },
+        productId: id,
+        quantity: count,
       });
-      console.log("addCartRes", res.data.userId);
+      console.log("addCartRes", res);
       if (res.status === 200) {
         console.log("success");
         toast.success("created cart successfully");
-        router.push("/buy-steps/cart");
+        // router.push("/buy-steps/cart");
       }
     } catch (error) {
       console.log("failed to add cart", error);
@@ -61,7 +67,6 @@ const ProductDetail = () => {
   };
   useEffect(() => {
     getProduct();
-    handleAddCart();
   }, []);
   console.log("oneproduct", oneProduct);
   return (
@@ -105,7 +110,7 @@ const ProductDetail = () => {
             <div className="flex item-center gap-2 mt-3">
               <button
                 className="w-8 h-8 rounded-full border-[1px] border-black text-center"
-                onClick={() => setCount(count - 1)}
+                onClick={descBtn}
               >
                 -{" "}
               </button>
@@ -127,7 +132,7 @@ const ProductDetail = () => {
               Сагсанд нэмэх
             </button>
           </div>
-          <Review/>
+          <Review />
         </section>
       </main>
       <p className="font-bold text-2xl ml-[530px]">Холбоотой бараа</p>
