@@ -1,15 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { ChevronsUpDown, Plus, X } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Rating, ThinRoundedStar, ThinStar } from "@smastrom/react-rating";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 const Review = () => {
   return (
@@ -22,6 +21,7 @@ const Review = () => {
 export default Review;
 
 export function CollapsibleDemo() {
+  const [rating, setRating] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
   const [reviewText, setReviewText] = React.useState("бүгдийг харах");
   const reviewBtn = () => {
@@ -32,17 +32,6 @@ export function CollapsibleDemo() {
     }
     return reviewText;
   };
-  function App() {
-    const [rating, setRating] = React.useState(0);
-    return (
-      <Rating
-        style={{ maxWidth: 180 }}
-        value={rating}
-        onChange={setRating}
-        isRequired
-      />
-    );
-  }
 
   return (
     <Collapsible
@@ -61,6 +50,12 @@ export function CollapsibleDemo() {
           </button>
         </CollapsibleTrigger>
       </div>
+      <Rating
+        style={{ maxWidth: 100, maxHeight: 35 }}
+        value={rating}
+        onChange={setRating}
+        isRequired
+      />
       <CollapsibleContent className="space-y-4">
         <div className="border-b-2 border-dashed px-4 py-3 font-mono text-sm flex flex-col">
           <h5>Saraa</h5>
@@ -80,9 +75,15 @@ export function CollapsibleDemo() {
             Ваав материал ёстой гоё байна 😍
           </p>
         </div>
-        <section className="bg-slate-100 border rounded-xl h-56 pl-5 pt-2 flex flex-col gap-6">
+        <section className="bg-slate-100 border rounded-xl h-56 pl-5 pt-2  mt-4 flex flex-col">
           <h4 className="text-sm font-medium">Одоор үнэлэх:</h4>
-          <div className="flex flex-col gap-2">
+          <Rating
+            style={{ maxWidth: 100, maxHeight: 35 }}
+            value={rating}
+            onChange={setRating}
+            isRequired
+          />
+          <div className="flex flex-col gap-2 mt-6">
             <p className="text-sm font-medium">Сэтгэгдэл үлдээх:</p>
             <input
               type="text"

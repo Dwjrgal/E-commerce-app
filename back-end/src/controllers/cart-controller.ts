@@ -38,13 +38,12 @@ export const createCart = async (req: Request, res: Response) => {
 };
 
 export const getAllCarts = async (req: Request, res: Response) => {
-  const { productId, userId } = req.body;
+  const { userId } = req.body;
   try {
     const findUserCart = await Cart.findOne({ user: userId }).populate(
       "products.product"
     );
-    if (!findUserCart) {
-    }
+    console.log("cart data", findUserCart);
     res.status(201).json({ message: "success", data: findUserCart });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });

@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 import Review from "@/components/review";
+import { UserContext } from "@/context/user-context";
 
 interface IProduct {
   name: string;
@@ -26,11 +27,13 @@ interface ICart {
   products: [{ productId: any; quantity: number }];
 }
 const ProductDetail = () => {
+  const { user } = useContext(UserContext);
   const sideImages = products.slice(1, 5);
   const { id } = useParams();
   const [count, setCount] = useState(1);
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
   const router = useRouter();
+
   const getProduct = async () => {
     try {
       const res = await axios.get(`${apiUrl}/products/${id}`);
@@ -50,7 +53,7 @@ const ProductDetail = () => {
   const handleAddCart = async () => {
     try {
       const res = await axios.post(`${apiUrl}/carts`, {
-        userId: "66ecf1b88801dccbc2520167",
+        userId: user?._id,
         productId: id,
         quantity: count,
       });
@@ -75,15 +78,15 @@ const ProductDetail = () => {
         <div className="flex gap-3 mt-20">
           <div className="flex flex-col gap-2 mt-20">
             {sideImages.map((i) => (
-              <img src={i.image} className="w-14 h-14 rounded" />
+              <img src={i.image} className="w-16 h-16 rounded" />
             ))}
           </div>
           <img
             src="../products/image1.png"
-            className="border w-80 h-96 rounded-xl"
+            className="border w-96 h-[490px] rounded-xl"
           />{" "}
         </div>
-        <section className="flex flex-col gap-5 my-20">
+        <section className="flex flex-col gap-5 my-40">
           <div className="flex flex-col gap-3">
             <button className="w-16 h-5 border rounded-full border-blue-500 text-xs">
               Шинэ

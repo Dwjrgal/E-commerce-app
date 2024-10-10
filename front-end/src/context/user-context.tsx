@@ -13,12 +13,14 @@ import { useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
 
 interface IUserForm {
+  _id: any;
   firstname: String;
   email: string;
   password: String;
   repassword: String;
 }
 interface UserType {
+  _id: any;
   firstName: string;
   lastName: string;
   email: string;
@@ -39,13 +41,15 @@ export const UserContext = createContext<UserContextType>({
   logIn: () => {},
   signUp: () => {},
   user: null,
-  setUser: () =>{},
+  setUser: () => {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
+  const [token, setToken] = useState("");
   const [userForm, setUserForm] = useState<IUserForm>({
+    _id: "",
     firstname: "",
     // lastName: "",
     email: "",
@@ -117,23 +121,28 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
+      setToken(token);
       const res = await axios.get(`${apiUrl}/auth/current-user`, {
         headers: {
-          Authorization:`Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (res.status === 200) {
         setUser(res.data.user);
-        console.log("User", res.data);
+        console.log("User res", res.data.user);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-  console.log("userdata:", user)
+  console.log("userdata:", user);
+
+  useEffect(() => {
+    fetchUserData();
+  }, [token]);
   return (
     <UserContext.Provider
-      value={{ fetchUserData, handleLogForm, signUp, logIn, user, setUser}}
+      value={{ fetchUserData, handleLogForm, signUp, logIn, user, setUser }}
     >
       {children}
     </UserContext.Provider>

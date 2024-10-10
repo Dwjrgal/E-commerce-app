@@ -7,7 +7,7 @@ const UserInfo = () => {
   return (
     <>
       {" "}
-      <section className="h-[900px] flex justify-center px-60 pt-40 gap-20 bg-slate-50">
+      <section className="h-screen flex justify-center px-60 pt-40 gap-20 bg-slate-50">
         <div className="flex flex-col gap-2 font-medium text-md">
           <Link href="/">
             <button className=" bg-white rounded-full w-60 h-10 text-start pl-4">

@@ -6,7 +6,7 @@ const OrderHistory = () => {
   const ordered = products.slice(1, 5);
   console.log("ordered", ordered);
   return (
-    <section className="flex justify-center h-[900px] pt-40 gap-20 px-60 bg-slate-50">
+    <section className="flex justify-center h-screen pt-40 gap-20 px-60 bg-slate-50">
       <div className="flex flex-col gap-2 font-medium text-md">
         <Link href="../user-form">
           <button className=" bg-white rounded-full w-60 h-10 text-start pl-4">

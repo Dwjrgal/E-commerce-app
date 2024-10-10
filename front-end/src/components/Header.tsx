@@ -10,7 +10,7 @@ import { UserContext } from "@/context/user-context";
 const Header = () => {
   const { fetchUserData, user } = useContext(UserContext);
   console.log("fetchUserData", fetchUserData);
-  console.log("userrrr:",user)
+  console.log("userrrr:", user);
   return (
     <div>
       <header className="h-20 bg-black flex justify-between items-center px-20">
@@ -33,7 +33,9 @@ const Header = () => {
         </div>
         <div className="text-white  text-2xl flex gap-4 items-center font-extralight">
           <VscHeart />
-          <PiShoppingCart />
+          <Link href={"../buy-steps/cart"}>
+            <PiShoppingCart />
+          </Link>
           {user && <img src={""} alt="'profile" />}
           {!user && (
             <>
