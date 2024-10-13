@@ -17,12 +17,12 @@ const Cart = () => {
   const { user } = useContext(UserContext);
   const ordered = products.slice(1, 4);
   const [count, setCount] = useState(1);
-  const [cart, setCart] = useState<CartType>({} as CartType);
+  const [cartData, setCartData] = useState<CartType>({} as CartType);
 
   const getCart = async () => {
     try {
       const res = await axios.get(`${apiUrl}/carts`, { userId: user?._id });
-      setCart(res.data);
+      setCartData(res.data);
       console.log("setcart", res.data);
     } catch (error) {
       console.error(error);
@@ -39,7 +39,7 @@ const Cart = () => {
   useEffect(() => {
     getCart();
   }, []);
-  console.log("cart data", cart);
+  console.log("cart data", cartData);
   return (
     <section className="bg-slate-100 flex justify-center items-center h-svh">
       <div className=" w-[500px] border rounded-xl my-10 bg-white">
