@@ -109,7 +109,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         const { token } = res.data;
         console.log("token", token);
         localStorage.setItem("token", token);
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (error) {
       console.error("There was an error logged in:", error);

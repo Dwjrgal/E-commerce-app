@@ -6,6 +6,7 @@ import { PiShoppingCart } from "react-icons/pi";
 import { VscHeart } from "react-icons/vsc";
 import Link from "next/link";
 import { UserContext } from "@/context/user-context";
+import { FiUser } from "react-icons/fi";
 
 const Header = () => {
   const { fetchUserData, user } = useContext(UserContext);
@@ -32,11 +33,13 @@ const Header = () => {
           />
         </div>
         <div className="text-white  text-2xl flex gap-4 items-center font-extralight">
+          <Link href={"../save"}>
           <VscHeart />
+          </Link>
           <Link href={"../buy-steps/cart"}>
             <PiShoppingCart />
           </Link>
-          {user && <img src={""} alt="'profile" />}
+          {user && <Link href={'../user-form'}> <FiUser /> </Link>}
           {!user && (
             <>
               <Link href="/signup">

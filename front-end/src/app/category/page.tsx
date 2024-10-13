@@ -1,6 +1,5 @@
 "use client";
 
-import { ProductCard } from "@/components/product-card";
 import React, { useContext, useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
@@ -8,7 +7,9 @@ import { apiUrl } from "@/lib/util";
 import { ProductsContext } from "@/context/products-context";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import { toast } from "react-toastify";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { ProductCard } from "@/components/product-card";
 
 interface IProduct {
   name: string;
@@ -22,29 +23,17 @@ interface IProduct {
 }
 
 const CategoryPage = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const { productsData } = useContext(ProductsContext);
+  const { id } = useParams();
 
-  const getProducts = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/products`);
-      setProducts(res.data.products);
-    } catch (error) {
-      console.error("Failed to get all products", error);
-      toast.error("Failed to fetch products data");
-    }
-  };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  console.log("products", products);
   return (
-    <section className="flex justify-center gap-20">
-      <main className="flex justify-between mx-80 my-20 min-w-max-[600px] gap-60">
+    <section>
+      <main className="flex  justify-center gap-20 mx-auto my-20 w-screen">
         <CheckboxDemo />
+        <Link href={`/${id}`}>
         <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
-          {products.map((product) => (
+          {productsData.map((product) => (
             <div className="relative w-[244px]">
               <Image
                 src={product.images[0]}
@@ -65,6 +54,7 @@ const CategoryPage = () => {
             </div>
           ))}
         </section>
+        </Link>
       </main>
     </section>
   );

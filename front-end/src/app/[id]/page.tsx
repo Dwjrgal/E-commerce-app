@@ -95,7 +95,7 @@ const ProductDetail = () => {
             <p className="font-light text-sm">
               Зэрлэг цэцгийн зурагтай даавуун материалтай цамц
             </p>
-            <p className=" text-sm">Хэмжээний заавар</p>
+            <p className="text-sm  underline decoration-solid">Хэмжээний заавар</p>
             <ul className="flex gap-2">
               <li className="w-8 h-8 rounded-full border text-center bg-black text-white">
                 S

@@ -7,7 +7,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Rating } from "@smastrom/react-rating";
+import { Rating, RoundedStar} from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
 const Review = () => {
@@ -21,7 +21,7 @@ const Review = () => {
 export default Review;
 
 export function CollapsibleDemo() {
-  const [rating, setRating] = React.useState(0);
+  const [rating, setRating] = React.useState(5);
   const [isOpen, setIsOpen] = React.useState(false);
   const [reviewText, setReviewText] = React.useState("бүгдийг харах");
   const reviewBtn = () => {
@@ -32,6 +32,12 @@ export function CollapsibleDemo() {
     }
     return reviewText;
   };
+  const myStyles = {
+    itemShapes: RoundedStar,
+    activeFillColor:  '#FDE047',
+    inactiveFillColor: '#fbf1a9'
+  }
+  
 
   return (
     <Collapsible
@@ -51,14 +57,24 @@ export function CollapsibleDemo() {
         </CollapsibleTrigger>
       </div>
       <Rating
-        style={{ maxWidth: 100, maxHeight: 35 }}
+        style={{ maxWidth: 100, maxHeight: 35}}
         value={rating}
         onChange={setRating}
+        itemStyles={myStyles}
         isRequired
       />
       <CollapsibleContent className="space-y-4">
         <div className="border-b-2 border-dashed px-4 py-3 font-mono text-sm flex flex-col">
+          <div className="flex gap-1 items-center">
           <h5>Saraa</h5>
+          <Rating
+        style={{ maxWidth: 80, maxHeight: 14, gap: 1}}
+        value={rating}
+        onChange={setRating}
+        itemStyles={myStyles}
+        isRequired
+      />
+          </div>
           <p className="text-xs text-gray-400">
             Ваав материал ёстой гоё байна 😍
           </p>
@@ -81,6 +97,7 @@ export function CollapsibleDemo() {
             style={{ maxWidth: 100, maxHeight: 35 }}
             value={rating}
             onChange={setRating}
+            itemStyles={myStyles}
             isRequired
           />
           <div className="flex flex-col gap-2 mt-6">
@@ -91,7 +108,7 @@ export function CollapsibleDemo() {
               className="h-16 w-[300px] border rounded-[9px] pl-2 text-xs pb-10"
             />
           </div>
-          <button className="w-24 h-7 border rounded-full bg-blue-700 text-white text-sm">
+          <button className="w-24 h-7 border rounded-full bg-blue-700 text-white text-sm mt-4">
             Үнэлэх
           </button>
         </section>
