@@ -1,6 +1,5 @@
 "use client";
 import { UserContext } from "@/context/user-context";
-import { products } from "@/lib/data";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
 import Link from "next/link";
@@ -9,7 +8,6 @@ import { GoTrash } from "react-icons/go";
 
 const Cart = () => {
   const { user } = useContext(UserContext);
-  const ordered = products.slice(1, 4);
   const [count, setCount] = useState(1);
   const [cartData, setCartData] = useState<any>([]);
 
@@ -68,7 +66,7 @@ const Cart = () => {
                   <li className="mt-1 font-bold">{product?.product?.price}₮</li>
                 </ul>
               </div>
-              <GoTrash className="my-auto" />
+              <GoTrash className="my-auto"/>
             </div>
           ))}
           <div className="flex justify-between border-t-[1px] border-dashed px-10 pt-8">

@@ -49,3 +49,17 @@ export const getAllCarts = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+
+export const deleteCart = async (req: Request, res: Response) =>{
+  const { productId} = req.params;
+  try {
+    const deleteProductCart = await Cart.findByIdAndDelete({productId})
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({
+      message: "Failed to delete product cart"
+    })
+  }
+
+}

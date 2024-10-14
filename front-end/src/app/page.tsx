@@ -3,12 +3,8 @@ import { Hero } from "@/components/home/hero";
 import { ProductCard, FeaturedProductCard } from "@/components/product-card";
 import { ProductsContext } from "@/context/products-context";
 import { UserContext } from "@/context/user-context";
-import { products } from "@/lib/data";
-import axios from "axios";
 import { Link } from "lucide-react";
-import { useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 export interface IProduct {
   name: string;
@@ -23,21 +19,7 @@ export interface IProduct {
 
 export default function Home() {
   const { productsData } = useContext(ProductsContext);
-  // const { searchValue } = useContext(UserContext);
-  // const [searchProduct, setSearchProduct] = useState([]);
 
-  // const hanldeChange = (text: any) => {
-  //   const findProduct = productsData.filter((productName) =>
-  //     productsData.productName
-  //       .toLowerCase()
-  //       .includes(text.target.value.toLowerCase())
-  //   );
-  //   setSearchProduct(findProduct);
-  // };
-
-  // const findPost = productsData?.filter((product) =>
-  //   product?.name?.toLowerCase().includes(searchValue.toLowerCase())
-  // );
   console.log("products", productsData);
   return (
     <main>

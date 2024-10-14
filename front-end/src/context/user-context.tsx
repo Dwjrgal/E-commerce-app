@@ -33,8 +33,6 @@ interface UserContextType {
   signUp: () => void;
   user: UserType | null;
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
-  // searchValue: string;
-  // setSearchValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -43,15 +41,12 @@ export const UserContext = createContext<UserContextType>({
   logIn: () => {},
   signUp: () => {},
   user: null,
-  setUser: () => {},
-  // searchValue: "",
-  // setSearchValue: () => {},
+  setUser: () => {}
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
-  const [searchValue, setSearchValue] = useState<string>("");
   const [token, setToken] = useState("");
   const [userForm, setUserForm] = useState<IUserForm>({
     _id: "",
@@ -152,9 +147,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         signUp,
         logIn,
         user,
-        setUser,
-        // searchValue,
-        // setSearchValue,
+        setUser
       }}
     >
       {children}
