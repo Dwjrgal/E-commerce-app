@@ -33,6 +33,8 @@ interface UserContextType {
   signUp: () => void;
   user: UserType | null;
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
+  // searchValue: string;
+  // setSearchValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -42,11 +44,14 @@ export const UserContext = createContext<UserContextType>({
   signUp: () => {},
   user: null,
   setUser: () => {},
+  // searchValue: "",
+  // setSearchValue: () => {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
+  const [searchValue, setSearchValue] = useState<string>("");
   const [token, setToken] = useState("");
   const [userForm, setUserForm] = useState<IUserForm>({
     _id: "",
@@ -56,7 +61,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     password: "",
     repassword: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -120,7 +124,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const fetchUserData = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token: any = localStorage.getItem("token");
       setToken(token);
       const res = await axios.get(`${apiUrl}/auth/current-user`, {
         headers: {
@@ -142,15 +146,19 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, [token]);
   return (
     <UserContext.Provider
-      value={{ fetchUserData, handleLogForm, signUp, logIn, user, setUser }}
+      value={{
+        fetchUserData,
+        handleLogForm,
+        signUp,
+        logIn,
+        user,
+        setUser,
+        // searchValue,
+        // setSearchValue,
+      }}
     >
       {children}
     </UserContext.Provider>
   );
 };
-
-// export const useUser = () =>{
-//   return useContext(UserContext);
-// }
-
 export default UserProvider;

@@ -38,7 +38,7 @@ export const createCart = async (req: Request, res: Response) => {
 };
 
 export const getAllCarts = async (req: Request, res: Response) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
   try {
     const findUserCart = await Cart.findOne({ user: userId }).populate(
       "products.product"

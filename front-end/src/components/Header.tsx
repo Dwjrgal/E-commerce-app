@@ -10,6 +10,11 @@ import { FiUser } from "react-icons/fi";
 
 const Header = () => {
   const { fetchUserData, user } = useContext(UserContext);
+  // const { setSearchValue } = useContext(UserContext);
+  // const handleChange = (e: any) => {
+  //   setSearchValue(e.target.value);
+  // };
+
   console.log("fetchUserData", fetchUserData);
   console.log("userrrr:", user);
   return (
@@ -29,17 +34,23 @@ const Header = () => {
             type="text"
             placeholder="
       Бүтээгдэхүүн хайх"
-            className="bg-neutral-900"
+            className="bg-neutral-900 text-white"
+            // onChange={handleChange}
           />
         </div>
         <div className="text-white  text-2xl flex gap-4 items-center font-extralight">
           <Link href={"../save"}>
-          <VscHeart />
+            <VscHeart />
           </Link>
           <Link href={"../buy-steps/cart"}>
             <PiShoppingCart />
           </Link>
-          {user && <Link href={'../user-form'}> <FiUser /> </Link>}
+          {user && (
+            <Link href={"../user-form"}>
+              {" "}
+              <FiUser />{" "}
+            </Link>
+          )}
           {!user && (
             <>
               <Link href="/signup">

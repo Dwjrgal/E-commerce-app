@@ -4,26 +4,21 @@ import { products } from "@/lib/data";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
 
-interface CartType {
-  userId: any;
-  products: [{ productId: any; quantity: number }];
-  totalAmount: number;
-}
 const Cart = () => {
   const { user } = useContext(UserContext);
   const ordered = products.slice(1, 4);
   const [count, setCount] = useState(1);
-  const [cartData, setCartData] = useState<CartType>({} as CartType);
+  const [cartData, setCartData] = useState<any>([]);
 
   const getCart = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/carts`, { userId: user?._id });
-      setCartData(res.data);
-      console.log("setcart", res.data);
+      if (!user) return;
+      const res = await axios.get(`${apiUrl}/carts/${user?._id}`);
+      setCartData(res.data.data);
+      console.log("setcart", res.data.data);
     } catch (error) {
       console.error(error);
     }
@@ -38,27 +33,31 @@ const Cart = () => {
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [user]);
+
   console.log("cart data", cartData);
   return (
-    <section className="bg-slate-100 flex justify-center items-center h-svh">
-      <div className=" w-[500px] border rounded-xl my-10 bg-white">
+    <section className="bg-slate-100 flex justify-center py-20">
+      <div className="w-[500px] border rounded-xl my-10 bg-white">
         <h3 className="font-semibold my-5 ml-10">1.Сагс (4)</h3>
         <div className="flex flex-col  justify-center gap-5">
-          {ordered.map((r) => (
+          {cartData?.products?.map((product: any) => (
             <div className="flex justify-between mx-10 border rounded-xl px-5 py-4">
               <div className="flex gap-2">
-                <img src={r.image} className="w-[60px] h-[60px] rounded " />{" "}
+                <img
+                  src={product?.product?.images[0]}
+                  className="w-[60px] h-[60px] rounded"
+                />
                 <ul className="font-normal text-[13px]">
-                  <li>{r.name}</li>
+                  <li>{product?.product?.name}</li>
                   <div className="flex item-center gap-2 mt-3">
                     <button
                       className="w-6 h-6 rounded-full border-[1px] border-black text-center"
                       onClick={descBtn}
                     >
-                      -{" "}
+                      -
                     </button>
-                    <p className="mt-1">{count}</p>
+                    <p className="mt-1">{product?.product?.quantity}</p>
                     <button
                       className="w-6 h-6 rounded-full border-[1px] border-black text-center"
                       onClick={() => setCount(count + 1)}
@@ -67,7 +66,7 @@ const Cart = () => {
                     </button>
                   </div>
                 </ul>
-              </div>{" "}
+              </div>
               <GoTrash className="my-auto" />
             </div>
           ))}

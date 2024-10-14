@@ -9,7 +9,6 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ProductCard } from "@/components/product-card";
 
 interface IProduct {
   name: string;
@@ -26,34 +25,33 @@ const CategoryPage = () => {
   const { productsData } = useContext(ProductsContext);
   const { id } = useParams();
 
-
   return (
     <section>
       <main className="flex  justify-center gap-20 mx-auto my-20 w-screen">
         <CheckboxDemo />
         <Link href={`/${id}`}>
-        <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
-          {productsData.map((product) => (
-            <div className="relative w-[244px]">
-              <Image
-                src={product.images[0]}
-                alt="image1"
-                width={244}
-                height={331}
-                className="rounded-xl"
-              />
-              <Heart
-                size={22}
-                strokeWidth={1}
-                className="absolute top-4 right-4"
-              />
-              <div className="mt-2">
-                <h3 className="font-normal">{product.name}</h3>
-                <h4 className="font-bold">{product.price}₮</h4>
+          <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
+            {productsData.map((product) => (
+              <div className="relative w-[244px]">
+                <Image
+                  src={product.images[0]}
+                  alt="image1"
+                  width={244}
+                  height={331}
+                  className="rounded-xl"
+                />
+                <Heart
+                  size={22}
+                  strokeWidth={1}
+                  className="absolute top-4 right-4"
+                />
+                <div className="mt-2">
+                  <h3 className="font-normal">{product.name}</h3>
+                  <h4 className="font-bold">{product.price}₮</h4>
+                </div>
               </div>
-            </div>
-          ))}
-        </section>
+            ))}
+          </section>
         </Link>
       </main>
     </section>
