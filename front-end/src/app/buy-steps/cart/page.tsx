@@ -46,9 +46,9 @@ const Cart = () => {
               <div className="flex gap-2">
                 <img
                   src={product?.product?.images[0]}
-                  className="w-[60px] h-[60px] rounded"
+                  className="w-[80px] h-[80px] rounded"
                 />
-                <ul className="font-normal text-[13px]">
+                <ul className="font-normal text-[13px] flex flex-col">
                   <li>{product?.product?.name}</li>
                   <div className="flex item-center gap-2 mt-3">
                     <button
@@ -65,6 +65,7 @@ const Cart = () => {
                       +
                     </button>
                   </div>
+                  <li className="mt-1 font-bold">{product?.product?.price}₮</li>
                 </ul>
               </div>
               <GoTrash className="my-auto" />
