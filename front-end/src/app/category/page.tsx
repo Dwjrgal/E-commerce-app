@@ -47,7 +47,9 @@ const CategoryPage = () => {
                 />
                 <div className="mt-2">
                   <h3 className="font-normal">{product.name}</h3>
-                  <h4 className="font-bold">{product.price}₮</h4>
+                  <h4 className="font-bold">
+                    {product.price.toLocaleString()}₮
+                  </h4>
                 </div>
               </div>
             ))}
@@ -63,7 +65,9 @@ interface ICategory {
 }
 
 export const CheckboxDemo = () => {
+  const { productsData } = useContext(ProductsContext);
   const [categories, setCategories] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
   const getCategories = async () => {
     try {
       const res = await axios.get(`${apiUrl}/categories`);
@@ -73,6 +77,11 @@ export const CheckboxDemo = () => {
       console.error("failed to get categories data", categories);
     }
   };
+
+  const checking = () => {
+    setIsChecked(true);
+    return console.log("clicked");
+  };
   useEffect(() => {
     getCategories();
   }, []);
@@ -80,10 +89,9 @@ export const CheckboxDemo = () => {
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">
       <h4 className="font-bold">Ангилал</h4>
-
       {categories.map(({ name }: ICategory) => (
         <div className="flex gap-2">
-          <Checkbox id="terms" className="rounded" />
+          <Checkbox id="terms" className="rounded" onChange={checking} />
           <label
             htmlFor="terms"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

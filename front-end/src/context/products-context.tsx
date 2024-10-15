@@ -27,12 +27,16 @@ interface ProductsContextType {
   getAllProducts: () => void;
   productsData: IProduct[];
   setProductsData: React.Dispatch<React.SetStateAction<IProduct[]>>;
+  searchValue: any;
+  setSearchValue: any;
 }
 
 export const ProductsContext = createContext<ProductsContextType>({
   productsData: [],
   setProductsData: () => {},
   getAllProducts: () => {},
+  searchValue: "",
+  setSearchValue: () => {},
 });
 
 export const ProductsProvider = ({
@@ -41,7 +45,7 @@ export const ProductsProvider = ({
   children: React.ReactNode;
 }) => {
   const [productsData, setProductsData] = useState<IProduct[]>([]);
-
+  const [searchValue, setSearchValue] = useState("");
 
   const getAllProducts = async () => {
     try {
@@ -57,10 +61,15 @@ export const ProductsProvider = ({
   }, []);
   console.log("DATA", productsData);
 
-  
   return (
     <ProductsContext.Provider
-      value={{ getAllProducts, productsData, setProductsData }}
+      value={{
+        getAllProducts,
+        productsData,
+        setProductsData,
+        searchValue,
+        setSearchValue,
+      }}
     >
       {children}
     </ProductsContext.Provider>

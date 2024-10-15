@@ -95,7 +95,9 @@ const ProductDetail = () => {
             <p className="font-light text-sm">
               Зэрлэг цэцгийн зурагтай даавуун материалтай цамц
             </p>
-            <p className="text-sm  underline decoration-solid">Хэмжээний заавар</p>
+            <p className="text-sm  underline decoration-solid">
+              Хэмжээний заавар
+            </p>
             <ul className="flex gap-2">
               <li className="w-8 h-8 rounded-full border text-center bg-black text-white">
                 S
@@ -127,7 +129,7 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <h4 className="font-bold">{oneProduct.price}₮</h4>
+            <h4 className="font-bold">{oneProduct.price.toLocaleString()}₮</h4>
             <button
               onClick={handleAddCart}
               className="w-40 h-8  mb-5 rounded-full text-white text-sm font-medium bg-blue-700"

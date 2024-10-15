@@ -67,7 +67,7 @@ const UserInfo = () => {
               name="lastname"
             />{" "}
           </div>
-          <button className="w-72 h-8 border bg-blue-600 rounded-full text-white ml-80">
+          <button className="w-60 h-10 border bg-blue-600 rounded-full text-white ml-80">
             Мэдээлэл шинэчлэх
           </button>
         </section>

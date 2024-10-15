@@ -18,14 +18,17 @@ export interface IProduct {
 }
 
 export default function Home() {
-  const { productsData } = useContext(ProductsContext);
+  const { productsData, searchValue } = useContext(ProductsContext);
 
-  console.log("products", productsData);
+  const findPost = productsData?.filter((cards) =>
+    cards?.name?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+  console.log("findPost", findPost);
   return (
     <main>
       <Hero />
       <section className="mt-6 mb-24 max-w-[1100px] mx-auto grid grid-cols-4 gap-y-12 gap-x-5">
-        {productsData.map((product, index) =>
+        {findPost.map((product, index) =>
           index === 6 || index === 7 ? (
             <FeaturedProductCard
               key={index}

@@ -7,9 +7,14 @@ import { VscHeart } from "react-icons/vsc";
 import Link from "next/link";
 import { UserContext } from "@/context/user-context";
 import { FiUser } from "react-icons/fi";
+import { ProductsContext } from "@/context/products-context";
 
 const Header = () => {
   const { fetchUserData, user } = useContext(UserContext);
+  const { setSearchValue } = useContext(ProductsContext);
+  const handleChange = (e: any) => {
+    setSearchValue(e.target.value);
+  };
 
   console.log("fetchUserData", fetchUserData);
   console.log("userrrr:", user);
@@ -31,6 +36,7 @@ const Header = () => {
             placeholder="
       Бүтээгдэхүүн хайх"
             className="bg-neutral-900 text-white"
+            onChange={handleChange}
           />
         </div>
         <div className="text-white  text-2xl flex gap-4 items-center font-extralight">

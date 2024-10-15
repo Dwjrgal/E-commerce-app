@@ -9,12 +9,14 @@ const OrderHistory = () => {
     <section className="flex justify-center h-screen pt-40 gap-20 px-60 bg-slate-50 w-screen">
       <div className="flex flex-col gap-2 font-medium text-md">
         <Link href="../user-form">
-          <button className=" bg-white rounded-full w-60 h-10 text-start pl-4">
+          <button className="rounded-full w-60 h-10 text-start pl-4">
             Хэрэглэгчийн хэсэг
           </button>{" "}
         </Link>
         <Link href="./order-history">
-          <p className="text-md text-gray-700 pl-4">Захиалгын түүх</p>{" "}
+          <p className="text-md pt-1 text-gray-700 pl-4 bg-white rounded-full w-60 h-10">
+            Захиалгын түүх
+          </p>{" "}
         </Link>
       </div>{" "}
       <section className="flex flex-col gap-4">

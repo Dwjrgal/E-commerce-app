@@ -63,10 +63,12 @@ const Cart = () => {
                       +
                     </button>
                   </div>
-                  <li className="mt-1 font-bold">{product?.product?.price}₮</li>
+                  <li className="mt-1 font-bold">
+                    {product?.product?.price.toLocaleString()}₮
+                  </li>
                 </ul>
               </div>
-              <GoTrash className="my-auto"/>
+              <GoTrash className="my-auto" />
             </div>
           ))}
           <div className="flex justify-between border-t-[1px] border-dashed px-10 pt-8">
