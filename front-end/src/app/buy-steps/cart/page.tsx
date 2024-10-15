@@ -2,9 +2,11 @@
 import { UserContext } from "@/context/user-context";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
+import { headers } from "next/headers";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const { user } = useContext(UserContext);
@@ -33,6 +35,33 @@ const Cart = () => {
     getCart();
   }, [user]);
 
+  const updateQuantity =async (productId: string, newQuantity: number) =>{
+    setCartData((prevCart: any) =>
+      prevCart.map(( item: any ) =>
+        item.product._id === productId
+         ?{...item, quantity: newQuantity }
+      : item
+      )
+    );
+    const userToken = localStorage.getItem("token");
+    try {
+      const response = await axios.put(
+        `${apiUrl}/carts/update-cart`,
+        {
+          productId,
+          newQuantity,
+        },
+        { headers: { auth: `Bearer ${userToken}`}}
+      );
+      if ( response.status === 200){
+        toast.success("Successfully updated");
+      }
+    } catch (error) {
+      console.error("Error fetching data", error
+      )
+      toast.error("Failed to add to cart")
+    }
+  }
   console.log("cart data", cartData);
   return (
     <section className="bg-slate-100 flex justify-center py-20">

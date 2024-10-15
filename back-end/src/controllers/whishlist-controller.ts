@@ -1,7 +1,8 @@
+
 import { Request, Response } from "express";
 import Cart from "../models/cart.model";
 
-export const createCart = async (req: Request, res: Response) => {
+export const createWhishList = async (req: Request, res: Response) => {
   const { userId, productId, totalAmount, quantity } = req.body;
   try {
     const findUserCart = await Cart.findOne({ user: userId });
@@ -12,7 +13,7 @@ export const createCart = async (req: Request, res: Response) => {
         totalAmount,
       });
       return res.status(200).json({
-        message: "created new cart",
+        message: "created wish list",
         cart,
       });
     }
@@ -37,7 +38,7 @@ export const createCart = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllCarts = async (req: Request, res: Response) => {
+export const getAllList = async (req: Request, res: Response) => {
   const { userId } = req.params;
   try {
     const findUserCart = await Cart.findOne({ user: userId }).populate(
@@ -50,32 +51,6 @@ export const getAllCarts = async (req: Request, res: Response) => {
   }
 };
 
-export const updateCart = async ( req: Request, res: Response) => {
-  const { id} = req.user;
-  const { productId, newQuantity} = req.body;
-  try {
-     const cart = await Cart.findOne({ user: id});
-     if(!cart) {
-      return res.status(400).json({ message: "not found user",
-      });
-     }
-
-      const findProduct = cart.products.findIndex(
-        (item) => item.product.toString() === productId
-      )
-
-      cart.products[findProduct].quantity = newQuantity;
-
-      const updatedCart = await cart.save()
-      res.status(200).json({ message: "updated cart", updatedCart})
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      message: "failed to update cart"
-    })
-    
-  }
-}
 
 export const deleteCart = async (req: Request, res: Response) => {
   const { userId } = req.params;
