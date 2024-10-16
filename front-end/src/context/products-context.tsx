@@ -1,12 +1,6 @@
 "use client";
 import axios from "axios";
-import React, {
-  PropsWithChildren,
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-} from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { useParams, useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
@@ -29,6 +23,7 @@ interface ProductsContextType {
   setProductsData: React.Dispatch<React.SetStateAction<IProduct[]>>;
   searchValue: any;
   setSearchValue: any;
+  handleAddList: () => void;
 }
 
 export const ProductsContext = createContext<ProductsContextType>({
@@ -37,6 +32,7 @@ export const ProductsContext = createContext<ProductsContextType>({
   getAllProducts: () => {},
   searchValue: "",
   setSearchValue: () => {},
+  handleAddList: () => {},
 });
 
 export const ProductsProvider = ({
@@ -46,6 +42,29 @@ export const ProductsProvider = ({
 }) => {
   const [productsData, setProductsData] = useState<IProduct[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const { id } = useParams();
+  const [btnColor, setBtnColor] = useState(false);
+
+  const handleAddList = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      setBtnColor(true);
+      const response = await axios.post(
+        `${apiUrl}/wishlist`,
+        {
+          productId: id,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.status === 200) {
+        toast.success("Added cart successfully");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      toast.error("failed to add wishlist");
+    }
+    setBtnColor(false);
+  };
 
   const getAllProducts = async () => {
     try {
@@ -69,6 +88,7 @@ export const ProductsProvider = ({
         setProductsData,
         searchValue,
         setSearchValue,
+        handleAddList,
       }}
     >
       {children}

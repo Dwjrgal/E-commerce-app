@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserProvider from "@/context/user-context";
 import { ProductsProvider } from "@/context/products-context";
+import { useRouter } from "next/navigation";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

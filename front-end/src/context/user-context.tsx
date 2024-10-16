@@ -33,6 +33,7 @@ interface UserContextType {
   signUp: () => void;
   user: UserType | null;
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
+  logOut: () => void;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -41,7 +42,8 @@ export const UserContext = createContext<UserContextType>({
   logIn: () => {},
   signUp: () => {},
   user: null,
-  setUser: () => {}
+  setUser: () => {},
+  logOut: () => {},
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -136,6 +138,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
   console.log("userdata:", user);
 
+  const logOut = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
   useEffect(() => {
     fetchUserData();
   }, [token]);
@@ -147,7 +154,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         signUp,
         logIn,
         user,
-        setUser
+        setUser,
+        logOut,
       }}
     >
       {children}

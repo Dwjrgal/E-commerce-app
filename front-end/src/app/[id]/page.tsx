@@ -11,6 +11,7 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 import Review from "@/components/review";
 import { UserContext } from "@/context/user-context";
+import { Toggle } from "@/components/ui/toggle";
 
 interface IProduct {
   name: string;
@@ -33,6 +34,8 @@ const ProductDetail = () => {
   const [productQuantity, setProductQuanitity] = useState(1);
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
   const router = useRouter();
+  const { handleAddList } = useContext(ProductsContext);
+  const [btnColor, setBtnColor] = useState(false);
 
   const getProduct = async () => {
     try {
@@ -81,10 +84,20 @@ const ProductDetail = () => {
               <img src={i.image} className="w-16 h-16 rounded" />
             ))}
           </div>
-          <img
-            src="../products/image1.png"
-            className="border w-96 h-[490px] rounded-xl"
-          />{" "}
+          <div className="relative w-96">
+            <img
+              src="../products/image1.png"
+              className="border w-96 h-[490px] rounded-xl"
+            />
+            <Heart
+              size={26}
+              strokeWidth={1}
+              className={`absolute top-5 right-5 ${
+                btnColor === true ? "bg-lime-100" : "bg-blue-300"
+              }`}
+              onClick={handleAddList}
+            />
+          </div>
         </div>
         <section className="flex flex-col gap-5 my-40">
           <div className="flex flex-col gap-3">
@@ -129,7 +142,7 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <h4 className="font-bold">{oneProduct.price}₮</h4>
+            <h4 className="font-bold">{oneProduct.price?.toLocaleString()}₮</h4>
             <button
               onClick={handleAddCart}
               className="w-40 h-8  mb-5 rounded-full text-white text-sm font-medium bg-blue-700"

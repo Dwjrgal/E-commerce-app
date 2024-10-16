@@ -8,9 +8,10 @@ import Link from "next/link";
 import { UserContext } from "@/context/user-context";
 import { FiUser } from "react-icons/fi";
 import { ProductsContext } from "@/context/products-context";
+import { MdLogout } from "react-icons/md";
 
 const Header = () => {
-  const { fetchUserData, user } = useContext(UserContext);
+  const { fetchUserData, user, logOut } = useContext(UserContext);
   const { setSearchValue } = useContext(ProductsContext);
   const handleChange = (e: any) => {
     setSearchValue(e.target.value);
@@ -47,10 +48,13 @@ const Header = () => {
             <PiShoppingCart />
           </Link>
           {user && (
-            <Link href={"../user-form"}>
-              {" "}
-              <FiUser />{" "}
-            </Link>
+            <div className="flex gap-3">
+              <Link href={"../user-form"}>
+                {" "}
+                <FiUser />{" "}
+              </Link>
+              <MdLogout onClick={logOut} />
+            </div>
           )}
           {!user && (
             <>
