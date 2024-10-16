@@ -39,6 +39,7 @@ const ProductDetail = () => {
   const router = useRouter();
   const { handleAddList } = useContext(ProductsContext);
   const [activeSize, setActiveSize] = useState(false);
+  const [fillColor, setFillColor] = useState("transparent")
 
   const getProduct = async () => {
     try {
@@ -92,13 +93,15 @@ const ProductDetail = () => {
               src="../products/image1.png"
               className="border w-96 h-[490px] rounded-xl"
             />
+            <button onClick={() =>setFillColor("red")}>
             <Heart
               size={28}
               strokeWidth={1}
-              fill="red"
+              fill={fillColor}
               className="absolute top-5 right-5"
               onClick={handleAddList}
             />
+            </button>
           </div>
         </div>
         <section className="flex flex-col gap-5 my-40">
@@ -114,10 +117,10 @@ const ProductDetail = () => {
               Хэмжээний заавар
             </p>
             <ul className="flex gap-2">
-              <button className={`w-8 h-8 rounded-full border text-center
+              <button className={`w-8 h-8 rounded-full border text-center border-black
                ${activeSize === true 
                 ?"bg-black text-white"
-                :"bg-slate-50 text-black"
+                :"bg-white text-black"
               }`} onClick={() => setActiveSize(true)}>
                 S
               </button>
@@ -133,14 +136,14 @@ const ProductDetail = () => {
             </ul>
             <div className="flex item-center gap-2 mt-3">
               <button
-                className="w-8 h-8 rounded-full border-[1px] border-black text-center"
+                className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white"
                 onClick={descBtn}
               >
                 -{" "}
               </button>
               <p className="mt-1">{productQuantity}</p>
               <button
-                className="w-8 h-8 rounded-full border-[1px] border-black text-center"
+                className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white"
                 onClick={() => setProductQuanitity(productQuantity + 1)}
               >
                 +
