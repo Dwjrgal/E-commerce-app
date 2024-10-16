@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
 import { VscHeartFilled } from "react-icons/vsc";
 
@@ -5,11 +6,11 @@ const Save = () => {
   return (
     <>
       <main className="w-screen h-screen bg-slate-100 flex flex-col items-center gap-4 pt-40">
-        <h3 className="mr-80 font-bold">
+        <h3 className="relative bottom-10 right-[170px] font-bold text-xl">
           Хадгалсан бараа <span className="text-gray-600 font-normal">(3)</span>
         </h3>
-        <div className="flex justify-between mx-10 border rounded-xl px-5 py-4 bg-white w-[500px] h-[120px]">
-          <div className="flex gap-2">
+        <Card className="flex justify-between mx-10 border rounded-xl px-5 py-4 bg-white w-[540px] h-[120px] absolute">
+          <CardContent className="flex gap-2">
             <img
               src="../products/image2.png"
               className="w-[80px] h-[80px] rounded-xl border"
@@ -21,9 +22,9 @@ const Save = () => {
                 Сагслах
               </button>
             </ul>
-          </div>{" "}
+          </CardContent>{" "}
           <VscHeartFilled className="mt-2 text-xl" />
-        </div>
+        </Card>
       </main>
     </>
   );

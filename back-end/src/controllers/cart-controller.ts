@@ -50,32 +50,31 @@ export const getAllCarts = async (req: Request, res: Response) => {
   }
 };
 
-export const updateCart = async ( req: Request, res: Response) => {
-  const { id} = req.user;
-  const { productId, newQuantity} = req.body;
+export const updateCart = async (req: Request, res: Response) => {
+  const { id } = req.user;
+  console.log("user id", id);
+  const { productId, newQuantity } = req.body;
   try {
-     const cart = await Cart.findOne({ user: id});
-     if(!cart) {
-      return res.status(400).json({ message: "not found user",
-      });
-     }
+    const cart = await Cart.findOne({ user: id });
+    if (!cart) {
+      return res.status(400).json({ message: "not found user" });
+    }
 
-      const findProduct = cart.products.findIndex(
-        (item) => item.product.toString() === productId
-      )
+    const findProduct = cart.products.findIndex(
+      (item) => item.product.toString() === productId
+    );
+    console.log("findProduct", findProduct);
+    cart.products[findProduct].quantity = newQuantity;
 
-      cart.products[findProduct].quantity = newQuantity;
-
-      const updatedCart = await cart.save()
-      res.status(200).json({ message: "updated cart", updatedCart})
+    const updatedCart = await cart.save();
+    res.status(200).json({ message: "updated cart", updatedCart });
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      message: "failed to update cart"
-    })
-    
+      message: "failed to update cart",
+    });
   }
-}
+};
 
 export const deleteCart = async (req: Request, res: Response) => {
   const { userId } = req.params;

@@ -30,7 +30,7 @@ const ProductDetail = () => {
   const { user } = useContext(UserContext);
   const sideImages = products.slice(1, 5);
   const { id } = useParams();
-  const [count, setCount] = useState(1);
+  const [productQuantity, setProductQuanitity] = useState(1);
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
   const router = useRouter();
 
@@ -44,10 +44,10 @@ const ProductDetail = () => {
     }
   };
   const descBtn = () => {
-    if (count > 1) {
-      setCount(count - 1);
+    if (productQuantity > 1) {
+      setProductQuanitity(productQuantity - 1);
     }
-    return count;
+    return productQuantity;
   };
 
   const handleAddCart = async () => {
@@ -55,7 +55,7 @@ const ProductDetail = () => {
       const res = await axios.post(`${apiUrl}/carts`, {
         userId: user?._id,
         productId: id,
-        quantity: count,
+        quantity: productQuantity,
       });
       console.log("addCartRes", res);
       if (res.status === 200) {
@@ -119,17 +119,17 @@ const ProductDetail = () => {
               >
                 -{" "}
               </button>
-              <p className="mt-1">{count}</p>
+              <p className="mt-1">{productQuantity}</p>
               <button
                 className="w-8 h-8 rounded-full border-[1px] border-black text-center"
-                onClick={() => setCount(count + 1)}
+                onClick={() => setProductQuanitity(productQuantity + 1)}
               >
                 +
               </button>
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <h4 className="font-bold">{oneProduct.price.toLocaleString()}₮</h4>
+            <h4 className="font-bold">{oneProduct.price}₮</h4>
             <button
               onClick={handleAddCart}
               className="w-40 h-8  mb-5 rounded-full text-white text-sm font-medium bg-blue-700"
@@ -174,7 +174,7 @@ export const RelativeCards = () => {
               />
               <div className="mt-2">
                 <h3 className="font-normal">{product.name}</h3>
-                <h4 className="font-bold">{product.price}₮</h4>
+                <h4 className="font-bold">{product.price.toLocaleString()}₮</h4>
               </div>
             </div>
           </Link>

@@ -13,7 +13,7 @@ declare global {
   }
 }
 
- export const auth = (req: Request, res: Response, next: NextFunction) => {
+export const auth = (req: Request, res: Response, next: NextFunction) => {
   console.log("Check the logged in user", req.headers.authorization);
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Please log in" });

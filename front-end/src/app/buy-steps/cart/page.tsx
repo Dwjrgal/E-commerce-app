@@ -1,4 +1,5 @@
 "use client";
+import { Card, CardContent } from "@/components/ui/card";
 import { UserContext } from "@/context/user-context";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
@@ -17,33 +18,22 @@ const Cart = () => {
     try {
       if (!user) return;
       const res = await axios.get(`${apiUrl}/carts/${user?._id}`);
-      setCartData(res.data.data);
+      setCartData(res.data.data.products);
       console.log("setcart", res.data.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const descBtn = () => {
-    if (count > 1) {
-      setCount(count - 1);
-    }
-    return count;
-  };
-
-  useEffect(() => {
-    getCart();
-  }, [user]);
-
-  const updateQuantity =async (productId: string, newQuantity: number) =>{
+  const updateQuantity = async (productId: string, newQuantity: number) => {
     setCartData((prevCart: any) =>
-      prevCart.map(( item: any ) =>
+      prevCart.map((item: any) =>
         item.product._id === productId
-         ?{...item, quantity: newQuantity }
-      : item
+          ? { ...item, quantity: newQuantity }
+          : item
       )
     );
-    const userToken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.put(
         `${apiUrl}/carts/update-cart`,
@@ -51,43 +41,56 @@ const Cart = () => {
           productId,
           newQuantity,
         },
-        { headers: { auth: `Bearer ${userToken}`}}
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      if ( response.status === 200){
+      if (response.status === 200) {
         toast.success("Successfully updated");
       }
     } catch (error) {
-      console.error("Error fetching data", error
-      )
-      toast.error("Failed to add to cart")
+      console.error("Error fetching data", error);
+      toast.error("Failed to update cart");
     }
-  }
+  };
+
+  useEffect(() => {
+    getCart();
+  }, [user]);
   console.log("cart data", cartData);
   return (
     <section className="bg-slate-100 flex justify-center py-20">
       <div className="w-[500px] border rounded-xl my-10 bg-white">
         <h3 className="font-semibold my-5 ml-10">1.Сагс (4)</h3>
         <div className="flex flex-col  justify-center gap-5">
-          {cartData?.products?.map((product: any) => (
-            <div className="flex justify-between mx-10 border rounded-xl px-5 py-4">
-              <div className="flex gap-2">
+          {cartData?.map((product: any) => (
+            <Card
+              className="flex justify-between mx-10 border rounded-xl py-3 px-4"
+              key={product._id}
+            >
+              <CardContent className="flex gap-2">
                 <img
                   src={product?.product?.images[0]}
-                  className="w-[80px] h-[80px] rounded"
+                  className="w-[86px] h-[86px] rounded"
                 />
                 <ul className="font-normal text-[13px] flex flex-col">
-                  <li>{product?.product?.name}</li>
-                  <div className="flex item-center gap-2 mt-3">
+                  <li className="text-md">{product?.product?.name}</li>
+                  <div className="flex item-center gap-2 mt-1">
                     <button
                       className="w-6 h-6 rounded-full border-[1px] border-black text-center"
-                      onClick={descBtn}
+                      onClick={() =>
+                        updateQuantity(
+                          product._id,
+                          Math.max(0, product.quantity - 1)
+                        )
+                      }
                     >
                       -
                     </button>
-                    <p className="mt-1">{product?.product?.quantity}</p>
+                    <p className="mt-1">{product?.quantity}</p>
                     <button
                       className="w-6 h-6 rounded-full border-[1px] border-black text-center"
-                      onClick={() => setCount(count + 1)}
+                      onClick={() =>
+                        updateQuantity(product._id, product.quantity + 1)
+                      }
                     >
                       +
                     </button>
@@ -96,9 +99,9 @@ const Cart = () => {
                     {product?.product?.price.toLocaleString()}₮
                   </li>
                 </ul>
-              </div>
+              </CardContent>
               <GoTrash className="my-auto" />
-            </div>
+            </Card>
           ))}
           <div className="flex justify-between border-t-[1px] border-dashed px-10 pt-8">
             <h3>Нийт төлөх дүн:</h3>

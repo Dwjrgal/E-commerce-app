@@ -1,11 +1,13 @@
 import { model, Schema } from "mongoose";
 
-interface ICart {
+interface IList {
   user: Schema.Types.ObjectId;
-  products: [{ product: Schema.Types.ObjectId; quantity: Number }];
+  products: [
+    { product: Schema.Types.ObjectId; quantity: Number; price: Number }
+  ];
   totalAmount: Number;
 }
-const cartSchema = new Schema<ICart>(
+const wishListSchema = new Schema<IList>(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -23,6 +25,10 @@ const cartSchema = new Schema<ICart>(
           type: Number,
           required: true,
         },
+        price: {
+          type: Number,
+          required: false,
+        },
       },
     ],
     totalAmount: {
@@ -34,5 +40,5 @@ const cartSchema = new Schema<ICart>(
     timestamps: true,
   }
 );
-const Cart = model<ICart>("Cart", cartSchema);
-export default Cart;
+const wishList = model<IList>("List", wishListSchema);
+export default wishList;

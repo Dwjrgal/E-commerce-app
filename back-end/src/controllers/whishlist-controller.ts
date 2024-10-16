@@ -1,16 +1,15 @@
-
 import { Request, Response } from "express";
-import Cart from "../models/cart.model";
+import wishList from "../models/wishlist.model";
 
 export const createWhishList = async (req: Request, res: Response) => {
-  const { userId, productId, totalAmount, quantity } = req.body;
+  const { userId, productId, quantity, price } = req.body;
   try {
-    const findUserCart = await Cart.findOne({ user: userId });
+    const findUserCart = await wishList.findOne({ user: userId });
     if (!findUserCart) {
-      const cart = await Cart.create({
+      const cart = await wishList.create({
         user: userId,
         products: { product: productId, quantity },
-        totalAmount,
+        price,
       });
       return res.status(200).json({
         message: "created wish list",
@@ -23,7 +22,7 @@ export const createWhishList = async (req: Request, res: Response) => {
     if (findDuplicated > -1) {
       findUserCart.products[findDuplicated].quantity += quantity;
     } else {
-      findUserCart.products.push({ product: productId, quantity });
+      findUserCart.products.push({ product: productId, quantity, price });
     }
     const updatedCart = await findUserCart.save();
     res.status(200).json({
@@ -38,12 +37,12 @@ export const createWhishList = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllList = async (req: Request, res: Response) => {
+export const getList = async (req: Request, res: Response) => {
   const { userId } = req.params;
   try {
-    const findUserCart = await Cart.findOne({ user: userId }).populate(
-      "products.product"
-    );
+    const findUserCart = await wishList
+      .findOne({ user: userId })
+      .populate("products.product");
     console.log("cart data", findUserCart);
     res.status(201).json({ message: "success", data: findUserCart });
   } catch (error) {
@@ -51,17 +50,16 @@ export const getAllList = async (req: Request, res: Response) => {
   }
 };
 
-
 export const deleteCart = async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { productId } = req.params;
   try {
-    const findUserCart = await Cart.findOne({ user: userId }).populate(
-      "products.product"
-    );
+    const findUserCart = await wishList
+      .findOne({ user: userId })
+      .populate("products.product");
     const product = findUserCart?.products[0].product;
     console.log("product", product);
-    const deleteProductCart = await Cart.findByIdAndDelete({});
+    const deleteProductCart = await wishList.findByIdAndDelete({});
     res.status(200).json({
       message: "deleted product cart successfully",
     });

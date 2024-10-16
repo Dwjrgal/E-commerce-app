@@ -9,6 +9,7 @@ import catRoute from "./routes/category-route";
 import { sendEmail } from "./utils/send-email";
 import productRoute from "./routes/product-route";
 import cartRoute from "./routes/cart-route";
+import wishListRoute from "./routes/wishlist-route";
 
 const PORT: string = process.env.PORT || "";
 const MONGO_URI = process.env.MONGO_URI || "";
@@ -23,6 +24,7 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/categories", catRoute);
 app.use("/api/v1/products", productRoute);
 app.use("/api/v1/carts", cartRoute);
+app.use("/api/v1/wishlist", wishListRoute);
 
 //home request
 app.get("/", async (req: Request, res: Response) => {
