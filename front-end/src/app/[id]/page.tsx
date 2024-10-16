@@ -12,6 +12,9 @@ import Link from "next/link";
 import Review from "@/components/review";
 import { UserContext } from "@/context/user-context";
 import { Toggle } from "@/components/ui/toggle";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { FaHeart } from "react-icons/fa";
 
 interface IProduct {
   name: string;
@@ -35,7 +38,7 @@ const ProductDetail = () => {
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
   const router = useRouter();
   const { handleAddList } = useContext(ProductsContext);
-  const [btnColor, setBtnColor] = useState(false);
+  const [activeSize, setActiveSize] = useState(false);
 
   const getProduct = async () => {
     try {
@@ -90,11 +93,10 @@ const ProductDetail = () => {
               className="border w-96 h-[490px] rounded-xl"
             />
             <Heart
-              size={26}
+              size={28}
               strokeWidth={1}
-              className={`absolute top-5 right-5 ${
-                btnColor === true ? "bg-lime-100" : "bg-blue-300"
-              }`}
+              fill="red"
+              className="absolute top-5 right-5"
               onClick={handleAddList}
             />
           </div>
@@ -112,18 +114,22 @@ const ProductDetail = () => {
               Хэмжээний заавар
             </p>
             <ul className="flex gap-2">
-              <li className="w-8 h-8 rounded-full border text-center bg-black text-white">
+              <button className={`w-8 h-8 rounded-full border text-center
+               ${activeSize === true 
+                ?"bg-black text-white"
+                :"bg-slate-50 text-black"
+              }`} onClick={() => setActiveSize(true)}>
                 S
-              </li>
-              <li className="w-8 h-8 rounded-full border-[1px] border-black text-center">
+              </button>
+              <button className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white">
                 M
-              </li>
-              <li className="w-8 h-8 rounded-full border-[1px] border-black text-center">
+              </button>
+              <button className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white">
                 L
-              </li>
-              <li className="w-8 h-8 rounded-full border-[1px] border-black text-center">
+              </button>
+              <button className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white">
                 XL
-              </li>
+              </button>
             </ul>
             <div className="flex item-center gap-2 mt-3">
               <button

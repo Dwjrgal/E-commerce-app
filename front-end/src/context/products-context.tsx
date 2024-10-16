@@ -4,6 +4,7 @@ import React, { useEffect, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { useParams, useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
+import { VscHeartFilled } from "react-icons/vsc";
 
 interface IProduct {
   _id: string;
