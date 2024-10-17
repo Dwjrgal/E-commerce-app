@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { products } from "@/lib/data";
 
 interface IProduct {
   name: string;
@@ -24,7 +25,6 @@ interface IProduct {
 const CategoryPage = () => {
   const { productsData } = useContext(ProductsContext);
   const { id } = useParams();
-
   return (
     <section>
       <main className="flex  justify-center gap-20 mx-auto my-20 w-screen">
@@ -68,6 +68,15 @@ export const CheckboxDemo = () => {
   const { productsData } = useContext(ProductsContext);
   const [categories, setCategories] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [productsCat, setProductsCat] = useState([]);
+
+  const productsCategory = productsData.map((cards: any) => cards.category);
+
+  // const findProductCat = () => {
+  //   if(productsCategory._id === categories._id){
+  //   }
+  // }
+
   const getCategories = async () => {
     try {
       const res = await axios.get(`${apiUrl}/categories`);
@@ -85,6 +94,7 @@ export const CheckboxDemo = () => {
   useEffect(() => {
     getCategories();
   }, []);
+  console.log("products category", productsCategory);
   console.log("categories:", categories);
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">

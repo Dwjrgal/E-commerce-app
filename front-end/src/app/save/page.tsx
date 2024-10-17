@@ -1,8 +1,35 @@
+"use client";
 import { Card, CardContent } from "@/components/ui/card";
-import React from "react";
+import { UserContext } from "@/context/user-context";
+import { apiUrl } from "@/lib/util";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { VscHeartFilled } from "react-icons/vsc";
+import { toast } from "react-toastify";
 
 const Save = () => {
+  const [listData, setListData] = useState([]);
+
+  const getList = async () => {
+    try {
+      const userToken = localStorage.getItem("token");
+      const res = await axios.get(`${apiUrl}/wishlist`, {
+        headers: { Authorization: `Bearer ${userToken}` },
+      });
+      console.log("res data", res.data);
+      if (res.status === 201) {
+        setListData(res.data.wishList);
+      }
+    } catch (error) {
+      console.error("Error fetching wishlist:", error);
+      toast.error("Failed to get wishlist");
+    }
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+
+  console.log("wishList data", listData);
   return (
     <>
       <main className="w-screen h-screen bg-slate-100 flex flex-col items-center gap-4 pt-40">

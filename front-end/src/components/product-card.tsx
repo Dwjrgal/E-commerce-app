@@ -2,10 +2,7 @@ import { Product, products } from "@/lib/data";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { formattedPrice } from "@/lib/utils";
-import axios from "axios";
 import Link from "next/link";
-import { useContext } from "react";
-import { ProductsContext } from "@/context/products-context";
 
 interface IProduct {
   id: string | number;

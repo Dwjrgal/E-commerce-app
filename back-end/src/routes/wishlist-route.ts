@@ -8,6 +8,5 @@ const router = Router();
 
 import { auth } from "../middlewares/auth";
 
-router.route("/").post(createWhishList);
-router.route("/:userId").get(auth, getList);
+router.route("/").post(auth, createWhishList).get(auth, getList);
 export default router;

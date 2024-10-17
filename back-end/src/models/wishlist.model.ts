@@ -21,14 +21,6 @@ const wishListSchema = new Schema<IList>(
           ref: "Product",
           required: true,
         },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-        price: {
-          type: Number,
-          required: false,
-        },
       },
     ],
     totalAmount: {

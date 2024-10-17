@@ -78,8 +78,8 @@ const Cart = () => {
                       className="w-6 h-6 rounded-full border-[1px] border-black text-center"
                       onClick={() =>
                         updateQuantity(
-                          product._id,
-                          Math.max(0, product.quantity - 1)
+                          product.product._id,
+                          Math.max(0, product?.quantity - 1)
                         )
                       }
                     >
@@ -89,7 +89,10 @@ const Cart = () => {
                     <button
                       className="w-6 h-6 rounded-full border-[1px] border-black text-center"
                       onClick={() =>
-                        updateQuantity(product._id, product.quantity + 1)
+                        updateQuantity(
+                          product.product._id,
+                          product.quantity + 1
+                        )
                       }
                     >
                       +

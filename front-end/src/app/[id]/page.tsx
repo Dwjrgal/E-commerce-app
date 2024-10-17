@@ -11,10 +11,6 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 import Review from "@/components/review";
 import { UserContext } from "@/context/user-context";
-import { Toggle } from "@/components/ui/toggle";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { FaHeart } from "react-icons/fa";
 
 interface IProduct {
   name: string;
@@ -39,7 +35,7 @@ const ProductDetail = () => {
   const router = useRouter();
   const { handleAddList } = useContext(ProductsContext);
   const [activeSize, setActiveSize] = useState(false);
-  const [fillColor, setFillColor] = useState("transparent")
+  const [fillColor, setFillColor] = useState("transparent");
 
   const getProduct = async () => {
     try {
@@ -93,14 +89,14 @@ const ProductDetail = () => {
               src="../products/image1.png"
               className="border w-96 h-[490px] rounded-xl"
             />
-            <button onClick={() =>setFillColor("red")}>
-            <Heart
-              size={28}
-              strokeWidth={1}
-              fill={fillColor}
-              className="absolute top-5 right-5"
-              onClick={handleAddList}
-            />
+            <button onClick={() => setFillColor("red")}>
+              <Heart
+                size={32}
+                strokeWidth={1}
+                fill={fillColor}
+                className="absolute top-5 right-5"
+                onClick={handleAddList}
+              />
             </button>
           </div>
         </div>
@@ -117,11 +113,15 @@ const ProductDetail = () => {
               Хэмжээний заавар
             </p>
             <ul className="flex gap-2">
-              <button className={`w-8 h-8 rounded-full border text-center border-black
-               ${activeSize === true 
-                ?"bg-black text-white"
-                :"bg-white text-black"
-              }`} onClick={() => setActiveSize(true)}>
+              <button
+                className={`w-8 h-8 rounded-full border text-center border-black
+               ${
+                 activeSize === true
+                   ? "bg-black text-white"
+                   : "bg-white text-black"
+               }`}
+                onClick={() => setActiveSize(true)}
+              >
                 S
               </button>
               <button className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white">

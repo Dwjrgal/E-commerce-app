@@ -4,7 +4,6 @@ import React, { useEffect, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { useParams, useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
-import { VscHeartFilled } from "react-icons/vsc";
 
 interface IProduct {
   _id: string;
@@ -44,12 +43,10 @@ export const ProductsProvider = ({
   const [productsData, setProductsData] = useState<IProduct[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const { id } = useParams();
-  const [btnColor, setBtnColor] = useState(false);
 
   const handleAddList = async () => {
     const token = localStorage.getItem("token");
     try {
-      setBtnColor(true);
       const response = await axios.post(
         `${apiUrl}/wishlist`,
         {
@@ -64,7 +61,6 @@ export const ProductsProvider = ({
       console.error("Error fetching user data:", error);
       toast.error("failed to add wishlist");
     }
-    setBtnColor(false);
   };
 
   const getAllProducts = async () => {

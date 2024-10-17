@@ -2,11 +2,10 @@
 import { Hero } from "@/components/home/hero";
 import { ProductCard, FeaturedProductCard } from "@/components/product-card";
 import { ProductsContext } from "@/context/products-context";
-import { UserContext } from "@/context/user-context";
-import { Link } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 export interface IProduct {
+  id: string | number;
   name: string;
   description: string;
   price: number;
