@@ -51,19 +51,21 @@ export const FeaturedProductCard = ({
 }: Product) => {
   return (
     <div className="relative col-span-2 row-span-10 mb-14">
-      <div className="relative w-full h-full">
-        <Image
-          src={image}
-          alt="image1"
-          fill={true}
-          className="rounded-xl -z-10"
-        />
-        <Heart size={22} strokeWidth={1} className="absolute top-4 right-4" />
-      </div>
-      <div className="mt-2">
-        <h3 className="font-normal">{name}</h3>
-        <PriceWithDiscount price={price} discount={discount} />
-      </div>
+      <Link href={`/${id}`}>
+        <div className="relative w-full h-full">
+          <Image
+            src={image}
+            alt="image1"
+            fill={true}
+            className="rounded-xl -z-10"
+          />
+          <Heart size={22} strokeWidth={1} className="absolute top-4 right-4" />
+        </div>
+        <div className="mt-2">
+          <h3 className="font-normal">{name}</h3>
+          <PriceWithDiscount price={price} discount={discount} />
+        </div>
+      </Link>
     </div>
   );
 };

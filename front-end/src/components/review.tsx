@@ -7,7 +7,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Rating, RoundedStar} from "@smastrom/react-rating";
+import { Rating, RoundedStar } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
 const Review = () => {
@@ -34,10 +34,9 @@ export function CollapsibleDemo() {
   };
   const myStyles = {
     itemShapes: RoundedStar,
-    activeFillColor:  '#FDE047',
-    inactiveFillColor: '#fbf1a9'
-  }
-  
+    activeFillColor: "#FDE047",
+    inactiveFillColor: "#fbf1a9",
+  };
 
   return (
     <Collapsible
@@ -57,7 +56,7 @@ export function CollapsibleDemo() {
         </CollapsibleTrigger>
       </div>
       <Rating
-        style={{ maxWidth: 100, maxHeight: 35}}
+        style={{ maxWidth: 100, maxHeight: 40 }}
         value={rating}
         onChange={setRating}
         itemStyles={myStyles}
@@ -66,14 +65,14 @@ export function CollapsibleDemo() {
       <CollapsibleContent className="space-y-4">
         <div className="border-b-2 border-dashed px-4 py-3 font-mono text-sm flex flex-col">
           <div className="flex gap-1 items-center">
-          <h5>Saraa</h5>
-          <Rating
-        style={{ maxWidth: 80, maxHeight: 14, gap: 1}}
-        value={rating}
-        onChange={setRating}
-        itemStyles={myStyles}
-        isRequired
-      />
+            <h5>Saraa</h5>
+            <Rating
+              style={{ maxWidth: 80, maxHeight: 14, gap: 1 }}
+              value={rating}
+              onChange={setRating}
+              itemStyles={myStyles}
+              isRequired
+            />
           </div>
           <p className="text-xs text-gray-400">
             Ваав материал ёстой гоё байна 😍

@@ -49,7 +49,17 @@ const Cart = () => {
       toast.error("Failed to update cart");
     }
   };
-
+  const deleteCard = async (productId: any) => {
+    try {
+      const userToken = localStorage.getItem("token");
+      const res = await axios.delete(`${apiUrl}/carts`, {
+        headers: { Authorization: `Bearer ${userToken}` },
+      });
+    } catch (error) {
+      console.error("Error fetching wishlist:", error);
+      toast.error("Failed to get wishlist");
+    }
+  };
   useEffect(() => {
     getCart();
   }, [user]);

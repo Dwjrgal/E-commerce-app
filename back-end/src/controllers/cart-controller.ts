@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Cart from "../models/cart.model";
 
 export const createCart = async (req: Request, res: Response) => {
-  const { userId, productId, totalAmount, quantity } = req.body;
+  const { userId, productId, totalAmount, quantity, price } = req.body;
   try {
     const findUserCart = await Cart.findOne({ user: userId });
     if (!findUserCart) {
@@ -39,6 +39,7 @@ export const createCart = async (req: Request, res: Response) => {
 
 export const getAllCarts = async (req: Request, res: Response) => {
   const { userId } = req.params;
+  const { productId, totalAmount } = req.body;
   try {
     const findUserCart = await Cart.findOne({ user: userId }).populate(
       "products.product"
@@ -78,11 +79,9 @@ export const updateCart = async (req: Request, res: Response) => {
 
 export const deleteCart = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const { productId } = req.params;
+  const { productId } = req.body;
   try {
-    const findUserCart = await Cart.findOne({ user: userId }).populate(
-      "products.product"
-    );
+    const findUserCart = await Cart.findOne({ user: userId });
     const product = findUserCart?.products[0].product;
     console.log("product", product);
     const deleteProductCart = await Cart.findByIdAndDelete({});

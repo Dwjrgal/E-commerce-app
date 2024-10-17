@@ -40,9 +40,9 @@ const Save = () => {
       const res = await axios.get(`${apiUrl}/wishlist`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
-      console.log("res data", res.data);
+      console.log("res data", res.data.wishList);
       if (res.status === 200) {
-        setListData(res.data);
+        setListData(res.data.wishList);
       }
     } catch (error) {
       console.error("Error fetching wishlist:", error);
