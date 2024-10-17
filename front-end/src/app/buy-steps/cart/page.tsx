@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UserContext } from "@/context/user-context";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
-import { headers } from "next/headers";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
@@ -11,7 +10,6 @@ import { toast } from "react-toastify";
 
 const Cart = () => {
   const { user } = useContext(UserContext);
-  const [count, setCount] = useState(1);
   const [cartData, setCartData] = useState<any>([]);
 
   const getCart = async () => {

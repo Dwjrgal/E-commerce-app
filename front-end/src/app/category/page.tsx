@@ -29,9 +29,9 @@ const CategoryPage = () => {
     <section>
       <main className="flex  justify-center gap-20 mx-auto my-20 w-screen">
         <CheckboxDemo />
-        <Link href={`/${id}`}>
-          <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
-            {productsData.map((product) => (
+        <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
+          {productsData.map((product) => (
+            <Link href={`/${product._id ?? 1}`}>
               <div className="relative w-[244px]">
                 <Image
                   src={product.images[0]}
@@ -52,9 +52,9 @@ const CategoryPage = () => {
                   </h4>
                 </div>
               </div>
-            ))}
-          </section>
-        </Link>
+            </Link>
+          ))}
+        </section>
       </main>
     </section>
   );

@@ -45,7 +45,7 @@ export const getList = async (req: Request, res: Response) => {
       .findOne({ user: userId })
       .populate("products.product");
     console.log("cart data", findUserCart);
-    res.status(201).json({ message: "success", wishList: findUserCart });
+    res.status(200).json({ message: "success", wishList: findUserCart });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
