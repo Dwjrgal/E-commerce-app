@@ -52,9 +52,13 @@ const Cart = () => {
   const deleteCard = async (productId: any) => {
     try {
       const userToken = localStorage.getItem("token");
-      const res = await axios.delete(`${apiUrl}/carts`, {
+      const res = await axios.delete(`${apiUrl}/carts/delete-cart`,{
         headers: { Authorization: `Bearer ${userToken}` },
       });
+      
+      if(res.status === 200) {
+        toast.success("Successfully deleted cart")
+      }
     } catch (error) {
       console.error("Error to delete card:", error);
       toast.error("Failed to delete product card");

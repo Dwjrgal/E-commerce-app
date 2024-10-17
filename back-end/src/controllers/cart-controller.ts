@@ -39,7 +39,6 @@ export const createCart = async (req: Request, res: Response) => {
 
 export const getAllCarts = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const { productId, totalAmount } = req.body;
   try {
     const findUserCart = await Cart.findOne({ user: userId }).populate(
       "products.product"
@@ -78,15 +77,18 @@ export const updateCart = async (req: Request, res: Response) => {
 };
 
 export const deleteCart = async (req: Request, res: Response) => {
-  const { userId } = req.params;
-  const { productId } = req.body;
+  const { id } = req.user;
+  const { productId}= req.body
+  console.log("request body", req.body)
   try {
-    const findUserCart = await Cart.findOne({ user: userId });
-    const product = findUserCart?.products[0].product;
-    console.log("product", product);
-    const deleteProductCart = await Cart.findByIdAndDelete({ productId });
+    const findUserCart = await Cart.findOne({ user: id });
+    console.log("find user", findUserCart)
+    if(!findUserCart) {
+      return res.status(400).json({ message: "not found user"})
+    }
+    const deleteProductCart = await Cart.findByIdAndDelete({ productId})
     res.status(200).json({
-      message: "deleted product cart successfully",
+      message: "successfully deleted card",
     });
   } catch (error) {
     console.log(error);

@@ -11,6 +11,6 @@ import { auth } from "../middlewares/auth";
 
 router.route("/").post(createCart);
 router.route("/:userId").get(getAllCarts);
-router.route("/:productId").delete(auth, deleteCart);
+router.route("/delete-cart").delete(auth, deleteCart);
 router.route("/update-cart").put(auth, updateCart);
 export default router;
