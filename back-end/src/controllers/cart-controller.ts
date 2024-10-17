@@ -84,7 +84,7 @@ export const deleteCart = async (req: Request, res: Response) => {
     const findUserCart = await Cart.findOne({ user: userId });
     const product = findUserCart?.products[0].product;
     console.log("product", product);
-    const deleteProductCart = await Cart.findByIdAndDelete({});
+    const deleteProductCart = await Cart.findByIdAndDelete({ productId });
     res.status(200).json({
       message: "deleted product cart successfully",
     });

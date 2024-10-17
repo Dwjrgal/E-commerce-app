@@ -56,8 +56,8 @@ const Cart = () => {
         headers: { Authorization: `Bearer ${userToken}` },
       });
     } catch (error) {
-      console.error("Error fetching wishlist:", error);
-      toast.error("Failed to get wishlist");
+      console.error("Error to delete card:", error);
+      toast.error("Failed to delete product card");
     }
   };
   useEffect(() => {
@@ -111,7 +111,7 @@ const Cart = () => {
                   </li>
                 </ul>
               </CardContent>
-              <GoTrash className="my-auto" />
+              <GoTrash className="my-auto" onClick={deleteCard} />
             </Card>
           ))}
           <div className="flex justify-between border-t-[1px] border-dashed px-10 pt-8">
