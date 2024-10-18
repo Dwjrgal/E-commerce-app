@@ -1,5 +1,6 @@
 "use client";
 import { products } from "@/lib/data";
+import Image from "next/image";
 import Link from "next/link";
 
 const OrderHistory = () => {
@@ -30,10 +31,15 @@ const OrderHistory = () => {
               </button>{" "}
             </div>
             <div className="flex flex-col gap-5">
-              {ordered.map((r) => (
-                <div className="flex justify-between mx-10">
+              {ordered.map((r, idx) => (
+                <div key={idx} className="flex justify-between mx-10">
                   <div className="flex gap-2">
-                    <img src={r.image} className="w-[50px] h-[50px] rounded " />{" "}
+                    <Image
+                      src={r.image}
+                      className="w-[50px] h-[50px] rounded "
+                      width={50}
+                      height={50}
+                    />{" "}
                     <ul className="font-light text-[13x]">
                       <li>{r.name}</li>
                       <li>1x {r.price}₮</li>

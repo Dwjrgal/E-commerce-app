@@ -1,15 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import React, { useState, useContext } from "react";
-import { toast } from "react-toastify";
-import axios from "axios";
+import React, { useContext } from "react";
 
 import Link from "next/link";
 import { UserContext } from "@/context/user-context";
 
 const Signup = () => {
-  const router = useRouter();
   const { signUp, handleLogForm } = useContext(UserContext);
   const handleSignUp = () => {
     signUp();

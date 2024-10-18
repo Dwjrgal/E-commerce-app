@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UserContext } from "@/context/user-context";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
@@ -86,7 +87,7 @@ const Cart = () => {
               key={product._id}
             >
               <CardContent className="flex gap-2">
-                <img
+                <Image
                   src={product?.product?.images[0]}
                   className="w-[86px] h-[86px] rounded"
                 />

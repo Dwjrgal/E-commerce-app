@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import React from "react";
 import Link from "next/link";
 
 const UserInfo = () => {

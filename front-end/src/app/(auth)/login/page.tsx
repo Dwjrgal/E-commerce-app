@@ -1,12 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import Link from "next/link";
 import { UserContext } from "@/context/user-context";
 
 const Login = () => {
-  const router = useRouter();
   const { logIn, handleLogForm } = useContext(UserContext);
   const handleLogIn = () => {
     logIn();
@@ -45,9 +43,9 @@ const Login = () => {
             </p>
           </Link>
           <Link href="/signup">
-          <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 mt-8">
-            Бүртгүүлэх
-          </button>
+            <button className="w-72 h-8 border border-blue-600 rounded-full text-blue-700 mt-8">
+              Бүртгүүлэх
+            </button>
           </Link>
         </div>
       </section>

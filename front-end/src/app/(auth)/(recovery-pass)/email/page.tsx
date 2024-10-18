@@ -9,11 +9,9 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { json } from "stream/consumers";
-import Otp from "../otp/page";
 import Loader from "@/app/loader/page";
 import { apiUrl } from "@/lib/util";
+import Image from "next/image";
 
 const Email = () => {
   const router = useRouter();
@@ -110,7 +108,7 @@ const Email = () => {
       )}
       {step === 2 && (
         <div className="h-[calc(100vh-350px)] flex flex-col items-center mt-24">
-          <img src="/img/Logo/envelope.png" alt="" />
+          <Image src="/img/Logo/envelope.png" alt="" />
           <h1 className="mt-7 text-2xl font-bold">Баталгаажуулах</h1>
           <p className="mt-2 mb-6 text-text-primary">
             {`“${email}” хаягт илгээсэн баталгаажуулах кодыг оруулна уу`}

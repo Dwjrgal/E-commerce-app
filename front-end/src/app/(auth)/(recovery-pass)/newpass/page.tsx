@@ -1,9 +1,7 @@
 "use client";
 
-import { UserContext } from "@/context/user-context";
-import { useToast } from "@/components/hooks/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { apiUrl } from "@/lib/util";

@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { products } from "@/lib/data";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ProductsContext } from "@/context/products-context";
@@ -77,11 +77,11 @@ const ProductDetail = () => {
         <div className="flex gap-3 mt-20">
           <div className="flex flex-col gap-2 mt-20">
             {sideImages.map((i) => (
-              <img src={i.image} className="w-16 h-16 rounded" />
+              <Image src={i.image} className="w-16 h-16 rounded" />
             ))}
           </div>
           <div className="relative w-96">
-            <img
+            <Image
               src="../products/image1.png"
               className="border w-96 h-[490px] rounded-xl"
             />
