@@ -22,17 +22,12 @@ interface IProduct {
   quantity: number;
   discount: number;
 }
-interface ICart {
-  userId: any;
-  products: [{ productId: any; quantity: number }];
-}
 const ProductDetail = () => {
   const { user } = useContext(UserContext);
   const sideImages = products.slice(1, 5);
   const { id } = useParams();
   const [productQuantity, setProductQuanitity] = useState(1);
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
-  const router = useRouter();
   const { handleAddList } = useContext(ProductsContext);
   const [activeSize, setActiveSize] = useState(false);
   const [fillColor, setFillColor] = useState("transparent");

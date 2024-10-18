@@ -21,8 +21,9 @@ export const createCart = async (req: Request, res: Response) => {
     );
     if (findDuplicated > -1) {
       findUserCart.products[findDuplicated].quantity += quantity;
+      const totalAmount = price * quantity;
     } else {
-      findUserCart.products.push({ product: productId, quantity });
+      findUserCart.products.push({ product: productId, quantity }, totalAmount);
     }
     const updatedCart = await findUserCart.save();
     res.status(200).json({
@@ -78,20 +79,29 @@ export const updateCart = async (req: Request, res: Response) => {
 
 export const deleteCart = async (req: Request, res: Response) => {
   const { id } = req.user;
-  const { productId}= req.body
-  console.log("request body", req.body)
+  const { productId } = req.params;
+  console.log("product id", productId);
+
   try {
     const findUserCart = await Cart.findOne({ user: id });
-    console.log("find user", findUserCart)
-    if(!findUserCart) {
-      return res.status(400).json({ message: "not found user"})
+    if (!findUserCart) {
+      return res.status(400).json({ message: "not found user" });
     }
-    const deleteProductCart = await Cart.findByIdAndDelete({ productId})
+    const findProduct = findUserCart.products.findIndex(
+      (item) => item.product.toString() === productId
+    );
+
+    if (findProduct > -1) {
+      findUserCart.products.splice(findProduct, 1);
+    }
+    const deleteProductCard = await findUserCart.save();
     res.status(200).json({
       message: "successfully deleted card",
+      deleteProductCard,
     });
+    console.log("deleted product cart", deleteProductCard);
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
     res.status(500).json({ message: "failed to delete product cart" });
   }
 };

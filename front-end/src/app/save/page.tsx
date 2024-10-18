@@ -8,12 +8,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { VscHeartFilled } from "react-icons/vsc";
 import { toast } from "react-toastify";
 
+interface ICart {
+  userId: any;
+  products: [{ productId: any; quantity: number }];
+}
+
 const Save = () => {
-  const [listData, setListData] = useState([]);
+  const [listData, setListData] = useState<ICart>();
   const { user } = useContext(UserContext);
   const [productQuantity, setProductQuanitity] = useState(1);
   const { id } = useParams();
-  const [countCards, setCountCards] = useState<number>();
 
   const handleAddCart = async () => {
     try {

@@ -49,28 +49,35 @@ const Cart = () => {
       toast.error("Failed to update cart");
     }
   };
-  const deleteCard = async (productId: any) => {
+  const deleteCard = async (productId: string) => {
     try {
       const userToken = localStorage.getItem("token");
-      const res = await axios.delete(`${apiUrl}/carts/delete-cart`,{
-        headers: { Authorization: `Bearer ${userToken}` },
-      });
-      
-      if(res.status === 200) {
-        toast.success("Successfully deleted cart")
+      const res = await axios.delete(
+        `${apiUrl}/carts/delete-cart/${productId}`,
+        {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }
+      );
+      if (res.status === 200) {
+        await getCart();
+        toast.success("Successfully deleted cart");
       }
     } catch (error) {
       console.error("Error to delete card:", error);
       toast.error("Failed to delete product card");
     }
   };
+  const handleClick = (id: any) => {
+    deleteCard(id);
+    console.log("product id", id);
+  };
   useEffect(() => {
     getCart();
   }, [user]);
   console.log("cart data", cartData);
   return (
-    <section className="bg-slate-100 flex justify-center py-20">
-      <div className="w-[500px] border rounded-xl my-10 bg-white">
+    <section className="bg-slate-100 flex justify-center py-20 h-screen">
+      <div className="w-[500px] h-fit border rounded-xl my-10 bg-white">
         <h3 className="font-semibold my-5 ml-10">1.Сагс (4)</h3>
         <div className="flex flex-col  justify-center gap-5">
           {cartData?.map((product: any) => (
@@ -115,7 +122,9 @@ const Cart = () => {
                   </li>
                 </ul>
               </CardContent>
-              <GoTrash className="my-auto" onClick={deleteCard} />
+              <button onClick={() => handleClick(product.product._id)}>
+                <GoTrash className="my-auto" />
+              </button>
             </Card>
           ))}
           <div className="flex justify-between border-t-[1px] border-dashed px-10 pt-8">
