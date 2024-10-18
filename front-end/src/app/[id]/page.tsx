@@ -36,6 +36,7 @@ const ProductDetail = () => {
     try {
       const res = await axios.get(`${apiUrl}/products/${id}`);
       setOneProduct(res.data.product);
+      console.log("res data", res.data);
     } catch (error) {
       console.error(error);
       toast.error("failed to get product");
