@@ -1,4 +1,4 @@
-import { Product, products } from "@/lib/data";
+import { Product} from "@/lib/data";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { formattedPrice } from "@/lib/utils";

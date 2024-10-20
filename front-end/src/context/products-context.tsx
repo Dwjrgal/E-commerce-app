@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState, createContext } from "react";
 import { toast } from "react-toastify";
-import { useParams, useRouter } from "next/navigation";
+import { useParams} from "next/navigation";
 import { apiUrl } from "@/lib/util";
 
 interface IProduct {
@@ -21,8 +21,8 @@ interface ProductsContextType {
   getAllProducts: () => void;
   productsData: IProduct[];
   setProductsData: React.Dispatch<React.SetStateAction<IProduct[]>>;
-  searchValue: any;
-  setSearchValue: any;
+  searchValue: string;
+  setSearchValue:  React.ChangeEvent<HTMLInputElement>;
   handleAddList: () => void;
 }
 
@@ -31,7 +31,7 @@ export const ProductsContext = createContext<ProductsContextType>({
   setProductsData: () => {},
   getAllProducts: () => {},
   searchValue: "",
-  setSearchValue: () => {},
+  setSearchValue:,
   handleAddList: () => {},
 });
 

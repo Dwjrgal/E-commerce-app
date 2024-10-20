@@ -39,6 +39,7 @@ const OrderHistory = () => {
                       className="w-[50px] h-[50px] rounded "
                       width={50}
                       height={50}
+                      alt="card image"
                     />{" "}
                     <ul className="font-light text-[13x]">
                       <li>{r.name}</li>

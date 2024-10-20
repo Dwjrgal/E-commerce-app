@@ -7,32 +7,21 @@ import { apiUrl } from "@/lib/util";
 import { ProductsContext } from "@/context/products-context";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import { products } from "@/lib/data";
+import { Category } from "@/lib/types";
 
-interface IProduct {
-  name: string;
-  description: string;
-  price: number;
-  size: string;
-  images: [string];
-  isNew: boolean;
-  quantity: number;
-  discount: number;
-}
 
 const CategoryPage = () => {
   const { productsData } = useContext(ProductsContext);
-  const { id } = useParams();
   return (
     <section>
       <main className="flex  justify-center gap-20 mx-auto my-20 w-screen">
         <CheckboxDemo />
         <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
           {productsData.map((product) => (
+            // eslint-disable-next-line react/jsx-key
             <Link href={`/${product._id ?? 1}`}>
-              <div className="relative w-[244px]">
+              <div className="relative w-[244px]" key={product._id}>
                 <Image
                   src={product.images[0]}
                   alt="image1"
@@ -59,24 +48,10 @@ const CategoryPage = () => {
     </section>
   );
 };
-interface ICategory {
-  category: {};
-  name: string;
-}
+
 
 export const CheckboxDemo = () => {
-  const { productsData } = useContext(ProductsContext);
-  const [categories, setCategories] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
-  const [productsCat, setProductsCat] = useState([]);
-
-  const productsCategory = productsData.map((cards: any) => cards.category);
-
-  // const findProductCat = () => {
-  //   if(productsCategory._id === categories._id){
-  //   }
-  // }
-
+  const [categories, setCategories] = useState<Category | []>([]);
   const getCategories = async () => {
     try {
       const res = await axios.get(`${apiUrl}/categories`);
@@ -87,21 +62,16 @@ export const CheckboxDemo = () => {
     }
   };
 
-  const checking = () => {
-    setIsChecked(true);
-    return console.log("clicked");
-  };
   useEffect(() => {
     getCategories();
   }, []);
-  console.log("products category", productsCategory);
   console.log("categories:", categories);
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">
       <h4 className="font-bold">Ангилал</h4>
-      {categories.map(({ name }: ICategory) => (
-        <div className="flex gap-2">
-          <Checkbox id="terms" className="rounded" onChange={checking} />
+      {categories.map(({ name }: Category) => (
+        <div className="flex gap-2" key={name}>
+          <Checkbox id="terms" className="rounded"/>
           <label
             htmlFor="terms"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

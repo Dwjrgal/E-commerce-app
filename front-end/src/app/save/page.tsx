@@ -3,20 +3,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UserContext } from "@/context/user-context";
 import { apiUrl } from "@/lib/util";
 import axios from "axios";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { VscHeartFilled } from "react-icons/vsc";
 import { toast } from "react-toastify";
 
 interface ICart {
-  userId: any;
-  products: [{ productId: any; quantity: number }];
+  userId: string;
+  products: [{images:[string]; name: string; productId: string; quantity: number; price: number }];
 }
+
 
 const Save = () => {
   const [listData, setListData] = useState<ICart>();
   const { user } = useContext(UserContext);
-  const [productQuantity, setProductQuanitity] = useState(1);
+  const [productQuantity] = useState(1);
   const { id } = useParams();
 
   const handleAddCart = async () => {
@@ -65,11 +67,14 @@ const Save = () => {
           Хадгалсан бараа <span className="text-gray-600 font-normal">(3)</span>
         </h3>
         <div className="flex flex-col gap-2">
-          {listData?.products?.map((cards: any) => (
-            <Card className="flex justify-between mx-10 border rounded-xl px-5 py-4 bg-white w-[540px]">
+          {listData?.products?.map((cards) => (
+            <Card className="flex justify-between mx-10 border rounded-xl px-5 py-4 bg-white w-[540px]" key={12}>
               <CardContent className="flex gap-2">
-                <img
+                <Image
                   src={cards?.product.images[0]}
+                  width={80}
+                  height={80}
+                  alt="card image"
                   className="w-[80px] h-[80px] rounded-xl border"
                 />{" "}
                 <ul className="flex flex-col gap-[2px]">

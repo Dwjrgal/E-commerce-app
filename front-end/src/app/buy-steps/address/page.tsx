@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -10,8 +11,11 @@ const Address = () => {
             Сагс <span className="text-gray-400 text-thin">(4)</span>
           </h4>
           <div className="flex gap-3 mt-2">
-            <img
+            <Image
               src="../products/image2.png"
+              alt="card image"
+              width={12}
+              height={12}
               className="border w-12 h-12 rounded-xl"
             />
             <ul>
@@ -21,8 +25,11 @@ const Address = () => {
             </ul>
           </div>
           <div className="flex gap-3 mt-2">
-            <img
+            <Image
               src="../products/image2.png"
+              alt="image"
+              width={12}
+              height={12}
               className="border w-12 h-12 rounded-xl"
             />
             <ul>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Pay = () => {
@@ -9,14 +10,17 @@ const Pay = () => {
           <span className="bg-gray-100 border rounded-xl w-14 text-center text-xs">
             14:50
           </span>
-          <img
+          <Image
             src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
+            alt="pay"
+            width={36}
+            height={36}
             className="w-36 h-36"
           />
         </div>
         <div className="flex flex-col justify-center items-center gap-3">
           <p className="text-xs">Төлөх боломжтой банкууд:</p>
-          <img src="../img/Logo/Banks.png" className="w-[400px]" />
+          <Image src="../img/Logo/Banks.png" alt="iam" width={400} className="w-[400px]" />
         </div>
       </div>
     </section>

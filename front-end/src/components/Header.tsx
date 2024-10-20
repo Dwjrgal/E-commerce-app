@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { CiHeart } from "react-icons/ci";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { PiShoppingCart } from "react-icons/pi";
 import { VscHeart } from "react-icons/vsc";
@@ -9,11 +8,12 @@ import { UserContext } from "@/context/user-context";
 import { FiUser } from "react-icons/fi";
 import { ProductsContext } from "@/context/products-context";
 import { MdLogout } from "react-icons/md";
+import Image from "next/image";
 
 const Header = () => {
   const { fetchUserData, user, logOut } = useContext(UserContext);
   const { setSearchValue } = useContext(ProductsContext);
-  const handleChange = (e: any) => {
+  const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
@@ -24,7 +24,7 @@ const Header = () => {
       <header className="h-20 bg-black flex justify-between items-center px-20">
         <div className="flex gap-8 items-center">
           <Link href={"/"}>
-            <img src="/img/Logo/Logo.png" alt="" />
+            <Image src="/img/Logo/Logo.png" alt="" />
           </Link>
           <Link href="../category">
             <h3 className="text-slate-200">Ангилал</h3>

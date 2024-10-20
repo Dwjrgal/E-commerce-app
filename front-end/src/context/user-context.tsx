@@ -2,25 +2,23 @@
 
 import axios from "axios";
 import React, {
-  PropsWithChildren,
   useEffect,
   useState,
   createContext,
-  useContext,
 } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
 
 interface IUserForm {
-  _id: any;
-  firstname: String;
+  _id: string;
+  firstname: string;
   email: string;
-  password: String;
-  repassword: String;
+  password: string;
+  repassword: string;
 }
 interface UserType {
-  _id: any;
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -35,10 +33,21 @@ interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   logOut: () => void;
 }
+type UserToken = {
+  accessToken: string;
+  refreshToken?: string;
+  expiresIn: number;
+  user: {
+    id: string;
+    email: string;
+    roles: string[];  // List of user roles, e.g., ["admin", "user"]
+  };
+};
+
 
 export const UserContext = createContext<UserContextType>({
   fetchUserData: () => {},
-  handleLogForm: (e: React.ChangeEvent<HTMLInputElement>) => {},
+  handleLogForm: () => {},
   logIn: () => {},
   signUp: () => {},
   user: null,
@@ -49,7 +58,7 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState<UserToken | null>();
   const [userForm, setUserForm] = useState<IUserForm>({
     _id: "",
     firstname: "",
@@ -119,9 +128,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     console.log("user data", userForm);
   };
 
+  
+
+
   const fetchUserData = async () => {
     try {
-      const token: any = localStorage.getItem("token");
+      const token = localStorage.getItem("token"); 
       setToken(token);
       const res = await axios.get(`${apiUrl}/auth/current-user`, {
         headers: {

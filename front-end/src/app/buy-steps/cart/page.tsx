@@ -9,9 +9,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
 import { toast } from "react-toastify";
 
+
+interface ICart {
+  userId: string;
+  products: [{images:[string]; name: string; productId: string; quantity: number; price: number }];
+}
+
+
+
 const Cart = () => {
   const { user } = useContext(UserContext);
-  const [cartData, setCartData] = useState<any>([]);
+  const [cartData, setCartData] = useState<ICart>();
 
   const getCart = async () => {
     try {
@@ -25,8 +33,8 @@ const Cart = () => {
   };
 
   const updateQuantity = async (productId: string, newQuantity: number) => {
-    setCartData((prevCart: any) =>
-      prevCart.map((item: any) =>
+    setCartData((prevCart: Array) =>
+      prevCart.map((item) =>
         item.product._id === productId
           ? { ...item, quantity: newQuantity }
           : item
