@@ -31,7 +31,7 @@ export const ProductsContext = createContext<ProductsContextType>({
   setProductsData: () => {},
   getAllProducts: () => {},
   searchValue: "",
-  setSearchValue:,
+  setSearchValue:(e: React.ChangeEvent.<HTMLInputElement>) => {},
   handleAddList: () => {},
 });
 
