@@ -88,6 +88,9 @@ const Cart = () => {
             >
               <CardContent className="flex gap-2">
                 <Image
+                alt="card image"
+                width={86}
+                height={86}
                   src={product?.product?.images[0]}
                   className="w-[86px] h-[86px] rounded"
                 />
