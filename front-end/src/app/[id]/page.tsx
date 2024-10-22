@@ -77,12 +77,15 @@ const ProductDetail = () => {
         <div className="flex gap-3 mt-20">
           <div className="flex flex-col gap-2 mt-20">
             {sideImages.map((i) => (
-              <Image src={i.image} className="w-16 h-16 rounded" />
+              <Image src={i.image}  alt="image" height={64} width={64} className="rounded" key={i.id} />
             ))}
           </div>
           <div className="relative w-96">
             <Image
               src="../products/image1.png"
+              alt="idk"
+              width={384}
+              height={490}
               className="border w-96 h-[490px] rounded-xl"
             />
             <button onClick={() => setFillColor("red")}>
@@ -176,7 +179,7 @@ export const RelativeCards = () => {
     <>
       <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
         {relativeCards.map((product) => (
-          <Link href={`/${id}`}>
+          <Link href={`/${id}`} key={product._id}>
             <div className="relative w-[244px]">
               <Image
                 src={product.images[0]}

@@ -52,6 +52,7 @@ const CategoryPage = () => {
 
 export const CheckboxDemo = () => {
   const [categories, setCategories] = useState<Category | []>([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCategories = async () => {
     try {
       const res = await axios.get(`${apiUrl}/categories`);
@@ -64,7 +65,7 @@ export const CheckboxDemo = () => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
   console.log("categories:", categories);
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">

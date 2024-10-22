@@ -21,7 +21,7 @@ const Cart = () => {
   const { user } = useContext(UserContext);
   const [cartData, setCartData] = useState<ICart>();
 
-  const getCart = async () => {
+  const getCart = useCallback(async () => {
     try {
       if (!user) return;
       const res = await axios.get(`${apiUrl}/carts/${user?._id}`);
@@ -30,11 +30,11 @@ const Cart = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  });
 
   const updateQuantity = async (productId: string, newQuantity: number) => {
     setCartData((prevCart: Array) =>
-      prevCart.map((item) =>
+      prevCart.map((item: { product: { _id: string; }; }) =>
         item.product._id === productId
           ? { ...item, quantity: newQuantity }
           : item
@@ -76,13 +76,13 @@ const Cart = () => {
       toast.error("Failed to delete product card");
     }
   };
-  const handleClick = (id: any) => {
+  const handleClick = (id: string) => {
     deleteCard(id);
     console.log("product id", id);
   };
   useEffect(() => {
     getCart();
-  }, [user]);
+  }, [getCart, user]);
   console.log("cart data", cartData);
   return (
     <section className="bg-slate-100 flex justify-center py-20 h-screen">

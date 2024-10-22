@@ -6,6 +6,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -36,7 +37,7 @@ const Otp = () => {
 
   return (
     <div className="h-[calc(100vh-350px)] flex flex-col items-center mt-24">
-      <img src="/img/Logo/envelope.png" alt="" />
+      <Image src="/img/Logo/envelope.png" alt="logo" width={40} height={24} />
       <h1 className="mt-7 text-2xl font-bold">Баталгаажуулах</h1>
       <p className="mt-2 mb-6 text-text-primary">
         “mujo@nest.edu.mn” хаягт илгээсэн баталгаажуулах кодыг оруулна уу
