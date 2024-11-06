@@ -24,10 +24,10 @@ interface IProduct {
 }
 const ProductDetail = () => {
   const { user } = useContext(UserContext);
-  const sideImages = products.slice(1, 5);
   const { id } = useParams();
-  const [productQuantity, setProductQuanitity] = useState(1);
   const [oneProduct, setOneProduct] = useState<IProduct>({} as IProduct);
+  const sideImages = oneProduct.images?.slice(1, 5) || [];
+  const [productQuantity, setProductQuantity] = useState(1);
   const { handleAddList } = useContext(ProductsContext);
   const [activeSize, setActiveSize] = useState(false);
   const [fillColor, setFillColor] = useState("transparent");
@@ -44,7 +44,7 @@ const ProductDetail = () => {
   };
   const descBtn = () => {
     if (productQuantity > 1) {
-      setProductQuanitity(productQuantity - 1);
+      setProductQuantity(productQuantity - 1);
     }
     return productQuantity;
   };
@@ -76,8 +76,15 @@ const ProductDetail = () => {
       <main className="flex mx-auto max-w-[1000px] my-20 gap-5">
         <div className="flex gap-3 mt-20">
           <div className="flex flex-col gap-2 mt-20">
-            {sideImages.map((i) => (
-              <Image src={i.image}  alt="image" height={64} width={64} className="rounded" key={i.id} />
+            {sideImages.map((image, index) => (
+              <Image
+                src={image}
+                alt={`Product image ${index + 1}`}
+                height={64}
+                width={64}
+                className="rounded"
+                key={index}
+              />
             ))}
           </div>
           <div className="relative w-96">
@@ -143,7 +150,7 @@ const ProductDetail = () => {
               <p className="mt-1">{productQuantity}</p>
               <button
                 className="w-8 h-8 rounded-full border-[1px] border-black text-center hover:bg-black hover:text-white"
-                onClick={() => setProductQuanitity(productQuantity + 1)}
+                onClick={() => setProductQuantity(productQuantity + 1)}
               >
                 +
               </button>
@@ -178,28 +185,37 @@ export const RelativeCards = () => {
   return (
     <>
       <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
-        {relativeCards.map((product) => (
-          <Link href={`/${id}`} key={product._id}>
-            <div className="relative w-[244px]">
-              <Image
-                src={product.images[0]}
-                alt="image1"
-                width={244}
-                height={331}
-                className="rounded-xl"
-              />
-              <Heart
-                size={22}
-                strokeWidth={1}
-                className="absolute top-4 right-4"
-              />
-              <div className="mt-2">
-                <h3 className="font-normal">{product.name}</h3>
-                <h4 className="font-bold">{product.price.toLocaleString()}₮</h4>
+        {relativeCards.map(
+          (product: {
+            _id: any;
+            images: any[];
+            name: any;
+            price: { toLocaleString: () => any };
+          }) => (
+            <Link href={`/${id}`} key={product._id}>
+              <div className="relative w-[244px]">
+                <Image
+                  src={product.images[0]}
+                  alt="image1"
+                  width={244}
+                  height={331}
+                  className="rounded-xl"
+                />
+                <Heart
+                  size={22}
+                  strokeWidth={1}
+                  className="absolute top-4 right-4"
+                />
+                <div className="mt-2">
+                  <h3 className="font-normal">{product.name}</h3>
+                  <h4 className="font-bold">
+                    {product.price.toLocaleString()}₮
+                  </h4>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}{" "}
+            </Link>
+          )
+        )}{" "}
       </section>
     </>
   );

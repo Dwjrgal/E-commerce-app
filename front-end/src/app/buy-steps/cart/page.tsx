@@ -5,17 +5,22 @@ import { apiUrl } from "@/lib/util";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { GoTrash } from "react-icons/go";
 import { toast } from "react-toastify";
 
-
 interface ICart {
   userId: string;
-  products: [{images:[string]; name: string; productId: string; quantity: number; price: number }];
+  products: {
+    product: {
+      _id: string;
+      images: string[];
+      name: string;
+      price: number;
+    };
+    quantity: number;
+  }[];
 }
-
-
 
 const Cart = () => {
   const { user } = useContext(UserContext);
@@ -25,21 +30,25 @@ const Cart = () => {
     try {
       if (!user) return;
       const res = await axios.get(`${apiUrl}/carts/${user?._id}`);
-      setCartData(res.data.data.products);
+      setCartData(res.data.data);
       console.log("setcart", res.data.data);
     } catch (error) {
       console.error(error);
     }
-  });
+  }, [user]);
 
   const updateQuantity = async (productId: string, newQuantity: number) => {
-    setCartData((prevCart: Array) =>
-      prevCart.map((item: { product: { _id: string; }; }) =>
-        item.product._id === productId
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
+    setCartData((prevCart: ICart | undefined) => {
+      if (!prevCart) return prevCart;
+      return {
+        ...prevCart,
+        products: prevCart.products.map((item) =>
+          item.product._id === productId
+            ? { ...item, quantity: newQuantity }
+            : item
+        ),
+      };
+    });
     const token = localStorage.getItem("token");
     try {
       const response = await axios.put(
@@ -89,16 +98,16 @@ const Cart = () => {
       <div className="w-[500px] h-fit border rounded-xl my-10 bg-white">
         <h3 className="font-semibold my-5 ml-10">1.Сагс (4)</h3>
         <div className="flex flex-col  justify-center gap-5">
-          {cartData?.map((product: any) => (
+          {cartData?.products?.map((product: any) => (
             <Card
               className="flex justify-between mx-10 border rounded-xl py-3 px-4"
-              key={product._id}
+              key={product.product._id}
             >
               <CardContent className="flex gap-2">
                 <Image
-                alt="card image"
-                width={86}
-                height={86}
+                  alt="card image"
+                  width={86}
+                  height={86}
                   src={product?.product?.images[0]}
                   className="w-[86px] h-[86px] rounded"
                 />

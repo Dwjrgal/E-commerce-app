@@ -11,9 +11,16 @@ import { toast } from "react-toastify";
 
 interface ICart {
   userId: string;
-  products: [{images:[string]; name: string; productId: string; quantity: number; price: number }];
+  products: {
+    product: {
+      images: string[];
+      name: string;
+      productId: string;
+      price: number;
+    };
+    quantity: number;
+  }[];
 }
-
 
 const Save = () => {
   const [listData, setListData] = useState<ICart>();
@@ -67,8 +74,11 @@ const Save = () => {
           Хадгалсан бараа <span className="text-gray-600 font-normal">(3)</span>
         </h3>
         <div className="flex flex-col gap-2">
-          {listData?.products?.map((cards) => (
-            <Card className="flex justify-between mx-10 border rounded-xl px-5 py-4 bg-white w-[540px]" key={12}>
+          {listData?.products?.map((cards, index) => (
+            <Card
+              className="flex justify-between mx-10 border rounded-xl px-5 py-4 bg-white w-[540px]"
+              key={index}
+            >
               <CardContent className="flex gap-2">
                 <Image
                   src={cards?.product.images[0]}

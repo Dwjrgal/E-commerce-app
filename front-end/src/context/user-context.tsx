@@ -1,11 +1,7 @@
 "use client";
 
 import axios from "axios";
-import React, {
-  useEffect,
-  useState,
-  createContext,
-} from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
@@ -40,10 +36,9 @@ type UserToken = {
   user: {
     id: string;
     email: string;
-    roles: string[];  // List of user roles, e.g., ["admin", "user"]
+    roles: string[]; // List of user roles, e.g., ["admin", "user"]
   };
 };
-
 
 export const UserContext = createContext<UserContextType>({
   fetchUserData: () => {},
@@ -58,7 +53,7 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
-  const [token, setToken] = useState<UserToken | null>();
+  const [token, setToken] = useState<UserToken | null>(null);
   const [userForm, setUserForm] = useState<IUserForm>({
     _id: "",
     firstname: "",
@@ -90,7 +85,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         password,
         repassword,
       });
-      console.log("response:", res);
 
       if (res.status === 200) {
         toast.success("User successfully signed up", { autoClose: 1000 });
@@ -100,8 +94,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("There was an error signing up:", error);
       toast.error("Failed to sign up. Please try again.");
     }
-
-    console.log("user data", userForm);
   };
 
   const logIn = async () => {
@@ -128,21 +120,20 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     console.log("user data", userForm);
   };
 
-  
-
-
   const fetchUserData = async () => {
     try {
-      const token = localStorage.getItem("token"); 
-      setToken(token);
-      const res = await axios.get(`${apiUrl}/auth/current-user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.status === 200) {
-        setUser(res.data.user);
-        console.log("User res", res.data.user);
+      const token = localStorage.getItem("token");
+      if (token) {
+        setToken(token as unknown as UserToken);
+        const res = await axios.get(`${apiUrl}/auth/current-user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.status === 200) {
+          setUser(res.data.user);
+          console.log("User res", res.data.user);
+        }
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -156,8 +147,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    fetchUserData();
-  }, [token]);
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserData();
+    }
+  }, []);
   return (
     <UserContext.Provider
       value={{
@@ -174,4 +168,3 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     </UserContext.Provider>
   );
 };
-export default UserProvider;

@@ -10,7 +10,6 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 import { Category } from "@/lib/types";
 
-
 const CategoryPage = () => {
   const { productsData } = useContext(ProductsContext);
   return (
@@ -19,9 +18,8 @@ const CategoryPage = () => {
         <CheckboxDemo />
         <section className="grid grid-cols-3 gap-y-12 grid-rows-5 gap-x-6">
           {productsData.map((product) => (
-            // eslint-disable-next-line react/jsx-key
-            <Link href={`/${product._id ?? 1}`}>
-              <div className="relative w-[244px]" key={product._id}>
+            <Link href={`/${product._id ?? 1}`} key={product._id}>
+              <div className="relative w-[244px]">
                 <Image
                   src={product.images[0]}
                   alt="image1"
@@ -49,7 +47,6 @@ const CategoryPage = () => {
   );
 };
 
-
 export const CheckboxDemo = () => {
   const [categories, setCategories] = useState<Category | []>([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,22 +62,23 @@ export const CheckboxDemo = () => {
 
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+  }, []);
   console.log("categories:", categories);
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">
       <h4 className="font-bold">Ангилал</h4>
-      {categories.map(({ name }: Category) => (
-        <div className="flex gap-2" key={name}>
-          <Checkbox id="terms" className="rounded"/>
-          <label
-            htmlFor="terms"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {name}
-          </label>
-        </div>
-      ))}
+      {Array.isArray(categories) &&
+        categories.map(({ name }: Category) => (
+          <div className="flex gap-2" key={name}>
+            <Checkbox id={`category-${name}`} className="rounded" />
+            <label
+              htmlFor={`category-${name}`}
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {name}
+            </label>
+          </div>
+        ))}
     </div>
   );
 };
