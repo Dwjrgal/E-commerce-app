@@ -1,6 +1,5 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { products } from "@/lib/data";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -13,15 +12,24 @@ import Review from "@/components/review";
 import { UserContext } from "@/context/user-context";
 
 interface IProduct {
+  _id: string;
   name: string;
   description: string;
   price: number;
   size: string;
-  images: [string];
+  images: string[];
   isNew: boolean;
   quantity: number;
   discount: number;
 }
+
+interface RelativeProduct {
+  _id: string;
+  images: string[];
+  name: string;
+  price: number;
+}
+
 const ProductDetail = () => {
   const { user } = useContext(UserContext);
   const { id } = useParams();
@@ -36,12 +44,31 @@ const ProductDetail = () => {
     try {
       const res = await axios.get(`${apiUrl}/products/${id}`);
       setOneProduct(res.data.product);
-      console.log("res data", res.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("failed to get product");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error("Failed to get product");
+      }
     }
   };
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`${apiUrl}/products/${id}`);
+        setOneProduct(res.data.product);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error(error.message);
+          toast.error("Failed to get product");
+        }
+      }
+    };
+
+    fetchProduct();
+    getProduct();
+  }, [id]);
+
   const descBtn = () => {
     if (productQuantity > 1) {
       setProductQuantity(productQuantity - 1);
@@ -56,20 +83,18 @@ const ProductDetail = () => {
         productId: id,
         quantity: productQuantity,
       });
-      console.log("addCartRes", res);
+
       if (res.status === 200) {
-        console.log("success");
-        toast.success("created cart successfully");
-        // router.push("/buy-steps/cart");
+        toast.success("Created cart successfully");
       }
-    } catch (error) {
-      console.log("failed to add cart", error);
-      toast.error("Falied to add cart");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Failed to add cart:", error.message);
+        toast.error("Failed to add cart");
+      }
     }
   };
-  useEffect(() => {
-    getProduct();
-  }, []);
+
   console.log("oneproduct", oneProduct);
   return (
     <>
@@ -177,46 +202,33 @@ const ProductDetail = () => {
 export default ProductDetail;
 
 export const RelativeCards = () => {
-  const { id } = useParams();
   const { productsData } = useContext(ProductsContext);
-  const relativeCards = productsData.slice(1, 9);
-  console.log("relativeCards", relativeCards);
+  const relativeCards: RelativeProduct[] = productsData.slice(1, 9);
 
   return (
-    <>
-      <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
-        {relativeCards.map(
-          (product: {
-            _id: any;
-            images: any[];
-            name: any;
-            price: { toLocaleString: () => any };
-          }) => (
-            <Link href={`/${id}`} key={product._id}>
-              <div className="relative w-[244px]">
-                <Image
-                  src={product.images[0]}
-                  alt="image1"
-                  width={244}
-                  height={331}
-                  className="rounded-xl"
-                />
-                <Heart
-                  size={22}
-                  strokeWidth={1}
-                  className="absolute top-4 right-4"
-                />
-                <div className="mt-2">
-                  <h3 className="font-normal">{product.name}</h3>
-                  <h4 className="font-bold">
-                    {product.price.toLocaleString()}₮
-                  </h4>
-                </div>
-              </div>
-            </Link>
-          )
-        )}{" "}
-      </section>
-    </>
+    <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
+      {relativeCards.map((product: RelativeProduct) => (
+        <Link href={`/${product._id}`} key={product._id}>
+          <div className="relative w-[244px]">
+            <Image
+              src={product.images[0]}
+              alt="image1"
+              width={244}
+              height={331}
+              className="rounded-xl"
+            />
+            <Heart
+              size={22}
+              strokeWidth={1}
+              className="absolute top-4 right-4"
+            />
+            <div className="mt-2">
+              <h3 className="font-normal">{product.name}</h3>
+              <h4 className="font-bold">{product.price.toLocaleString()}₮</h4>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </section>
   );
 };

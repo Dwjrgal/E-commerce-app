@@ -9,17 +9,19 @@ import React, { useContext, useEffect, useState, useCallback } from "react";
 import { GoTrash } from "react-icons/go";
 import { toast } from "react-toastify";
 
+interface CartProduct {
+  product: {
+    _id: string;
+    images: string[];
+    name: string;
+    price: number;
+  };
+  quantity: number;
+}
+
 interface ICart {
   userId: string;
-  products: {
-    product: {
-      _id: string;
-      images: string[];
-      name: string;
-      price: number;
-    };
-    quantity: number;
-  }[];
+  products: CartProduct[];
 }
 
 const Cart = () => {
@@ -31,9 +33,10 @@ const Cart = () => {
       if (!user) return;
       const res = await axios.get(`${apiUrl}/carts/${user?._id}`);
       setCartData(res.data.data);
-      console.log("setcart", res.data.data);
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
     }
   }, [user]);
 
@@ -96,9 +99,11 @@ const Cart = () => {
   return (
     <section className="bg-slate-100 flex justify-center py-20 h-screen">
       <div className="w-[500px] h-fit border rounded-xl my-10 bg-white">
-        <h3 className="font-semibold my-5 ml-10">1.Сагс (4)</h3>
-        <div className="flex flex-col  justify-center gap-5">
-          {cartData?.products?.map((product: any) => (
+        <h3 className="font-semibold my-5 ml-10">
+          1.Сагс ({cartData?.products?.length || 0})
+        </h3>
+        <div className="flex flex-col justify-center gap-5">
+          {cartData?.products?.map((product: CartProduct) => (
             <Card
               className="flex justify-between mx-10 border rounded-xl py-3 px-4"
               key={product.product._id}
@@ -151,7 +156,15 @@ const Cart = () => {
           <div className="flex justify-between border-t-[1px] border-dashed px-10 pt-8">
             <h3>Нийт төлөх дүн:</h3>
             <div className="flex flex-col items-end">
-              <h2 className="font-bold">360,000₮</h2>
+              <h2 className="font-bold">
+                {cartData?.products
+                  .reduce(
+                    (total, item) => total + item.product.price * item.quantity,
+                    0
+                  )
+                  .toLocaleString()}
+                ₮
+              </h2>
               <Link href="./address">
                 <button className="w-40 h-8 border bg-blue-600 rounded-full text-white mt-8 mb-5">
                   Худалдан авах

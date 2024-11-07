@@ -48,34 +48,34 @@ const CategoryPage = () => {
 };
 
 export const CheckboxDemo = () => {
-  const [categories, setCategories] = useState<Category | []>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCategories = async () => {
     try {
       const res = await axios.get(`${apiUrl}/categories`);
       setCategories(res.data.category);
       console.log("categories data", res);
-    } catch (error) {
-      console.error("failed to get categories data", categories);
+    } catch (error: unknown) {
+      console.error("failed to get categories data", error);
     }
   };
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
   console.log("categories:", categories);
   return (
     <div className="flex flex-col items-start space-x-2 gap-3">
       <h4 className="font-bold">Ангилал</h4>
       {Array.isArray(categories) &&
-        categories.map(({ name }: Category) => (
-          <div className="flex gap-2" key={name}>
-            <Checkbox id={`category-${name}`} className="rounded" />
+        categories.map((category: Category) => (
+          <div className="flex gap-2" key={category.name}>
+            <Checkbox id={`category-${category.name}`} className="rounded" />
             <label
-              htmlFor={`category-${name}`}
+              htmlFor={`category-${category.name}`}
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              {name}
+              {category.name}
             </label>
           </div>
         ))}

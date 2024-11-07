@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/util";
@@ -29,14 +29,14 @@ interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   logOut: () => void;
 }
-type UserToken = {
+export type UserToken = {
   accessToken: string;
   refreshToken?: string;
   expiresIn: number;
   user: {
     id: string;
     email: string;
-    roles: string[]; // List of user roles, e.g., ["admin", "user"]
+    roles: string[];
   };
 };
 
@@ -53,11 +53,9 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
-  const [token, setToken] = useState<UserToken | null>(null);
   const [userForm, setUserForm] = useState<IUserForm>({
     _id: "",
     firstname: "",
-    // lastName: "",
     email: "",
     password: "",
     repassword: "",
@@ -120,11 +118,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     console.log("user data", userForm);
   };
 
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        setToken(token as unknown as UserToken);
         const res = await axios.get(`${apiUrl}/auth/current-user`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -132,14 +129,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         });
         if (res.status === 200) {
           setUser(res.data.user);
-          console.log("User res", res.data.user);
         }
       }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error fetching user data:", error.message);
+      }
     }
-  };
-  console.log("userdata:", user);
+  }, []);
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -151,7 +148,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     if (token) {
       fetchUserData();
     }
-  }, []);
+  }, [fetchUserData]);
   return (
     <UserContext.Provider
       value={{
