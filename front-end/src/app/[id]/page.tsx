@@ -7,9 +7,9 @@ import { ProductsContext } from "@/context/products-context";
 import { apiUrl } from "@/lib/util";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import Link from "next/link";
 import Review from "@/components/review";
 import { UserContext } from "@/context/user-context";
+import { RelativeCards } from "@/components/relative-cards";
 
 interface IProduct {
   _id: string;
@@ -21,13 +21,6 @@ interface IProduct {
   isNew: boolean;
   quantity: number;
   discount: number;
-}
-
-interface RelativeProduct {
-  _id: string;
-  images: string[];
-  name: string;
-  price: number;
 }
 
 const ProductDetail = () => {
@@ -67,7 +60,7 @@ const ProductDetail = () => {
 
     fetchProduct();
     getProduct();
-  }, [id]);
+  }, [getProduct]);
 
   const descBtn = () => {
     if (productQuantity > 1) {
@@ -200,35 +193,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-
-export const RelativeCards = () => {
-  const { productsData } = useContext(ProductsContext);
-  const relativeCards: RelativeProduct[] = productsData.slice(1, 9);
-
-  return (
-    <section className="mt-5 mb-24 max-w-[1000px] mx-auto grid grid-cols-4 gap-y-12 gap-x-6">
-      {relativeCards.map((product: RelativeProduct) => (
-        <Link href={`/${product._id}`} key={product._id}>
-          <div className="relative w-[244px]">
-            <Image
-              src={product.images[0]}
-              alt="image1"
-              width={244}
-              height={331}
-              className="rounded-xl"
-            />
-            <Heart
-              size={22}
-              strokeWidth={1}
-              className="absolute top-4 right-4"
-            />
-            <div className="mt-2">
-              <h3 className="font-normal">{product.name}</h3>
-              <h4 className="font-bold">{product.price.toLocaleString()}₮</h4>
-            </div>
-          </div>
-        </Link>
-      ))}
-    </section>
-  );
-};
