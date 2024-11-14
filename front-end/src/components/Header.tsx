@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { PiShoppingCart } from "react-icons/pi";
@@ -13,7 +13,7 @@ import Image from "next/image";
 const Header = () => {
   const { fetchUserData, user, logOut } = useContext(UserContext);
   const { setSearchValue } = useContext(ProductsContext);
-  const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 

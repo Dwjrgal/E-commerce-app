@@ -22,7 +22,7 @@ interface ProductsContextType {
   productsData: IProduct[];
   setProductsData: React.Dispatch<React.SetStateAction<IProduct[]>>;
   searchValue: string;
-  setSearchValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setSearchValue: (value: string) => void;
   handleAddList: () => void;
 }
 
@@ -84,8 +84,7 @@ export const ProductsProvider = ({
         productsData,
         setProductsData,
         searchValue,
-        setSearchValue: (e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchValue(e.target.value),
+        setSearchValue: (value: string) => setSearchValue(value),
         handleAddList,
       }}
     >
