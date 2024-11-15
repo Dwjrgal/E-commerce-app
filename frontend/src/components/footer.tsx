@@ -14,7 +14,12 @@ const Footer = () => {
       <section className="h-60 bg-black text-white flex flex-col px-40">
         <div className="flex flex-col">
           <div className="border-b-[1px] border-gray-700 flex justify-between pb-10 pt-10">
-            <Image src="/img/Logo/Logo-ft.svg" alt="logo" />
+            <Image
+              src="/img/Logo/Logo-ft.svg"
+              alt="logo"
+              width={20}
+              height={20}
+            />
             <div className="flex gap-4">
               <button className="border rounded-full w-8 h-8 text-center pl-2 text-md font-bold border-slate-500">
                 {" "}

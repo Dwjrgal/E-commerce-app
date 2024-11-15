@@ -24,7 +24,7 @@ const Header = () => {
       <header className="h-20 bg-black flex justify-between items-center px-20">
         <div className="flex gap-8 items-center">
           <Link href={"/"}>
-            <Image src="/img/Logo/Logo.png" alt="" />
+            <Image src="/img/Logo/Logo.png" alt="" width={100} height={100} />
           </Link>
           <Link href="../category">
             <h3 className="text-slate-200">Ангилал</h3>

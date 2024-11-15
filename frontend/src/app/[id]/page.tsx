@@ -60,7 +60,7 @@ const ProductDetail = () => {
 
     fetchProduct();
     getProduct();
-  }, [getProduct]);
+  }, [id, getProduct]);
 
   const descBtn = () => {
     if (productQuantity > 1) {

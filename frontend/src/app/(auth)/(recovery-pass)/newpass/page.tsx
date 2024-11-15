@@ -1,16 +1,16 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { apiUrl } from "@/lib/util";
 
 const NewPass = () => {
+  // const params = useSearchParams();
+  // const router = useRouter();
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
-  const params = useSearchParams();
-  const router = useRouter();
 
   const handleNewPass = async () => {
     if (password !== repassword) {
@@ -20,13 +20,13 @@ const NewPass = () => {
     try {
       const res = await axios.post(`${apiUrl}/auth/verify-password`, {
         password,
-        resetToken: params.get("resettoken"),
+        resetToken: "",
       });
       console.log("response:", res);
 
       if (res.status === 200) {
         toast.success("password");
-        router.push("/login");
+        // router.push("/login");
       }
     } catch (error) {
       console.log("error", error);
