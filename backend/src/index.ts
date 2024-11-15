@@ -6,7 +6,6 @@ import cors from "cors";
 import { connectDB } from "./config/db";
 import authRoute from "./routes/auth-route";
 import catRoute from "./routes/category-route";
-import { sendEmail } from "./utils/send-email";
 import productRoute from "./routes/product-route";
 import cartRoute from "./routes/cart-route";
 import wishListRoute from "./routes/wishlist-route";
